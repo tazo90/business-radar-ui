@@ -1,8 +1,33 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import { useRouter } from "next/router";
+import { useRef } from "react";
+import { Provider } from "react-redux";
+import { Hydrate } from "react-query/hydration";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+// Import styles
+import "@styles/globals.css";
+
+function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  const Layout = (Component as any).Layout;
+  const queryClientRef = useRef();
+
+  if (!queryClientRef.current) {
+    queryClientRef.current = new QueryClient();
+  }
+
+  return (
+    <QueryClientProvider client={queryClientRef.current}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <Layout pageProps={pageProps}>
+          <Component {...pageProps} key={router.route} />
+        </Layout>
+      </Hydrate>
+      {/* <ReactQueryDevtools /> */}
+    </QueryClientProvider>
+  );
 }
 
-export default MyApp
+export default App;
