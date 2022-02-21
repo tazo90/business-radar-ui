@@ -15,13 +15,19 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "paths": {
+      "@assets/*": [
+        "src/assets/*"
+      ],
       "@components/*": [
         "src/components/*"
       ],
       "@containers/*": [
         "src/containers/*"
       ],
-      "@framework/*": [
+      "@constants/*": [
+        "src/constants/*"
+      ],
+      "@api/*": [
         "src/api/*"
       ],
       "@settings/*": [
