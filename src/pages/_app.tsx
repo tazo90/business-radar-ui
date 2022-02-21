@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 // Import styles
 import "@styles/globals.css";
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
