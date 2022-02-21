@@ -1,12 +1,13 @@
 import type { AppProps } from 'next/app'
-
 import { useRouter } from "next/router";
 import { useRef } from "react";
 import { Provider } from "react-redux";
 import { Hydrate } from "react-query/hydration";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-// Import styles
+import store from '../store';
+
+// Import css
 import "@styles/globals.css";
 import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -22,9 +23,11 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClientRef.current}>
       <Hydrate state={pageProps.dehydratedState}>
-        <Layout pageProps={pageProps}>
-          <Component {...pageProps} key={router.route} />
-        </Layout>
+        <Provider store={store}>
+          <Layout pageProps={pageProps}>
+            <Component {...pageProps} key={router.route} />
+          </Layout>
+        </Provider>
       </Hydrate>
       {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
