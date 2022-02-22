@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import Map, { NavigationControl, Popup } from 'react-map-gl';
+import MapGL, { NavigationControl, Popup } from 'react-map-gl';
 import { useRouter } from 'next/router'
 import maplibregl from 'maplibre-gl';
 import * as turf from "@turf/turf";
@@ -25,7 +25,7 @@ import data from './data';
 
 const MAX_ZOOM_LEVEL = 16;
 
-function CustomMap({ cluster }) {
+function Map({ locations, cluster }) {
   const mapRef = useRef(null);
   const router = useRouter()
 
@@ -40,16 +40,16 @@ function CustomMap({ cluster }) {
   });
 
   // const { locations, selectedLocation } = useSelector((state) => state.location);
-  const locations = data;
+  // const locations = data;
   const selectedLocation = null;
 
   useEffect(() => {
-    if (mapLoaded) {
+    if (mapLoaded && locations) {
       map.getSource('places').setData(locations);
 
       flyToBoundingBox();
     }
-  }, [map]);
+  }, [map, locations]);
 
   useEffect(() => {
     if (selectedLocation) {
@@ -199,8 +199,7 @@ function CustomMap({ cluster }) {
     });
 
     map.on('styleimagemissing', (e) => {
-      // const [name, brand, brand_full, summary] = e.id.split(' | ')
-      const [name, brand, brand_full, summary] = 'MAGNOLIA | kfc | kfc | test'.split(' | ');//e.id.split(' | ')
+      const [name, brand, brand_full, summary] = e.id.split(' | ')
 
       if (!brand || map.hasImage(e.id)) return;
 
@@ -222,8 +221,12 @@ function CustomMap({ cluster }) {
     
   }
 
+  if (!locations) {
+    return null;
+  }
+
   return (
-    <Map
+    <MapGL
       mapLib={maplibregl}
       initialViewState={{...viewport}}
       onLoad={onMapLoad}
@@ -254,9 +257,9 @@ function CustomMap({ cluster }) {
         )}
 
         <NavigationControl style={{ padding: 20 }} />
-    </Map>
+    </MapGL>
   )
 
 };
 
-export default CustomMap;
+export default Map;
