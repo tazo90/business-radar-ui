@@ -8,8 +8,6 @@ export default function Home() {
     limit: 8
   });
 
-  console.log("data", data);
-
   return (
     <Container>
       <Map cluster={true} locations={data} />
