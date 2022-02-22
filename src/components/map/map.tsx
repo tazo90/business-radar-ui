@@ -49,7 +49,7 @@ function Map({ locations, cluster }) {
 
       flyToBoundingBox();
     }
-  }, [map, locations]);
+  }, [map]);
 
   useEffect(() => {
     if (selectedLocation) {

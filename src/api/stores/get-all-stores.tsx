@@ -6,7 +6,9 @@ import { toGeojson } from '@utils/index';
 
 export async function fetchStores({ queryKey }: any) {
   const [_key, _params] = queryKey;
-  const { data } = await http.get(API_ENDPOINTS.STORES);
+  const { data } = await http.get(API_ENDPOINTS.STORES, {
+    params: _params
+  });
 
   return toGeojson(data);
 }

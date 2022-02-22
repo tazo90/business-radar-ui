@@ -5,7 +5,8 @@ import { useStoresQuery } from "@api/stores/get-all-stores";
 
 export default function Home() {
   const { data, isLoading, error } = useStoresQuery({
-    limit: 8
+    brand: 'kfc',
+    country: 'pl',
   });
 
   return (
