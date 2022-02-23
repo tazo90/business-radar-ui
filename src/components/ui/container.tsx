@@ -3,7 +3,7 @@ import cn from 'classnames';
 interface ContainerProps {
   className?: string;
   children?: any;
-  el?: HTMLElement;
+  el?: string | HTMLElement;
   clean?: boolean;
 }
 

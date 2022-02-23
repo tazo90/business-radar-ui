@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useQuery } from 'react-query';
 
 import http from '@api/http';

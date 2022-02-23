@@ -242,8 +242,8 @@ function Map({ locations, cluster }) {
         {tooltipInfo && (
           <Popup
             className="marker-popup"
-            tipSize={5}
-            offsetTop={-18}
+            // tipSize={5}
+            // offsetTop={-18}
             anchor="bottom"
             longitude={tooltipInfo.lng}
             latitude={tooltipInfo.lat}

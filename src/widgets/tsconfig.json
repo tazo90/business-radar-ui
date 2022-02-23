@@ -1,9 +1,10 @@
 {
   "strict": true,
-  "include": ["./*"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "baseUrl": ".",
   "compilerOptions": {
-    "lib": ["dom", "es2015"],
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "react",
     "esModuleInterop": true,
     "moduleResolution": "node",

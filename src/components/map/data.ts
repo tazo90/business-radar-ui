@@ -1,4 +1,4 @@
-let stores = {
+let stores: any = {
   type: 'FeatureCollection',
   features: [
     {
