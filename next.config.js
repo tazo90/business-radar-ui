@@ -6,5 +6,26 @@ module.exports = withImages({
   reactStrictMode: true,
   images: {
     disableStaticImages: true
-  }
+  },
+  webpack: (config) => {
+    return {
+      ...config,
+      entry: async () => {
+        const entryConfig = await config.entry()
+        return { 
+          ...entryConfig, 
+          'static/simple-map': './src/widgets/simple-map.tsx',
+        }
+      },
+    }
+  },
+  async redirects() {
+    return [
+      {
+        source: "/widgets/simple-map.js",
+        destination: "/_next/static/chunks/static/simple-map.js",
+        permanent: true,
+      },
+    ];
+  },
 })
