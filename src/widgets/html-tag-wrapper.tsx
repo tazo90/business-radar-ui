@@ -39,13 +39,11 @@ function attrToObj(attrs: NamedNodeMap) {
   return attrsObj;
 }
 
-function HtmlTagWrapper(Component: (props?: any) => JSX.Element) {
-  const el = document.getElementById('simple-map');
-  console.log("ELEMENT", el);
+function HtmlTagWrapper(WidgetId: string, Component: (props?: any) => JSX.Element) {
+  const el = document.getElementById(WidgetId);
   const attrs = el.attributes;
 
   const props = attrToObj(attrs);
-  console.log(props);
   ReactDOM.render(<Component {...props} />, el);
 }
 

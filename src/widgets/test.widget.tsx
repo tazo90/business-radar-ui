@@ -1,8 +1,10 @@
 import React from 'react';
+import { HtmlTagWrapper } from './html-tag-wrapper';
 
-function testWidget() {
+function TestWidget() {
+  console.log("Test widget");
   return <div>ok</div>
 }
 
-export default testWidget;
+export default HtmlTagWrapper('test', TestWidget);
 
