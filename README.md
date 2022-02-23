@@ -1,9 +1,21 @@
-#### Business Radar Frontend
+## Business Radar Frontend
 
-### Widgets
+### Embeeded widgets
 
 All widgets are inside `/widgets` package.
 
-You can get access to them using `http://localhost:3000/widgets/simple-map.js`
+Webpack config and dedicated tsconfig.json is in `/widgets/config/`
 
-Entry point for destination of your widget file is defined in `next.config.js`.
+#### Build widgets 
+
+1. To build your widgets run: 
+  
+  `npm run build:widgets`
+
+2. Bundled widgets will goes to 
+
+  `public/static/widgets`
+
+3. You can get access to them using 
+  
+  `http://localhost:3000/static/widgets/simple-map.js`

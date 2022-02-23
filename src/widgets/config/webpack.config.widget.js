@@ -15,7 +15,7 @@ const config = {
   mode: 'production', 
   entry: collectWidgets(__dirname),
   output: {
-    path: path.resolve(__dirname, '..', '..', 'public', 'widgets'),
+    path: path.resolve(__dirname, '..', '..', 'public', 'static', 'widgets'),
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.css'],
