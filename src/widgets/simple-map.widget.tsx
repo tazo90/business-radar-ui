@@ -1,3 +1,4 @@
+import React from 'react';
 import { HtmlTagWrapper } from './html-tag-wrapper';
 
 export function SimpleMap() {
