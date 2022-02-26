@@ -1,6 +1,11 @@
 const path = require('path');
 const glob = require('glob');
+const webpack = require('webpack');
+const dotenv = require('dotenv')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+// this will update the process.env with environment variables in .env file
+dotenv.config();
 
 function collectWidgets(path) {
   const widgets = {};
@@ -38,13 +43,23 @@ const config = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(svg|png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]',
+        },
+    }
     ],
   },
   plugins: [
     new CleanWebpackPlugin({
       protectWebpackAssets: false,
       cleanAfterEveryBuildPatterns: ['*.LICENSE.txt'],
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env)
+   })
   ]
 };
 

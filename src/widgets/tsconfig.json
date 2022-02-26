@@ -1,12 +1,11 @@
 {
-  "strict": true,
-  "include": ["**/*.ts", "**/*.tsx"],
-  "baseUrl": ".",
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "react",
+    "jsx": "react-jsx",
     "esModuleInterop": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "paths": {
       "@assets/*": [
@@ -37,5 +36,9 @@
         "../utils/*"
       ]
     },
-  }
+  },
+  "include": [
+    "**/*.ts", 
+    "**/*.tsx", 
+  ],
 }
