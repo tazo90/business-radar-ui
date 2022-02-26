@@ -1,6 +1,6 @@
 import { roundRect, drawImages } from './utils';
 
-import icons from '@constants/icons';
+import icons from '../../constants/icons';
 
 export function drawTooltip({ id, map, info }) {
   const canvas = document.createElement('canvas');

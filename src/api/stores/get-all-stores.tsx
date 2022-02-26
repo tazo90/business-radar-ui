@@ -1,9 +1,9 @@
 //@ts-nocheck
 import { useQuery } from 'react-query';
 
-import http from '@api/http';
-import { API_ENDPOINTS } from '@api/endpoints';
-import { toGeojson } from '@utils/index';
+import http from '../http';
+import { API_ENDPOINTS } from '../endpoints';
+import { toGeojson } from '../../utils';
 
 export async function fetchStores({ queryKey }: any) {
   const [_key, _params] = queryKey;

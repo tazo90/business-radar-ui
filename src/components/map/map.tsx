@@ -16,10 +16,10 @@ import {
 import { addImages } from './utils';
 import { drawTooltip } from './drawers';
 
-import icons from '@constants/icons';
+import icons from '../../constants/icons';
 
-import circle from '@assets/circle.png';
-import circleSmall from '@assets/circle-small.png';
+import circle from '../../assets/circle.png';
+import circleSmall from '../../assets/circle-small.png';
 
 import data from './data';
 
