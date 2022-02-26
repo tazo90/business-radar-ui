@@ -1,5 +1,6 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
+import { QueryClient, QueryClientProvider } from "react-query";
 
 function parseValue(value: any) {
   if (value === '' || value === 'true') {
@@ -44,7 +45,16 @@ function HtmlTagWrapper(WidgetId: string, Component: (props?: any) => JSX.Elemen
   const attrs = el.attributes;
 
   const props = attrToObj(attrs);
-  ReactDOM.render(<Component {...props} />, el);
+  
+  // init react query
+  const queryClient = new QueryClient()
+
+  ReactDOM.render(
+    <QueryClientProvider client={queryClient}>
+      <Component {...props} />
+    </QueryClientProvider>, 
+    el
+  );
 }
 
 export { HtmlTagWrapper };
