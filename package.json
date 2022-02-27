@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:widgets": "cross-env TS_NODE_PROJECT=\"./src/widgets/tsconfig.json\" webpack --config ./src/widgets/builder/webpack.config.widget.js",
+    "build:widgets": "cross-env TS_NODE_PROJECT=\"./src/widgets/tsconfig.json\" webpack --config ./src/widgets/webpack.config.widget.js",
     "start": "next start",
     "lint": "next lint"
   },

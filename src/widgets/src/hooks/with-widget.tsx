@@ -2,7 +2,7 @@ import * as ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from "react-query";
 
 // Import css
-import "../../styles/globals.css";
+import "../../../styles/globals.css";
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 function parseValue(value: any) {

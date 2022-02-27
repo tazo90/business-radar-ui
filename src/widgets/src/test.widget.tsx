@@ -1,4 +1,4 @@
-import { withWidget } from './builder/with-widget';
+import { withWidget } from './hooks/with-widget';
 
 function TestWidget() {
   console.log("Test widget");

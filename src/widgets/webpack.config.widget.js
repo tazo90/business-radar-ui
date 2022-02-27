@@ -7,8 +7,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // this will update the process.env with environment variables in .env file
 dotenv.config();
 
-const ROOT_DIR = path.join(__dirname, '..', '..', '..');
-const WIDGETS_DIR = path.join(__dirname, '..');
+const ROOT_DIR = path.join(__dirname,  '..', '..');
+const WIDGETS_DIR = path.resolve('src');
 
 function collectWidgets(path) {
   const widgets = {};
@@ -33,7 +33,7 @@ const config = {
       {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        include: [path.resolve('src')],
+        include: [WIDGETS_DIR],
         loader: 'ts-loader',
         options: {
           transpileOnly: false,
