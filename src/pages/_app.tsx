@@ -9,6 +9,7 @@ import store from '../store';
 
 // Import css
 import "@styles/globals.css";
+import "@styles/tailwind.css";
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 function App({ Component, pageProps }: AppProps) {
