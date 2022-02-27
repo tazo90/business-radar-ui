@@ -1,6 +1,9 @@
-import React from 'react';
 import * as ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from "react-query";
+
+// Import css
+import "../../styles/globals.css";
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 function parseValue(value: any) {
   if (value === '' || value === 'true') {
@@ -40,7 +43,7 @@ function attrToObj(attrs: NamedNodeMap) {
   return attrsObj;
 }
 
-function HtmlTagWrapper(WidgetId: string, Component: (props?: any) => JSX.Element) {
+export function withWidget(WidgetId: string, Component: (props?: any) => JSX.Element) {
   const el = document.getElementById(WidgetId);
   const attrs = el.attributes;
 
@@ -56,5 +59,3 @@ function HtmlTagWrapper(WidgetId: string, Component: (props?: any) => JSX.Elemen
     el
   );
 }
-
-export { HtmlTagWrapper };

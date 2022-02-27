@@ -7,35 +7,35 @@
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "paths": {
-      "@assets/*": [
-        "../assets/*"
-      ],
-      "@components/*": [
-        "../components/*"
-      ],
-      "@containers/*": [
-        "../containers/*"
-      ],
-      "@constants/*": [
-        "../constants/*"
-      ],
-      "@api/*": [
-        "../api/*"
-      ],
-      "@settings/*": [
-        "../settings/*"
-      ],
-      "@slices/*": [
-        "../slices/*"
-      ],
-      "@styles/*": [
-        "../styles/*"
-      ],
-      "@utils/*": [
-        "../utils/*"
-      ]
-    },
+    // "paths": {
+    //   "@assets/*": [
+    //     "../assets/*"
+    //   ],
+    //   "@components/*": [
+    //     "../components/*"
+    //   ],
+    //   "@containers/*": [
+    //     "../containers/*"
+    //   ],
+    //   "@constants/*": [
+    //     "../constants/*"
+    //   ],
+    //   "@api/*": [
+    //     "../api/*"
+    //   ],
+    //   "@settings/*": [
+    //     "../settings/*"
+    //   ],
+    //   "@slices/*": [
+    //     "../slices/*"
+    //   ],
+    //   "@styles/*": [
+    //     "../styles/*"
+    //   ],
+    //   "@utils/*": [
+    //     "../utils/*"
+    //   ]
+    // },
   },
   "include": [
     "**/*.ts", 

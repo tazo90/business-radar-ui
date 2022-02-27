@@ -7,6 +7,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // this will update the process.env with environment variables in .env file
 dotenv.config();
 
+const ROOT_DIR = path.join(__dirname, '..', '..', '..');
+const WIDGETS_DIR = path.join(__dirname, '..');
+
 function collectWidgets(path) {
   const widgets = {};
   glob.sync(`${path}/**/*.widget.@(ts|tsx)`).map(filePath => {
@@ -18,9 +21,9 @@ function collectWidgets(path) {
 
 const config = {
   mode: 'production', 
-  entry: collectWidgets(__dirname),
+  entry: collectWidgets(WIDGETS_DIR),
   output: {
-    path: path.resolve(__dirname, '..', '..', 'public', 'static', 'widgets'),
+    path: path.resolve(ROOT_DIR, 'public', 'static', 'widgets'),
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.css'],

@@ -1,12 +1,9 @@
-import React from 'react';
-
-import { HtmlTagWrapper } from './html-tag-wrapper';
-
+import { withWidget } from './builder/with-widget';
 import Container from "../components/ui/container";
 import Map from '../components/map';
 import { useStoresQuery } from "../api/stores/get-all-stores";
 
-function MapWidget() {
+function MapWidget(props) {
   const { data, isLoading, error } = useStoresQuery({
     brand: 'kfc',
     country: 'pl',
@@ -19,4 +16,4 @@ function MapWidget() {
   );
 }
 
-export default HtmlTagWrapper('map', MapWidget);
+export default withWidget('map', MapWidget);
