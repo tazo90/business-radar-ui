@@ -1,16 +1,16 @@
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 import { Provider } from "react-redux";
 import { Hydrate } from "react-query/hydration";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-import store from '../store';
+import store from "../store";
 
 // Import css
 import "@styles/globals.css";
 import "@styles/tailwind.css";
-import 'maplibre-gl/dist/maplibre-gl.css';
+import "maplibre-gl/dist/maplibre-gl.css";
 
 function App({ Component, pageProps }: AppProps) {
   const router = useRouter();

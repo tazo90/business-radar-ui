@@ -1,9 +1,9 @@
-import { withWidget } from './hooks/with-widget';
+import { withWidget } from "./hooks/with-widget";
+import Test from "../../pages/test";
 
 function TestWidget() {
   console.log("Test widget");
-  return <div>ok</div>
+  return <Test />;
 }
 
-export default withWidget('test', TestWidget);
-
+export default withWidget("test", TestWidget);
