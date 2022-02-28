@@ -1,6 +1,6 @@
 import Layout from "../components/layout/layout";
 
-export default function Test() {
+export default function Messenger() {
   return (
     <div className="flex flex-row h-screen antialiased text-gray-800">
       <div className="flex flex-row w-96 flex-shrink-0 bg-gray-100 p-4">
