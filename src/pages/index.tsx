@@ -29,6 +29,7 @@ export default function Home() {
         <Header />
         <div className="main-content flex flex-col flex-grow p-4">
           <div className="flex flex-col flex-grow border-4 border-gray-400 border-dashed bg-white rounded mt-4">
+            <StoreList selectedStoreId={null} stores={data?.features} />
             <Map cluster={true} locations={data} />
           </div>
         </div>
