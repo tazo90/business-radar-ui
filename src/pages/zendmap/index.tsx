@@ -1,3 +1,7 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { setStores } from "@slices/store.slice";
 import Layout from "@components/layout/layout";
 import Map from "@components/map";
 import { useStoresQuery } from "@api/stores/get-all-stores";
@@ -10,27 +14,33 @@ import { BrandFilter } from "./stores/filters/brand-filter";
 import { CountryFilter } from "./stores/filters/country-filter";
 import { Footer } from "./layout/footer";
 
-export default function Zendesk() {
+export default function Zendmap() {
+  const dispatch = useDispatch();
+
   const { data, isLoading, error } = useStoresQuery({
     brand: "kfc",
     country: "pl",
   });
 
+  const { stores } = useSelector((state) => state.store);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setStores(data.features));
+    }
+  }, [data]);
+
   return (
     <div className="h-screen w-full flex overflow-hidden antialiased text-gray-800 bg-white">
-      {/* <!-- section body side nav --> */}
       <SideNav />
-
       <div className="flex-1 flex flex-col">
-        {/* <!-- section body top nav --> */}
         <TopNav />
-
         {/* <!-- main content --> */}
         <main className="flex-grow flex min-h-0 border-t">
           {/* <!-- section sider --> */}
           <section className="flex flex-col p-4 w-full max-w-lg flex-none bg-gray-100 min-h-0 overflow-auto">
             <Search />
-            <StoreList stores={data?.features} />
+            <StoreList stores={stores} />
           </section>
           {/* <!-- section content --> */}
           <section
@@ -45,7 +55,6 @@ export default function Zendesk() {
 
             <Map cluster={true} locations={data} />
 
-            {/* <!-- content footer, currently hidden --> */}
             <Footer />
           </section>
         </main>
@@ -54,4 +63,4 @@ export default function Zendesk() {
   );
 }
 
-Zendesk.Layout = Layout;
+Zendmap.Layout = Layout;

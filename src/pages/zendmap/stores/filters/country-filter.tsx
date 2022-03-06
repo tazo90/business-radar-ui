@@ -11,7 +11,7 @@ export function CountryFilter() {
           <span>Countries</span>
         </li>
         {countries.map((country, index) => (
-          <li>
+          <li key={index}>
             <button className="px-1 rounded-full flex flex-col items-center justify-between">
               <img
                 className="object-cover rounded-full h-[30px] w-[30px]"

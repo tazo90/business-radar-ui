@@ -11,7 +11,7 @@ export function BrandFilter() {
           <span>Brands</span>
         </li>
         {Object.keys(icons.amrest.brands).map((key, index) => (
-          <li>
+          <li key={index}>
             <button className="px-1 rounded-full flex flex-col items-center justify-between">
               <img
                 className="object-cover h-[30px]"
