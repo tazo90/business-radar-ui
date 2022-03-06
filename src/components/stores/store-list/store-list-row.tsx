@@ -7,10 +7,7 @@ import { StoreListRowSummary } from "./store-list-row-summary";
 
 export function StoreListRow({ store, isActive }) {
   return (
-    <article
-      tabIndex="0"
-      className="flex h-36 cursor-pointer border rounded-md p-2 bg-gray-600 text-gray-700 mb-2 hover:border-green-600 focus:outline-none focus:border-green-500"
-    >
+    <article className="flex h-36 cursor-pointer border rounded-md p-2 bg-gray-600 text-gray-700 mb-2 hover:border-green-600 focus:outline-none focus:border-green-500">
       <div className="flex relative h-24 w-2/4">
         <Image
           className="rounded-2xl"

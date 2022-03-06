@@ -6,8 +6,6 @@ import Layout from "@components/layout/layout";
 import Map from "@components/map";
 import { useStoresQuery } from "@api/stores/get-all-stores";
 
-import { SideNav } from "@components/layout/side-nav";
-import { TopNav } from "@components/layout/top-nav";
 import { Footer } from "@components/layout/footer";
 import { Search } from "@components/common/search";
 import { StoreList } from "@components/stores/store-list/store-list";

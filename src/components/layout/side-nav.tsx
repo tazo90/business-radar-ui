@@ -14,8 +14,8 @@ export function SideNav() {
       <ul>
         <li>
           <a
-            title="Home"
-            href="#home"
+            title="Stores"
+            href="/stores"
             className="h-16 px-2 flex flex-col items-center justify-center text-white bg-slate-500 w-full border-b border-gray-600"
           >
             <i className="mx-auto pb-1">
@@ -34,8 +34,8 @@ export function SideNav() {
         </li>
         <li>
           <a
-            title="Views"
-            href="#views"
+            title="Job offers"
+            href="/job-offers"
             className="h-16 px-2 flex flex-col items-center justify-center hover:text-white w-full border-b border-gray-600"
           >
             <i className="mx-auto pb-1">
@@ -54,8 +54,8 @@ export function SideNav() {
         </li>
         <li>
           <a
-            title="Customer Lists"
-            href="#customer-lists"
+            title="Trainings"
+            href="/trainings"
             className="h-16 px-2 flex flex-col items-center justify-center hover:text-white w-full border-b border-gray-600"
           >
             <i className="mx-auto pb-1">
