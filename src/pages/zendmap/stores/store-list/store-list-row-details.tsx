@@ -1,8 +1,8 @@
-import { icons } from "../../../constants";
+import { icons } from "../../../../constants";
 
 import Image from "next/image";
 
-export function StoreListRowDetails(store) {
+export function StoreListRowDetails({ store }) {
   return (
     <div className="flex flex-col h-full mx-2">
       <div className="flex items-center pl-3 pr-4 h-1/4 w-fit rounded-3xl bg-gray-100">
