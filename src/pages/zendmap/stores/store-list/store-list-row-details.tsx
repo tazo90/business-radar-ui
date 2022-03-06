@@ -4,8 +4,8 @@ import Image from "next/image";
 
 export function StoreListRowDetails({ store }) {
   return (
-    <div className="flex flex-col h-full mx-2">
-      <div className="flex items-center pl-3 pr-4 h-1/4 w-fit rounded-3xl bg-gray-100">
+    <div className="flex flex-col h-full w-full mx-2">
+      <div className="flex items-center pl-3 pr-4 min-h-fit w-fit rounded-3xl bg-gray-100">
         <div className="flex relative h-7 w-7">
           <Image
             src={icons.amrest.markers[store.brand]}
