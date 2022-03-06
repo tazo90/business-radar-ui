@@ -13,6 +13,7 @@ import { StoreList } from "./stores/store-list/store-list";
 import { BrandFilter } from "./stores/filters/brand-filter";
 import { CountryFilter } from "./stores/filters/country-filter";
 import { Footer } from "./layout/footer";
+import { StoreListSkeleton } from "./stores/store-list/store-list-skeleton";
 
 export default function Zendmap() {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ export default function Zendmap() {
           {/* <!-- section sider --> */}
           <section className="flex flex-col p-4 w-full max-w-lg flex-none bg-gray-100 min-h-0 overflow-auto">
             <Search onSearch={onStoreSearch} placeholder="Find a store..." />
+            {isLoading && <StoreListSkeleton itemsNum={8} />}
             <StoreList stores={stores} />
           </section>
           {/* <!-- section content --> */}

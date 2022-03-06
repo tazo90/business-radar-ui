@@ -40,7 +40,7 @@ export function StoreList({ selectedStoreId, stores }) {
       itemCount={stores.length}
       itemSize={150}
       width="100%"
-      height={800}
+      height={window.innerHeight}
       itemData={{ selectedStoreId }}
     >
       {Row}
