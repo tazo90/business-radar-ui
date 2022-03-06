@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface StoreState {
   stores: any;
+  selectedStore: any;
 }
 
 export const initialState: StoreState = {
   stores: null,
+  selectedStore: null,
 };
 
 const storeSlice = createSlice({
@@ -14,6 +16,9 @@ const storeSlice = createSlice({
   reducers: {
     setStores: (state, action) => {
       state.stores = action.payload;
+    },
+    setStore: (state, action) => {
+      state.selectedStore = action.payload;
     },
   },
 });
