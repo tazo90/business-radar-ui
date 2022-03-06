@@ -1,4 +1,4 @@
-export function Search() {
+export function Search({ onSearch, placeholder }) {
   return (
     <div className="flex flex-row items-center mb-4">
       <button className="flex items-center justify-center h-10 w-10 bg-white text-gray-500 ml-1 rounded-l-lg">
@@ -20,7 +20,8 @@ export function Search() {
       <input
         type="text"
         className="border border-transparent w-full focus:outline-none text-sm h-10 flex items-center rounded-lg rounded-l-none px-2"
-        placeholder="Find a store..."
+        placeholder={placeholder}
+        onChange={onSearch}
       />
     </div>
   );

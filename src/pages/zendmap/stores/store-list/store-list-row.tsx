@@ -11,7 +11,6 @@ export function StoreListRow({ store, isActive }) {
       tabIndex="0"
       className="flex h-36 cursor-pointer border rounded-md p-2 bg-gray-600 text-gray-700 mb-2 hover:border-green-600 focus:outline-none focus:border-green-500"
     >
-      {/* Image */}
       <div className="flex relative h-24 w-2/4">
         <Image
           className="rounded-2xl"
@@ -21,14 +20,9 @@ export function StoreListRow({ store, isActive }) {
           objectFit="cover"
         />
       </div>
-      {/* Details info */}
       <StoreListRowDetails store={store} />
-
       <div className="flex flex-col justify-between text-gray-100 text-xs">
-        {/* Summary */}
         <StoreListRowSummary />
-
-        {/* Rates */}
         <StoreListRowRating />
       </div>
     </article>

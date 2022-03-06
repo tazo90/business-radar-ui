@@ -30,6 +30,29 @@ export default function Zendmap() {
     }
   }, [data]);
 
+  function onStoreSearch(event) {
+    const { value } = event.target;
+
+    if (value === "") {
+      dispatch(setStores(data.features));
+      return;
+    }
+
+    if (!stores) {
+      return [];
+    }
+
+    const filteredStores = data?.features.filter(({ properties }) => {
+      const address = properties.address.toLowerCase();
+      const name = properties.name.toLowerCase();
+      const loc = value.toLowerCase();
+
+      return address.includes(loc) | name.includes(loc);
+    });
+
+    dispatch(setStores(filteredStores));
+  }
+
   return (
     <div className="h-screen w-full flex overflow-hidden antialiased text-gray-800 bg-white">
       <SideNav />
@@ -39,7 +62,7 @@ export default function Zendmap() {
         <main className="flex-grow flex min-h-0 border-t">
           {/* <!-- section sider --> */}
           <section className="flex flex-col p-4 w-full max-w-lg flex-none bg-gray-100 min-h-0 overflow-auto">
-            <Search />
+            <Search onSearch={onStoreSearch} placeholder="Find a store..." />
             <StoreList stores={stores} />
           </section>
           {/* <!-- section content --> */}

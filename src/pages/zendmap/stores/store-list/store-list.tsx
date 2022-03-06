@@ -6,7 +6,11 @@ import { StoreListRow } from "./store-list-row";
 export function StoreList({ selectedStoreId, stores }) {
   if (!stores) return null;
   if (stores.length === 0) {
-    return <div>No results</div>;
+    return (
+      <div className="text-center font-semibold">
+        <p>No results</p>
+      </div>
+    );
   }
 
   const Row = useCallback(
