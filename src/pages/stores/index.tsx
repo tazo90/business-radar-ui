@@ -1,28 +1,27 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setStores } from "@slices/store.slice";
-import Layout from "@components/layout/layout";
-import Map from "@components/map";
-import { useStoresQuery } from "@api/stores/get-all-stores";
-
-import { Footer } from "@components/layout/footer";
-import { Search } from "@components/common/search";
-import { StoreList } from "@components/stores/store-list/store-list";
-import { BrandFilter } from "@components/stores/filters/brand-filter";
-import { CountryFilter } from "@components/stores/filters/country-filter";
-import { StoreListSkeleton } from "@components/stores/store-list/store-list-skeleton";
-import { MapButton } from "@components/stores/store-list/map-button";
+import Layout from "../../components/layout/layout";
+import Map from "../../components/map";
+import { Footer } from "../../components/layout/footer";
+import { Search } from "../../components/common/search";
+import { StoreList } from "../../components/stores/store-list/store-list";
+import { BrandFilter } from "../../components/stores/filters/brand-filter";
+import { CountryFilter } from "../../components/stores/filters/country-filter";
+import { StoreListSkeleton } from "../../components/stores/store-list/store-list-skeleton";
+import { MapButton } from "../../components/stores/store-list/map-button";
+import { setStores } from "../../slices/store.slice";
+import { useStoresQuery } from "../../api/stores/get-all-stores";
 
 export default function Stores() {
   const dispatch = useDispatch();
 
-  const { data, isLoading, error } = useStoresQuery({
+  const { data, isLoading, error }: any = useStoresQuery({
     brand: "kfc",
     country: "pl",
   });
 
-  const { stores } = useSelector((state) => state.store);
+  const { stores } = useSelector((state: any) => state.store);
 
   useEffect(() => {
     if (data) {

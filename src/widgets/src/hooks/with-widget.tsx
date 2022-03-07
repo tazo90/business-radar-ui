@@ -1,5 +1,9 @@
 import * as ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "react-query";
+
+import store from "../../../store";
 
 // Import css
 import "../../../styles/globals.css";
@@ -50,15 +54,16 @@ export function withWidget(
 ) {
   const el = document.getElementById(WidgetId);
   const attrs = el.attributes;
-
   const props = attrToObj(attrs);
 
-  // init react query
+  // const router = useRouter();
   const queryClient = new QueryClient();
 
   ReactDOM.render(
     <QueryClientProvider client={queryClient}>
-      <Component {...props} />
+      <Provider store={store}>
+        <Component {...props} />
+      </Provider>
     </QueryClientProvider>,
     el
   );

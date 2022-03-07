@@ -4,7 +4,12 @@ import { FixedSizeList as List } from "react-window";
 
 import { StoreListRow } from "./store-list-row";
 
-export function StoreList({ selectedStoreId, stores }) {
+interface StoreListProps {
+  selectedStoreId?: number;
+  stores: any[];
+}
+
+export function StoreList({ selectedStoreId, stores }: StoreListProps) {
   const router = useRouter();
 
   if (!stores) return null;

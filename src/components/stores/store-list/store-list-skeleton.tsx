@@ -1,7 +1,7 @@
 const DEFAULT_ITEMS_NUM = 8;
 
 export function StoreListSkeleton({ itemsNum = DEFAULT_ITEMS_NUM }) {
-  return Array.from({ length: itemsNum }, (value, index) => {
+  const skeletons = Array.from({ length: itemsNum }, (value, index) => {
     return (
       <div className="animate-pulse flex space-x-4 h-36 my-1" key={index}>
         <div className="rounded-2xl bg-slate-200 h-24 w-1/4"></div>
@@ -25,4 +25,6 @@ export function StoreListSkeleton({ itemsNum = DEFAULT_ITEMS_NUM }) {
       </div>
     );
   });
+
+  return <>{skeletons}</>;
 }

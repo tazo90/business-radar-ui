@@ -44,7 +44,11 @@ const config = {
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader'
+        ],
       },
       {
         test: /\.(svg|png|jpe?g|gif)$/i,

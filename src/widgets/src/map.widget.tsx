@@ -1,19 +1,12 @@
-import { withWidget } from './hooks/with-widget';
-import Container from "../../components/ui/container";
-import Map from '../../components/map';
-import { useStoresQuery } from "../../api/stores/get-all-stores";
+import { withWidget } from "./hooks/with-widget";
+import Stores from "../../pages/stores/index";
 
 function MapWidget() {
-  const { data, isLoading, error } = useStoresQuery({
-    brand: 'kfc',
-    country: 'pl',
-  });
-
   return (
-    <Container>
-      <Map cluster={true} locations={data} />
-    </Container>
+    <main className="flex-grow flex min-h-0 border-t">
+      <Stores />
+    </main>
   );
 }
 
-export default withWidget('map', MapWidget);
+export default withWidget("map", MapWidget);

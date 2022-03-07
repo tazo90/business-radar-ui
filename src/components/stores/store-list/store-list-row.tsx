@@ -1,5 +1,5 @@
 import Image from "next/image";
-import restaurantImg from "@assets/restaurant.jpg";
+import restaurantImg from "../../../assets/restaurant.jpg";
 
 import { StoreListRowRating } from "./store-list-row-rating";
 import { StoreListRowDetails } from "./store-list-row-details";
