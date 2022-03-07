@@ -12,6 +12,7 @@ import { StoreList } from "@components/stores/store-list/store-list";
 import { BrandFilter } from "@components/stores/filters/brand-filter";
 import { CountryFilter } from "@components/stores/filters/country-filter";
 import { StoreListSkeleton } from "@components/stores/store-list/store-list-skeleton";
+import { MapButton } from "@components/stores/store-list/map-button";
 
 export default function Stores() {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ export default function Stores() {
       <section className="flex flex-col p-4 w-full lg:w-4/12 flex-none bg-gray-100 min-h-0 overflow-auto">
         <Search onSearch={onStoreSearch} placeholder="Find a store..." />
         {isLoading && <StoreListSkeleton itemsNum={8} />}
+        <MapButton />
         <StoreList stores={stores} />
       </section>
       {/* <!-- section content --> */}
