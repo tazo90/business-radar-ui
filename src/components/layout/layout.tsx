@@ -5,9 +5,15 @@ interface LayoutProps {
   children?: any;
 }
 
+const DARK_MODE = false;
+
 function Layout({ children }: LayoutProps) {
   return (
-    <div className="h-screen w-full flex overflow-hidden antialiased text-gray-800 bg-white">
+    <div
+      className={`${
+        DARK_MODE ? "dark" : ""
+      } h-screen w-full flex overflow-hidden antialiased text-gray-800 bg-white`}
+    >
       <SideNav />
       <div className="flex-1 flex flex-col">
         <TopNav />

@@ -1,6 +1,6 @@
 export function StoreListRowRating() {
   return (
-    <div className="flex flex-col items-end text-gray-100 text-xs font-semibold">
+    <div className="flex flex-col items-end text-xs font-semibold">
       <div className="flex items-center">
         <p>3.5</p>
         <ul className="flex justify-center ml-1">
@@ -91,7 +91,7 @@ export function StoreListRowRating() {
           </li>
         </ul>
       </div>
-      <div className="flex justify-between font-semibold text-white text-xs">
+      <div className="flex justify-between font-semibold text-xs">
         <span>120 reviews</span>
       </div>
     </div>
