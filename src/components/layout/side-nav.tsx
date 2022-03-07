@@ -3,7 +3,7 @@ export function SideNav() {
     <nav
       aria-label="side bar"
       aria-orientation="vertical"
-      className="flex-none flex flex-col items-center text-center bg-gray-700 text-gray-400"
+      className="flex-col hidden lg:flex items-center text-center bg-gray-700 text-gray-400"
     >
       <div className="h-14 flex items-center w-full">
         <img

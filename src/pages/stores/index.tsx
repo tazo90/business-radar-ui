@@ -62,7 +62,7 @@ export default function Stores() {
       {/* <!-- section content --> */}
       <section
         aria-label="main content"
-        className="flex min-h-0 flex-col flex-auto border-l"
+        className="min-h-0 flex-col flex-auto hidden lg:flex border-l"
       >
         {/* <!-- content navigation --> */}
         <nav className="flex bg-gray-100">
