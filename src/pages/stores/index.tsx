@@ -54,7 +54,7 @@ export default function Stores() {
 
   return (
     <>
-      <section className="flex flex-col p-4 w-full max-w-lg flex-none bg-gray-100 min-h-0 overflow-auto">
+      <section className="flex flex-col p-4 w-full lg:w-4/12 flex-none bg-gray-100 min-h-0 overflow-auto">
         <Search onSearch={onStoreSearch} placeholder="Find a store..." />
         {isLoading && <StoreListSkeleton itemsNum={8} />}
         <StoreList stores={stores} />
