@@ -23,6 +23,6 @@ const storeSlice = createSlice({
   },
 });
 
-export const { setStores } = storeSlice.actions;
+export const { setStores, setStore } = storeSlice.actions;
 
 export default storeSlice.reducer;

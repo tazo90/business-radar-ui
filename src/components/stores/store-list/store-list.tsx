@@ -1,8 +1,9 @@
 import { useCallback } from "react";
-import { useRouter } from "next/router";
 import { FixedSizeList as List } from "react-window";
+import { useDispatch } from "react-redux";
 
 import { StoreListRow } from "./store-list-row";
+import { setStore } from "../../../slices/store.slice";
 
 interface StoreListProps {
   selectedStoreId?: number;
@@ -10,7 +11,7 @@ interface StoreListProps {
 }
 
 export function StoreList({ selectedStoreId, stores }: StoreListProps) {
-  const router = useRouter();
+  const dispatch = useDispatch();
 
   if (!stores) return null;
   if (stores.length === 0) {
@@ -22,11 +23,12 @@ export function StoreList({ selectedStoreId, stores }: StoreListProps) {
   }
 
   const onStoreClick = useCallback((store) => {
-    const { id, name } = store.properties;
-    const slugName = name.toLowerCase().split(" ").join("-");
+    // const { id, name } = store.properties;
+    // const slugName = name.toLowerCase().split(" ").join("-");
 
-    const storeLink = `/stores/${slugName}`;
-    router.push(storeLink);
+    // const storeLink = `/stores/${slugName}`;
+    // router.push(storeLink);
+    dispatch(setStore(store));
   }, []);
 
   const Row = useCallback(
