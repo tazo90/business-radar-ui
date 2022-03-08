@@ -56,7 +56,7 @@ const config = {
         options: {
           name: '[path][name].[ext]',
         },
-    }
+      },
     ],
   },
   plugins: [
