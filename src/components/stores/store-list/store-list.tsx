@@ -50,7 +50,7 @@ export function StoreList({ selectedStoreId, stores }: StoreListProps) {
   return (
     <List
       itemCount={stores.length}
-      itemSize={150}
+      itemSize={136}
       width="100%"
       height={window.innerHeight}
       itemData={{ selectedStoreId }}
