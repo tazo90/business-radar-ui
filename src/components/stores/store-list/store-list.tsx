@@ -16,7 +16,7 @@ export function StoreList({ selectedStoreId, stores }: StoreListProps) {
   if (!stores) return null;
   if (stores.length === 0) {
     return (
-      <div className="text-center font-semibold">
+      <div className="text-center">
         <p>No results</p>
       </div>
     );

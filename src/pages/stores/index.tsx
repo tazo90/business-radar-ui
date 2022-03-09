@@ -21,7 +21,7 @@ export default function Stores() {
     country: "pl",
   });
 
-  const { stores } = useSelector((state: any) => state.store);
+  const { stores, selectedStore } = useSelector((state: any) => state.store);
 
   useEffect(() => {
     if (data) {
@@ -54,7 +54,13 @@ export default function Stores() {
 
   return (
     <>
-      <section className="flex flex-col p-4 w-full lg:w-4/12 flex-none bg-gray-100 min-h-0 overflow-auto">
+      <section
+        className={`flex flex-col z-0 p-4 flex-none bg-gray-100 min-h-0 overflow-auto transform ease-in-out ${
+          selectedStore
+            ? "w-1/2 transition-all opacity-0 delay-400 duration-500 -translate-x-full"
+            : "w-full lg:w-4/12 transition-all opacity-100 duration-500"
+        }`}
+      >
         <Search onSearch={onStoreSearch} placeholder="Find a store..." />
         {isLoading && <StoreListSkeleton itemsNum={8} />}
         <MapButton />
