@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "../../components/layout/layout";
@@ -12,16 +12,25 @@ import { StoreListSkeleton } from "../../components/stores/store-list/store-list
 import { MapButton } from "../../components/stores/store-list/map-button";
 import { setStores } from "../../slices/store.slice";
 import { useStoresQuery } from "../../api/stores/get-all-stores";
+import Drawer from "../../components/ui/drawer";
 
 export default function Stores() {
   const dispatch = useDispatch();
+
+  const { stores, selectedStore } = useSelector((state: any) => state.store);
+
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    if (selectedStore) {
+      setDrawerOpen(true);
+    }
+  }, [selectedStore]);
 
   const { data, isLoading, error }: any = useStoresQuery({
     brand: "kfc",
     country: "pl",
   });
-
-  const { stores, selectedStore } = useSelector((state: any) => state.store);
 
   useEffect(() => {
     if (data) {
@@ -54,33 +63,40 @@ export default function Stores() {
 
   return (
     <>
-      <section
-        className={`flex flex-col z-0 p-4 flex-none bg-gray-100 min-h-0 overflow-auto transform ease-in-out ${
-          selectedStore
-            ? "w-1/2 transition-all opacity-0 delay-400 duration-500 -translate-x-full"
-            : "w-full lg:w-4/12 transition-all opacity-100 duration-500"
-        }`}
-      >
+      <section className="flex h-16">
         <Search onSearch={onStoreSearch} placeholder="Find a store..." />
-        {isLoading && <StoreListSkeleton itemsNum={8} />}
-        <MapButton />
-        <StoreList stores={stores} />
-      </section>
-      {/* <!-- section content --> */}
-      <section
-        aria-label="main content"
-        className="min-h-0 flex-col flex-auto hidden lg:flex border-l"
-      >
-        {/* <!-- content navigation --> */}
+        {/* Section filters */}
         <nav className="flex bg-gray-100">
           <BrandFilter />
           <CountryFilter />
         </nav>
-
-        <Map cluster={true} locations={data} />
-
-        <Footer />
       </section>
+      <div className="flex relative">
+        {/* Section stores list */}
+        <section
+          className={`flex flex-col z-0 p-4 flex-none bg-gray-100 min-h-0 overflow-auto transform ease-in-out ${
+            selectedStore
+              ? "w-1/2 transition-all opacity-0 delay-400 duration-500 -translate-x-full"
+              : "w-full lg:w-4/12 transition-all opacity-100 duration-500"
+          }`}
+        >
+          {isLoading && <StoreListSkeleton itemsNum={8} />}
+          <MapButton />
+          <StoreList stores={stores} />
+        </section>
+        {/* Section map */}
+        <section
+          aria-label="main content"
+          className="min-h-0 flex-col flex-auto hidden lg:flex border-l"
+        >
+          <Map cluster={true} locations={data} />
+          <Footer />
+        </section>
+        {/* Drawer */}
+        <Drawer isOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}>
+          test
+        </Drawer>
+      </div>
     </>
   );
 }

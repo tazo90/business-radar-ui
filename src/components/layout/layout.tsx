@@ -1,7 +1,3 @@
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-
-import Drawer from "../ui/drawer";
 import { SideNav } from "./side-nav";
 import { TopNav } from "./top-nav";
 
@@ -12,16 +8,6 @@ interface LayoutProps {
 const DARK_MODE = false;
 
 function Layout({ children }: LayoutProps) {
-  const [isDrawerOpen, setDrawerOpen] = useState(false);
-
-  const { selectedStore } = useSelector((state: any) => state.store);
-
-  useEffect(() => {
-    if (selectedStore) {
-      setDrawerOpen(true);
-    }
-  }, [selectedStore]);
-
   return (
     <div
       className={`${
@@ -31,11 +17,8 @@ function Layout({ children }: LayoutProps) {
       <SideNav />
       <div className="flex-1 flex flex-col">
         <TopNav />
-        <main className="relative flex-grow flex min-h-0 border-t">
+        <main className="flex-grow flex flex-col min-h-0 border-t">
           {children}
-          <Drawer isOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}>
-            test
-          </Drawer>
         </main>
       </div>
     </div>
