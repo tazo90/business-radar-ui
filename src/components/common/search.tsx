@@ -1,6 +1,6 @@
 export function Search({ onSearch, placeholder }) {
   return (
-    <div className="flex flex-row items-center mb-4">
+    <div className="flex flex-row items-center">
       <button className="flex items-center justify-center h-10 w-10 bg-white text-gray-500 ml-1 rounded-l-lg">
         <svg
           className="w-4 h-4 stroke-current"

@@ -64,9 +64,11 @@ export default function Stores() {
   return (
     <>
       <section className="flex h-16">
-        <Search onSearch={onStoreSearch} placeholder="Find a store..." />
         {/* Section filters */}
-        <nav className="flex bg-gray-100">
+        <nav className="flex pl-4 bg-gray-100 border">
+          <div className="flex w-1/4">
+            <Search onSearch={onStoreSearch} placeholder="Find a store..." />
+          </div>
           <BrandFilter />
           <CountryFilter />
         </nav>
