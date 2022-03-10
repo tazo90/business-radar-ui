@@ -63,6 +63,7 @@ export function BrandFilter() {
       {isFilterOpen && (
         <BrandFilterModal
           brands={data}
+          isLoading={isLoading}
           selectedBrands={selectedBrands}
           onSelect={onSelect}
           onSelectAll={onSelectAll}
