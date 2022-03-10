@@ -1,7 +1,9 @@
-export function Search({ onSearch, placeholder }) {
+export function Search({ onSearch, placeholder, bgColor = "bg-white" }) {
   return (
     <div className="flex flex-row items-center">
-      <button className="flex items-center justify-center h-10 w-10 bg-white text-gray-500 ml-1 rounded-l-lg">
+      <button
+        className={`flex items-center justify-center h-10 w-10 text-gray-500 ml-1 rounded-l-lg ${bgColor}`}
+      >
         <svg
           className="w-4 h-4 stroke-current"
           fill="none"
@@ -19,7 +21,7 @@ export function Search({ onSearch, placeholder }) {
       </button>
       <input
         type="text"
-        className="border border-transparent w-full focus:outline-none text-sm h-10 flex items-center rounded-lg rounded-l-none px-2"
+        className={`w-full border border-transparent focus:border-transparent focus:ring-0 text-sm h-10 flex items-center rounded-lg rounded-l-none px-2 ${bgColor}`}
         placeholder={placeholder}
         onChange={onSearch}
       />

@@ -10,7 +10,14 @@ export async function fetchBrands({ queryKey }: any) {
     params: _params,
   });
 
-  return data;
+  const brands = {};
+  Object.entries(data).map((item) => {
+    const brand = item[1];
+    const brandKey = brand.name.toLowerCase();
+    brands[brandKey] = brand;
+  });
+
+  return brands;
 }
 
 export const useBrandsQuery = (options: any) => {
