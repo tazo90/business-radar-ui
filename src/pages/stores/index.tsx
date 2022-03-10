@@ -83,7 +83,7 @@ export default function Stores() {
           }`}
         >
           {isLoading && <StoreListSkeleton itemsNum={8} />}
-          {stores.length > 0 && <MapButton />}
+          {stores?.length > 0 && <MapButton />}
           <StoreList stores={stores} />
         </section>
         {/* Section map */}
