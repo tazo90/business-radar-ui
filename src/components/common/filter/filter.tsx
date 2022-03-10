@@ -6,16 +6,14 @@ import { Modal } from "../../ui/modal";
 
 export function Filter({
   title,
-  items = {},
-  icons = {},
-  selectedItems,
   searchPlaceholder,
+  items = {},
+  getIcon,
+  iconSize = 30,
   isLoading,
-  onSelect,
-  onSelectAll,
-  onClear,
   onClose,
 }) {
+  const [selectedItems, setSelectedItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState({});
   const selectedItemsNum = Object.keys(selectedItems).length;
   const totalItemsNum = Object.keys(items).length;
@@ -26,6 +24,30 @@ export function Filter({
     }
   }, [items]);
 
+  function getItemName(item) {
+    return item.full_name || item.name;
+  }
+
+  function onSelectAll() {
+    setSelectedItems(Object.keys(items));
+  }
+
+  function onSelect(itemId: string) {
+    const _items = [...selectedItems];
+
+    const itemIndex = _items.indexOf(itemId);
+    if (itemIndex >= 0) {
+      _items.splice(itemIndex, 1);
+    } else {
+      _items.splice(0, 0, itemId);
+    }
+    setSelectedItems(_items);
+  }
+
+  function onClear() {
+    setSelectedItems([]);
+  }
+
   function onSearch(event) {
     const value = event.target.value.toLowerCase();
     if (value === "") {
@@ -35,9 +57,10 @@ export function Filter({
 
     let filteredItems = {};
     Object.keys(items).map((itemId) => {
-      const brand = items[itemId];
-      if (brand.full_name.toLowerCase().startsWith(value)) {
-        filteredItems[itemId] = brand;
+      const item = items[itemId];
+      const itemName = getItemName(item);
+      if (itemName.toLowerCase().startsWith(value)) {
+        filteredItems[itemId] = item;
       }
     });
     setFilteredItems(filteredItems);
@@ -56,6 +79,7 @@ export function Filter({
 
     return filteredIds.map((itemId, index) => {
       const isChecked = selectedItems.includes(itemId);
+      const itemName = getItemName(items[itemId]);
 
       return (
         <label
@@ -71,11 +95,14 @@ export function Filter({
             checked={isChecked}
             onChange={() => onSelect(itemId)}
           />
-          {icons && (
-            <img className="object-cover h-[30px] ml-4" src={icons[itemId]} />
+          {getIcon && (
+            <img
+              className={`object-cover h-[${iconSize}px] ml-4`}
+              src={getIcon(itemId)}
+            />
           )}
           <span className="text-xs font-semibold text-gray-500 ml-4">
-            {items[itemId].full_name}
+            {itemName}
           </span>
         </label>
       );

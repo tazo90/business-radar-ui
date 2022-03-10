@@ -66,12 +66,11 @@ export default function Stores() {
       <section className="flex h-16">
         {/* Section filters */}
         <nav className="flex xs:flex-row pl-3 bg-gray-100 border w-full">
-          <Search onSearch={onStoreSearch} placeholder="Find a store..." />
-
-          <div className="mx-4">
+          <div className="flex justify-between">
+            <Search onSearch={onStoreSearch} placeholder="Find a store..." />
             <BrandFilter />
+            <CountryFilter />
           </div>
-          {/* <CountryFilter /> */}
         </nav>
       </section>
       <div className="flex w-screen relative">

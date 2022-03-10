@@ -2,7 +2,7 @@ export function Search({ onSearch, placeholder, bgColor = "bg-white" }) {
   return (
     <div className="flex flex-row items-center">
       <button
-        className={`flex items-center justify-center h-10 w-10 text-gray-500 ml-1 rounded-l-lg ${bgColor}`}
+        className={`flex items-center justify-center h-10 w-10 text-gray-500 rounded-l-lg ${bgColor}`}
       >
         <svg
           className="w-4 h-4 stroke-current"

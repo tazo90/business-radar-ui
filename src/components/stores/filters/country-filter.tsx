@@ -1,29 +1,70 @@
+import { useState } from "react";
+
+import { useCountriesQuery } from "../../../api/customer/get-all-countries";
+import { Filter } from "../../common/filter";
 import countries from "../../../constants/countries";
 
 export function CountryFilter() {
+  const [isFilterOpen, setFilterOpen] = useState(true);
+
+  const { data, isLoading, error }: any = useCountriesQuery({});
+
+  function getIcon(itemId: string) {
+    const filtered = countries.filter((country) => country.value === itemId);
+    if (filtered.length > 0) {
+      return filtered[0].img;
+    }
+    return "";
+  }
+
   return (
-    <section
-      aria-label="ticket-statistics-tabs-label"
-      className="flex flex-col items-center justify-center pt-1 pb-2 pr-4 mr-4 focus:outline-none w-3/5 overflow-x-auto"
-    >
-      <ul className="flex pt-1 px-2 rounded-md bg-gray-100">
-        <li>
-          <span>Countries</span>
-        </li>
-        {countries.map((country, index) => (
-          <li key={index}>
-            <button className="px-1 rounded-full flex flex-col items-center justify-between">
-              <img
-                className="object-cover rounded-full h-[30px] w-[30px]"
-                src={country.img}
-              />
-              <span className="text-xs font-semibold text-gray-500 pt-1">
-                {country.value.toUpperCase()}
-              </span>
-            </button>
-          </li>
-        ))}
-      </ul>
-    </section>
+    <>
+      <button
+        className="border border-gray-300 h-10 rounded-lg text-gray-600 bg-white hover:bg-gray-100 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
+        type="button"
+        onClick={() => setFilterOpen(true)}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+          />
+        </svg>
+        <span className="px-2">Countries</span>
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M19 9l-7 7-7-7"
+          ></path>
+        </svg>
+      </button>
+      {isFilterOpen && (
+        <Filter
+          title="Countries"
+          searchPlaceholder="Search a country"
+          items={data}
+          getIcon={getIcon}
+          iconSize={24}
+          isLoading={isLoading}
+          onClose={() => setFilterOpen(false)}
+        />
+      )}
+    </>
   );
 }

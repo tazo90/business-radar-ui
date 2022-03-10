@@ -10,7 +10,14 @@ export async function fetchCountries({ queryKey }: any) {
     params: _params,
   });
 
-  return data;
+  const countries = {};
+  Object.entries(data).map((item) => {
+    const country = item[1];
+    const countryKey = country.code.toLowerCase();
+    countries[countryKey] = country;
+  });
+
+  return countries;
 }
 
 export const useCountriesQuery = (options: any) => {

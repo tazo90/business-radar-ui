@@ -6,34 +6,17 @@ import { Filter } from "../../common/filter";
 
 export function BrandFilter() {
   const [isFilterOpen, setFilterOpen] = useState(true);
-  const [selectedBrands, setSelectedBrands] = useState([]);
 
   const { data, isLoading, error }: any = useBrandsQuery({});
 
-  function onSelectAll() {
-    setSelectedBrands(Object.keys(data));
-  }
-
-  function onSelect(brandId) {
-    const brands = [...selectedBrands];
-
-    const brandIndex = brands.indexOf(brandId);
-    if (brandIndex >= 0) {
-      brands.splice(brandIndex, 1);
-    } else {
-      brands.splice(0, 0, brandId);
-    }
-    setSelectedBrands(brands);
-  }
-
-  function onClear() {
-    setSelectedBrands([]);
+  function getIcon(itemId) {
+    return icons.amrest.brands[itemId];
   }
 
   return (
     <>
       <button
-        className="border border-gray-300 h-10 rounded-lg text-gray-600 bg-white hover:bg-gray-100 font-medium text-sm px-4 py-1 text-center inline-flex items-center"
+        className="border border-gray-300 h-10 rounded-lg text-gray-600 bg-white hover:bg-gray-100 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
         type="button"
         onClick={() => setFilterOpen(true)}
       >
@@ -66,12 +49,9 @@ export function BrandFilter() {
           title="Brands"
           searchPlaceholder="Search a brand"
           items={data}
-          icons={icons.amrest.brands}
-          selectedItems={selectedBrands}
+          getIcon={getIcon}
+          iconSize={30}
           isLoading={isLoading}
-          onSelect={onSelect}
-          onSelectAll={onSelectAll}
-          onClear={onClear}
           onClose={() => setFilterOpen(false)}
         />
       )}
