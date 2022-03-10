@@ -5,7 +5,7 @@ import { Filter } from "../../common/filter";
 import countries from "../../../constants/countries";
 
 export function CountryFilter() {
-  const [isFilterOpen, setFilterOpen] = useState(true);
+  const [isFilterOpen, setFilterOpen] = useState(false);
 
   const { data, isLoading, error }: any = useCountriesQuery({});
 

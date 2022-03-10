@@ -5,7 +5,7 @@ import { useBrandsQuery } from "../../../api/customer/get-all-brands";
 import { Filter } from "../../common/filter";
 
 export function BrandFilter() {
-  const [isFilterOpen, setFilterOpen] = useState(true);
+  const [isFilterOpen, setFilterOpen] = useState(false);
 
   const { data, isLoading, error }: any = useBrandsQuery({});
 

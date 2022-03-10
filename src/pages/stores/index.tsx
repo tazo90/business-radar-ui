@@ -66,7 +66,7 @@ export default function Stores() {
       <section className="flex h-16">
         {/* Section filters */}
         <nav className="flex xs:flex-row pl-3 bg-gray-100 border w-full">
-          <div className="flex justify-between">
+          <div className="flex items-center justify-between h-12">
             <Search onSearch={onStoreSearch} placeholder="Find a store..." />
             <BrandFilter />
             <CountryFilter />
@@ -83,7 +83,7 @@ export default function Stores() {
           }`}
         >
           {isLoading && <StoreListSkeleton itemsNum={8} />}
-          <MapButton />
+          {stores.length > 0 && <MapButton />}
           <StoreList stores={stores} />
         </section>
         {/* Section map */}
@@ -91,7 +91,7 @@ export default function Stores() {
           aria-label="main content"
           className="min-h-0 flex-col flex-auto hidden lg:flex border-l"
         >
-          {/* <Map cluster={true} locations={data} /> */}
+          <Map cluster={true} locations={data} />
           <Footer />
         </section>
         {/* Drawer */}
