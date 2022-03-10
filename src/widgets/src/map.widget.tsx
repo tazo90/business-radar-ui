@@ -17,11 +17,8 @@ function MapWidget() {
   }, [selectedStore]);
 
   return (
-    <main className="relative flex-grow flex min-h-0 border-t">
+    <main className="flex-grow flex flex-col min-h-0 border-t">
       <Stores />
-      <Drawer isOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}>
-        test
-      </Drawer>
     </main>
   );
 }

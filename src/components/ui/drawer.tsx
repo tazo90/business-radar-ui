@@ -4,7 +4,9 @@ import { setStore } from "../../slices/store.slice";
 
 export default function Drawer({ children, isOpen, setDrawerOpen }) {
   const dispatch = useDispatch();
-  const store = useSelector((state) => state.store.selectedStore?.properties);
+  const store = useSelector(
+    (state: any) => state.store.selectedStore?.properties
+  );
 
   if (!store) {
     return null;
