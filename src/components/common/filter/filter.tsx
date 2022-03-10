@@ -17,6 +17,8 @@ export function Filter({
   onClose,
 }) {
   const [filteredItems, setFilteredItems] = useState({});
+  const selectedItemsNum = Object.keys(selectedItems).length;
+  const totalItemsNum = Object.keys(items).length;
 
   useEffect(() => {
     if (items) {
@@ -80,8 +82,16 @@ export function Filter({
     });
   }
 
+  function footerSummary() {
+    return (
+      <p>
+        {selectedItemsNum} of {totalItemsNum}
+      </p>
+    );
+  }
+
   return (
-    <Modal title={title} onClose={onClose}>
+    <Modal title={title} onClose={onClose} footerSummary={footerSummary}>
       <div className="p-2">
         <Search
           onSearch={onSearch}

@@ -1,10 +1,4 @@
-import { useEffect, useState } from "react";
-
-import { Search } from "../../common/search";
-import { icons } from "../../../constants";
-import { FilterSkeleton } from "./filter-skeleton";
-
-export function Modal({ title, onClose, children }) {
+export function Modal({ title, onClose, children, footerSummary }) {
   function renderHeader() {
     return (
       <div className="flex justify-between border-b p-3">
@@ -35,24 +29,21 @@ export function Modal({ title, onClose, children }) {
   }
 
   function renderFooter() {
-    // const selectedItemsNum = Object.keys(selectedBrands).length;
-    // const totalItemsNum = Object.keys(brands).length;
-
     return (
-      <div className="bg-gray-100 p-2 sm:px-4 border-t border-gray-300">
+      <div className="bg-gray-100 p-2 px-4 border-t border-gray-300">
         <div className="flex items-center justify-between">
-          <p>{/* {selectedItemsNum} of {totalItemsNum} */}5 of 10</p>
+          {footerSummary && footerSummary()}
           <div className="flex">
             <button
               type="button"
-              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm"
+              className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm"
               onClick={() => onClose()}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-400 text-base font-medium text-white hover:bg-blue-500 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
+              className="ml-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-400 text-base font-medium text-white hover:bg-blue-500 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
             >
               Done
             </button>
@@ -65,11 +56,11 @@ export function Modal({ title, onClose, children }) {
   return (
     <div
       className="fixed z-10 inset-0 overflow-y-auto"
-      aria-labelledby="modal-title"
+      aria-labelledby="modal-base"
       role="dialog"
       aria-modal="true"
     >
-      <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div className="flex items-end justify-center min-h-screen text-center sm:block sm:p-0">
         <div
           className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
           aria-hidden="true"
@@ -84,10 +75,10 @@ export function Modal({ title, onClose, children }) {
           &#8203;
         </span>
 
-        <div className="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div className="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-screen md:my-8 md:align-middle md:max-w-lg md:w-full">
           <div className="bg-white">
             <div className="sm:flex sm:items-start">
-              <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
+              <div className="text-left w-full">
                 {renderHeader()}
                 {children}
               </div>
