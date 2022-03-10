@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-import { BrandFilterModal } from "./brand-filter-modal";
-import { useBrandsQuery } from "@api/customer/get-all-brands";
+import { icons } from "../../../constants";
+import { useBrandsQuery } from "../../../api/customer/get-all-brands";
+import { Filter } from "../../common/filter";
 
 export function BrandFilter() {
   const [isFilterOpen, setFilterOpen] = useState(true);
@@ -61,10 +62,13 @@ export function BrandFilter() {
         </svg>
       </button>
       {isFilterOpen && (
-        <BrandFilterModal
-          brands={data}
+        <Filter
+          title="Brands"
+          searchPlaceholder="Search a brand"
+          items={data}
+          icons={icons.amrest.brands}
+          selectedItems={selectedBrands}
           isLoading={isLoading}
-          selectedBrands={selectedBrands}
           onSelect={onSelect}
           onSelectAll={onSelectAll}
           onClear={onClear}

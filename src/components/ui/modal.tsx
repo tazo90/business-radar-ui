@@ -4,40 +4,7 @@ import { Search } from "../../common/search";
 import { icons } from "../../../constants";
 import { FilterSkeleton } from "./filter-skeleton";
 
-export function BrandFilterModal({
-  brands,
-  isLoading,
-  selectedBrands,
-  onSelect,
-  onSelectAll,
-  onClear,
-  onClose,
-}) {
-  const [filteredBrands, setFilteredBrands] = useState({});
-
-  useEffect(() => {
-    if (brands) {
-      setFilteredBrands(brands);
-    }
-  }, [brands]);
-
-  function onSearch(event) {
-    const value = event.target.value.toLowerCase();
-    if (value === "") {
-      setFilteredBrands(brands);
-      return;
-    }
-
-    let filteredBrands = {};
-    Object.keys(brands).map((brandId) => {
-      const brand = brands[brandId];
-      if (brand.full_name.toLowerCase().startsWith(value)) {
-        filteredBrands[brandId] = brand;
-      }
-    });
-    setFilteredBrands(filteredBrands);
-  }
-
+export function Modal({ title, onClose, children }) {
   function renderHeader() {
     return (
       <div className="flex justify-between border-b p-3">
@@ -45,7 +12,7 @@ export function BrandFilterModal({
           className="text-lg leading-6 font-medium text-gray-600"
           id="modal-title"
         >
-          Brands
+          {title}
         </h3>
         <button onClick={() => onClose()}>
           <svg
@@ -67,81 +34,14 @@ export function BrandFilterModal({
     );
   }
 
-  function renderContent() {
-    return (
-      <div className="p-2">
-        <Search
-          onSearch={onSearch}
-          placeholder="Find a brand..."
-          bgColor="bg-gray-200"
-        />
-        <div className="flex items-center justify-between mx-2 mt-2">
-          <button
-            className="text-md text-blue-400 uppercase font-semibold"
-            onClick={onSelectAll}
-          >
-            Select all
-          </button>
-          <button
-            className="text-md text-blue-400 uppercase font-semibold"
-            onClick={onClear}
-          >
-            Clear
-          </button>
-        </div>
-        <div className="flex flex-col mb-2">{renderOptions()}</div>
-      </div>
-    );
-  }
-
-  function renderOptions() {
-    if (isLoading) {
-      return <FilterSkeleton />;
-    }
-
-    if (Object.keys(filteredBrands).length === 0) {
-      return <p className="text-center">No results</p>;
-    }
-
-    return Object.keys(filteredBrands).map((brandId, index) => {
-      const isChecked = selectedBrands.includes(brandId);
-
-      return (
-        <label
-          className={`inline-flex items-center py-0.5 mt-3 rounded-md cursor-pointer ${
-            isChecked && "bg-gray-200"
-          }`}
-          key={index}
-        >
-          <input
-            id={brandId}
-            type="checkbox"
-            className="form-checkbox h-6 w-6 text-green-600 rounded-md ml-2 focus:ring-0 "
-            checked={isChecked}
-            onChange={() => onSelect(brandId)}
-          />
-          <img
-            className="object-cover h-[30px] ml-4"
-            src={icons.amrest.brands[brandId]}
-          />
-          <span className="text-xs font-semibold text-gray-500 ml-4">
-            {brands[brandId].full_name}
-          </span>
-        </label>
-      );
-    });
-  }
-
   function renderFooter() {
-    const selectedItemsNum = Object.keys(selectedBrands).length;
-    const totalItemsNum = Object.keys(brands).length;
+    // const selectedItemsNum = Object.keys(selectedBrands).length;
+    // const totalItemsNum = Object.keys(brands).length;
 
     return (
       <div className="bg-gray-100 p-2 sm:px-4 border-t border-gray-300">
         <div className="flex items-center justify-between">
-          <p>
-            {selectedItemsNum} of {totalItemsNum}
-          </p>
+          <p>{/* {selectedItemsNum} of {totalItemsNum} */}5 of 10</p>
           <div className="flex">
             <button
               type="button"
@@ -189,7 +89,7 @@ export function BrandFilterModal({
             <div className="sm:flex sm:items-start">
               <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                 {renderHeader()}
-                {renderContent()}
+                {children}
               </div>
             </div>
           </div>
