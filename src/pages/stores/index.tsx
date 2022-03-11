@@ -13,6 +13,7 @@ import { MapButton } from "../../components/stores/store-list/map-button";
 import { setStores } from "../../slices/store.slice";
 import { useStoresQuery } from "../../api/stores/get-all-stores";
 import Drawer from "../../components/ui/drawer";
+import Dropdown from "@components/ui/dropdown";
 
 export default function Stores() {
   const dispatch = useDispatch();
@@ -73,10 +74,10 @@ export default function Stores() {
           </div>
         </nav>
       </section>
-      <div className="flex w-screen relative">
+      <div className="flex relative w-screen xs:w-full">
         {/* Section stores list */}
         <section
-          className={`flex flex-col z-0 p-4 flex-none bg-gray-100 min-h-0 overflow-auto transform ease-in-out ${
+          className={`flex flex-col z-0 px-4 pb-4 pt-0 flex-none bg-gray-100 min-h-0 overflow-auto transform ease-in-out ${
             selectedStore
               ? "w-1/2 transition-all opacity-0 delay-400 duration-500 -translate-x-full"
               : "w-full lg:w-4/12 transition-all opacity-100 duration-500"
@@ -84,6 +85,10 @@ export default function Stores() {
         >
           {isLoading && <StoreListSkeleton itemsNum={8} />}
           {stores?.length > 0 && <MapButton />}
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-semibold">564 stores found</span>
+            <Dropdown />
+          </div>
           <StoreList stores={stores} />
         </section>
         {/* Section map */}
