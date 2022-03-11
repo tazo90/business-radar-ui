@@ -10,7 +10,7 @@ export function Search({ onSearch, placeholder, bgColor = "bg-white" }) {
       </button>
       <input
         type="text"
-        className={`w-full border border-transparent focus:border-transparent focus:ring-0 text-sm h-10 flex items-center rounded-lg rounded-l-none px-2 ${bgColor}`}
+        className={`w-full border border-transparent focus:border-transparent focus:ring-0 text-sm h-10 flex items-center rounded-lg rounded-l-none pl-0 pr-2 ${bgColor}`}
         placeholder={placeholder}
         onChange={onSearch}
       />

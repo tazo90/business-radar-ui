@@ -68,7 +68,11 @@ export default function Stores() {
         {/* Section filters */}
         <nav className="flex xs:flex-row py-1 pl-3 bg-gray-100 border w-full">
           <div className="flex items-center justify-between">
-            <Search onSearch={onStoreSearch} placeholder="Find a store..." />
+            <Search
+              onSearch={onStoreSearch}
+              placeholder="Find a store..."
+              bgColor="bg-gray-300"
+            />
             <BrandFilter />
             <CountryFilter />
           </div>
