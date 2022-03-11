@@ -28,16 +28,15 @@ export function BrandFilter() {
         </span>
         <ChevronDownIcon className="h-4 w-4" aria-hidden="true" />
       </button>
-      {isFilterOpen && (
-        <Filter
-          title="Brands"
-          searchPlaceholder="Search a brand"
-          items={data}
-          getIcon={getIcon}
-          isLoading={isLoading}
-          onClose={() => setFilterOpen(false)}
-        />
-      )}
+      <Filter
+        title="Brands"
+        searchPlaceholder="Search a brand"
+        items={data}
+        getIcon={getIcon}
+        isLoading={isLoading}
+        isOpen={isFilterOpen}
+        onClose={() => setFilterOpen(false)}
+      />
     </>
   );
 }

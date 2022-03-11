@@ -29,17 +29,16 @@ export function CountryFilter() {
         <span className="px-2">Countries</span>
         <ChevronDownIcon className="h-4 w-4" aria-hidden="true" />
       </button>
-      {isFilterOpen && (
-        <Filter
-          title="Countries"
-          searchPlaceholder="Search a country"
-          items={data}
-          getIcon={getIcon}
-          iconSize={6}
-          isLoading={isLoading}
-          onClose={() => setFilterOpen(false)}
-        />
-      )}
+      <Filter
+        title="Countries"
+        searchPlaceholder="Search a country"
+        items={data}
+        getIcon={getIcon}
+        iconSize={6}
+        isLoading={isLoading}
+        isOpen={isFilterOpen}
+        onClose={() => setFilterOpen(false)}
+      />
     </>
   );
 }

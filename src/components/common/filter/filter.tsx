@@ -11,6 +11,7 @@ export function Filter({
   getIcon,
   iconSize = 8,
   isLoading,
+  isOpen,
   onClose,
 }) {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -118,7 +119,12 @@ export function Filter({
   }
 
   return (
-    <Modal title={title} onClose={onClose} footerSummary={footerSummary}>
+    <Modal
+      title={title}
+      onClose={onClose}
+      footerSummary={footerSummary}
+      isOpen={isOpen}
+    >
       <div className="p-2">
         <Search
           onSearch={onSearch}
