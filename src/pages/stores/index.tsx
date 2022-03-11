@@ -100,7 +100,7 @@ export default function Stores() {
           aria-label="main content"
           className="min-h-0 flex-col flex-auto hidden lg:flex border-l"
         >
-          {/* <Map cluster={true} locations={data} /> */}
+          <Map cluster={true} locations={data} />
           <Footer />
         </section>
         {/* Drawer */}
