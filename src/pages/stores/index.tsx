@@ -8,12 +8,9 @@ import { Search } from "../../components/common/search";
 import { StoreList } from "../../components/stores/store-list/store-list";
 import { BrandFilter } from "../../components/stores/filters/brand-filter";
 import { CountryFilter } from "../../components/stores/filters/country-filter";
-import { StoreListSkeleton } from "../../components/stores/store-list/store-list-skeleton";
-import { MapButton } from "../../components/stores/store-list/map-button";
 import { setStores } from "../../slices/store.slice";
 import { useStoresQuery } from "../../api/stores/get-all-stores";
 import Drawer from "../../components/ui/drawer";
-import Dropdown from "@components/ui/dropdown";
 
 export default function Stores() {
   const dispatch = useDispatch();
@@ -87,13 +84,7 @@ export default function Stores() {
               : "w-full lg:w-4/12 transition-all opacity-100 duration-500"
           }`}
         >
-          {isLoading && <StoreListSkeleton itemsNum={8} />}
-          {stores?.length > 0 && <MapButton />}
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold">564 stores found</span>
-            <Dropdown />
-          </div>
-          <StoreList stores={stores} />
+          <StoreList isLoading={isLoading} stores={stores} />
         </section>
         {/* Section map */}
         <section

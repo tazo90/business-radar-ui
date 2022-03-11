@@ -4,16 +4,31 @@ import { useDispatch } from "react-redux";
 
 import { StoreListRow } from "./store-list-row";
 import { setStore } from "../../../slices/store.slice";
+import { MapButton } from "./map-button";
+import { StoreListSkeleton } from "./store-list-skeleton";
+import Dropdown from "../../ui/dropdown";
 
 interface StoreListProps {
   selectedStoreId?: number;
   stores: any[];
+  isLoading: boolean;
 }
 
-export function StoreList({ selectedStoreId, stores }: StoreListProps) {
+export function StoreList({
+  selectedStoreId,
+  stores,
+  isLoading,
+}: StoreListProps) {
   const dispatch = useDispatch();
 
-  if (!stores) return null;
+  if (isLoading) {
+    return <StoreListSkeleton itemsNum={8} />;
+  }
+
+  if (!stores) {
+    return null;
+  }
+
   if (stores.length === 0) {
     return (
       <div className="text-center">
@@ -50,14 +65,23 @@ export function StoreList({ selectedStoreId, stores }: StoreListProps) {
   );
 
   return (
-    <List
-      itemCount={stores.length}
-      itemSize={136}
-      width="100%"
-      height={window.innerHeight}
-      itemData={{ selectedStoreId }}
-    >
-      {Row}
-    </List>
+    <>
+      {stores?.length > 0 && <MapButton />}
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-semibold">
+          {stores.length} stores found
+        </span>
+        <Dropdown />
+      </div>
+      <List
+        itemCount={stores.length}
+        itemSize={136}
+        width="100%"
+        height={window.innerHeight}
+        itemData={{ selectedStoreId }}
+      >
+        {Row}
+      </List>
+    </>
   );
 }
