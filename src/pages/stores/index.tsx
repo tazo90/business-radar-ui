@@ -64,17 +64,17 @@ export default function Stores() {
 
   return (
     <>
-      <section className="flex h-16">
+      <section className="flex">
         {/* Section filters */}
-        <nav className="flex xs:flex-row pl-3 bg-gray-100 border w-full">
-          <div className="flex items-center justify-between h-12">
+        <nav className="flex xs:flex-row py-1 pl-3 bg-gray-100 border w-full">
+          <div className="flex items-center justify-between">
             <Search onSearch={onStoreSearch} placeholder="Find a store..." />
             <BrandFilter />
             <CountryFilter />
           </div>
         </nav>
       </section>
-      <div className="flex relative w-screen xs:w-full">
+      <div className="flex relative h-screen w-screen xs:w-full">
         {/* Section stores list */}
         <section
           className={`flex flex-col z-0 px-4 pb-4 pt-0 flex-none bg-gray-100 min-h-0 overflow-auto transform ease-in-out ${
@@ -96,7 +96,7 @@ export default function Stores() {
           aria-label="main content"
           className="min-h-0 flex-col flex-auto hidden lg:flex border-l"
         >
-          <Map cluster={true} locations={data} />
+          {/* <Map cluster={true} locations={data} /> */}
           <Footer />
         </section>
         {/* Drawer */}
