@@ -34,7 +34,6 @@ export function BrandFilter() {
           searchPlaceholder="Search a brand"
           items={data}
           getIcon={getIcon}
-          iconSize={30}
           isLoading={isLoading}
           onClose={() => setFilterOpen(false)}
         />

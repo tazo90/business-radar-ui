@@ -35,7 +35,7 @@ export function CountryFilter() {
           searchPlaceholder="Search a country"
           items={data}
           getIcon={getIcon}
-          iconSize={24}
+          iconSize={6}
           isLoading={isLoading}
           onClose={() => setFilterOpen(false)}
         />

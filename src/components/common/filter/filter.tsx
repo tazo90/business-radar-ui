@@ -9,7 +9,7 @@ export function Filter({
   searchPlaceholder,
   items = {},
   getIcon,
-  iconSize = 30,
+  iconSize = 8,
   isLoading,
   onClose,
 }) {
@@ -97,7 +97,7 @@ export function Filter({
           />
           {getIcon && (
             <img
-              className={`object-cover h-[${iconSize}px] ml-4`}
+              className={`object-cover h-${iconSize} ml-4`}
               src={getIcon(itemId)}
             />
           )}
