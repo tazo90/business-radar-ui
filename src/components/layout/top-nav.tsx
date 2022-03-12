@@ -4,7 +4,7 @@ export function TopNav() {
   return (
     <nav
       aria-label="top bar"
-      className="flex-none flex items-center justify-between bg-gray-700 h-14"
+      className="flex-none flex items-center justify-between bg-gray-700 h-12"
     >
       {/* <!-- top bar left --> */}
       <span
@@ -25,7 +25,7 @@ export function TopNav() {
             title="Search Bar"
             aria-label="search bar"
             role="search"
-            className="pr-8 pl-4 py-2 rounded-md cursor-pointer transition-all duration-300 ease-in-out focus:border-black focus:cursor-text w-4 focus:w-64 placeholder-transparent focus:placeholder-gray-500"
+            className="pr-8 pl-4 h-8 rounded-md cursor-pointer transition-all duration-300 ease-in-out focus:border-black focus:cursor-text w-4 focus:w-64 placeholder-transparent focus:placeholder-gray-500"
             type="text"
             placeholder="Search Chi Desk Support"
           />
@@ -52,7 +52,7 @@ export function TopNav() {
             </i>
           </button>
         </li>
-        <li className="h-10 w-10 ml-3">
+        <li className="h-8 w-8 ml-3">
           <button
             title="Page Menu"
             aria-label="page menu"

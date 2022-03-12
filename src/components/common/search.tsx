@@ -1,8 +1,13 @@
 import { SearchIcon } from "@heroicons/react/outline";
 
-export function Search({ onSearch, placeholder, bgColor = "bg-white" }) {
+export function Search({
+  onSearch,
+  placeholder,
+  className,
+  bgColor = "bg-white",
+}) {
   return (
-    <div className="flex flex-row items-center">
+    <div className={`flex flex-row items-center ${className}`}>
       <button
         className={`flex items-center justify-center h-10 w-10 text-gray-500 rounded-l-lg ${bgColor}`}
       >

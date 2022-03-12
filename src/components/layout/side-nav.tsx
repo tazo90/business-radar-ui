@@ -11,7 +11,7 @@ export function SideNav() {
       aria-orientation="vertical"
       className="flex-col z-50 hidden lg:flex items-center text-center bg-gray-700 text-gray-400"
     >
-      <div className="h-14 flex items-center w-full">
+      <div className="h-12 flex items-center w-full">
         <img
           className="h-6 w-6 mx-auto"
           src="https://raw.githubusercontent.com/bluebrown/tailwind-zendesk-clone/master/public/assets/leaves.png"

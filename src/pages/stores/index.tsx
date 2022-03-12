@@ -6,8 +6,11 @@ import Map from "../../components/map";
 import { Footer } from "../../components/layout/footer";
 import { Search } from "../../components/common/search";
 import StoreList from "../../components/stores/store-list/store-list";
-import { BrandFilter } from "../../components/stores/filters/brand-filter";
-import { CountryFilter } from "../../components/stores/filters/country-filter";
+import {
+  BrandFilter,
+  CountryFilter,
+  MoreFilter,
+} from "../../components/stores/filters";
 import { setStores } from "../../slices/store.slice";
 import { useStoresQuery } from "../../api/stores/get-all-stores";
 import Drawer from "../../components/ui/drawer";
@@ -64,15 +67,25 @@ export default function Stores() {
     <>
       <section className="flex">
         {/* Section filters */}
-        <nav className="flex xs:flex-row py-1 pl-3 bg-gray-100 border w-full">
-          <div className="flex items-center justify-between">
+        <nav className="flex flex-col md:flex-row py-1 px-3 bg-gray-100 border w-full">
+          <div className="flex w-full md:w-5/12 lg:w-4/12">
             <Search
+              className="w-full mr-4"
               onSearch={onStoreSearch}
               placeholder="Find a store..."
               bgColor="bg-gray-300"
             />
-            <BrandFilter />
-            <CountryFilter />
+          </div>
+          <div className="flex overflow-x-auto items-center py-2">
+            <div className="mr-2 md:ml-2">
+              <BrandFilter />
+            </div>
+            <div className="mr-2">
+              <CountryFilter />
+            </div>
+            <div className="mr-2">
+              <MoreFilter />
+            </div>
           </div>
         </nav>
       </section>
