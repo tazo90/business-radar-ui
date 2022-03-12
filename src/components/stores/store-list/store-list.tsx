@@ -30,7 +30,7 @@ function StoreList(
 
   if (stores.length === 0) {
     return (
-      <div className="text-center">
+      <div className="justify-center text-center">
         <p>No results</p>
       </div>
     );
