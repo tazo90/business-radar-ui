@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { MenuIcon, MapIcon } from "@heroicons/react/outline";
 
 import Layout from "../../components/layout/layout";
 import Map from "../../components/map";
@@ -21,6 +22,7 @@ export default function Stores() {
   const { stores, selectedStore } = useSelector((state: any) => state.store);
   const storeList = useRef(null);
 
+  const [isMapVisible, setMapVisible] = useState(false);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
@@ -68,13 +70,31 @@ export default function Stores() {
       <section className="flex">
         {/* Section filters */}
         <nav className="flex flex-col md:flex-row pt-2 md:pt-0 px-3 bg-gray-100 border w-full">
-          <div className="flex w-full md:w-5/12 lg:w-4/12">
+          <div className="flex items-center w-full md:w-5/12 lg:w-4/12">
             <Search
               className="w-full md:mr-4"
               onSearch={onStoreSearch}
               placeholder="Find a store..."
               bgColor="bg-gray-300"
             />
+            <button
+              className="ml-4 md:ml-0 lg:hidden border border-gray-300 h-10 rounded-lg text-white bg-slate-700 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
+              type="button"
+              onClick={() => setMapVisible(!isMapVisible)}
+            >
+              {isMapVisible ? (
+                <>
+                  <MenuIcon className="h-5 w-5" aria-hidden="true" />
+                  <span className="px-2">List</span>
+                </>
+              ) : (
+                <>
+                  <MapIcon className="h-5 w-5" aria-hidden="true" />
+                  <span className="px-2">Map</span>
+                </>
+              )}
+            </button>
+            <div className="hidden md:block lg:hidden bg-gray-300 h-3/5 w-0.5 ml-2" />
           </div>
           <div className="flex overflow-x-auto items-center py-2">
             <div className="mr-2 md:ml-2">
@@ -96,14 +116,16 @@ export default function Stores() {
             selectedStore
               ? "w-1/2 transition-all opacity-0 delay-400 duration-500 -translate-x-full"
               : "w-full lg:w-4/12 transition-all opacity-100 duration-500"
-          }`}
+          } ${isMapVisible && "hidden"}`}
         >
           <StoreList ref={storeList} isLoading={isLoading} stores={stores} />
         </section>
         {/* Section map */}
         <section
           aria-label="main content"
-          className="min-h-0 flex-col flex-auto hidden lg:flex border-l"
+          className={`min-h-0 flex-col flex-auto border-l ${
+            isMapVisible ? "flex" : "hidden"
+          } lg:flex`}
         >
           <Map cluster={true} locations={data} storeList={storeList} />
           <Footer />
