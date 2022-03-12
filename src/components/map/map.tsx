@@ -167,7 +167,6 @@ const Map = ({ locations, cluster, storeList }) => {
     <div
       ref={mapContainer}
       style={{
-        width: "100vw",
         height: "100vh",
       }}
     />
