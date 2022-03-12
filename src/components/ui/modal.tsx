@@ -22,7 +22,11 @@ export function Modal({ title, isOpen, onClose, children, footerSummary }) {
   function renderFooter() {
     return (
       <div className="bg-gray-100 p-2 px-4 border-t border-gray-300">
-        <div className="flex items-center justify-between">
+        <div
+          className={`flex items-center ${
+            footerSummary ? "justify-between" : "justify-end"
+          }`}
+        >
           {footerSummary && footerSummary()}
           <div className="flex">
             <button

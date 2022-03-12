@@ -70,7 +70,7 @@ export default function Stores() {
         <nav className="flex flex-col md:flex-row py-1 px-3 bg-gray-100 border w-full">
           <div className="flex w-full md:w-5/12 lg:w-4/12">
             <Search
-              className="w-full mr-4"
+              className="w-full md:mr-4"
               onSearch={onStoreSearch}
               placeholder="Find a store..."
               bgColor="bg-gray-300"

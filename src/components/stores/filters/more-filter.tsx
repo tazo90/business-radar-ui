@@ -24,6 +24,8 @@ export function MoreFilter() {
         title="More filters"
         searchPlaceholder="Search a brand"
         items={[]}
+        isSearch={false}
+        isFooterSummary={false}
         isOpen={isFilterOpen}
         onClose={() => setFilterOpen(false)}
       />

@@ -10,7 +10,9 @@ export function Filter({
   items = {},
   getIcon,
   iconSize = 8,
-  isLoading,
+  isSearch = true,
+  isLoading = false,
+  isFooterSummary = true,
   isOpen,
   onClose,
 }) {
@@ -122,15 +124,17 @@ export function Filter({
     <Modal
       title={title}
       onClose={onClose}
-      footerSummary={footerSummary}
+      footerSummary={isFooterSummary ? footerSummary : null}
       isOpen={isOpen}
     >
       <div className="p-2">
-        <Search
-          onSearch={onSearch}
-          placeholder={searchPlaceholder}
-          bgColor="bg-gray-200"
-        />
+        {isSearch && (
+          <Search
+            onSearch={onSearch}
+            placeholder={searchPlaceholder}
+            bgColor="bg-gray-200"
+          />
+        )}
         <div className="flex items-center justify-between mx-2 mt-2">
           <button
             className="text-md text-blue-400 uppercase font-semibold"
