@@ -67,7 +67,7 @@ export default function Stores() {
     <>
       <section className="flex">
         {/* Section filters */}
-        <nav className="flex flex-col md:flex-row py-1 px-3 bg-gray-100 border w-full">
+        <nav className="flex flex-col md:flex-row pt-2 md:pt-0 px-3 bg-gray-100 border w-full">
           <div className="flex w-full md:w-5/12 lg:w-4/12">
             <Search
               className="w-full md:mr-4"
