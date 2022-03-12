@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { forwardRef, useCallback } from "react";
 import { FixedSizeList as List } from "react-window";
 import { useDispatch } from "react-redux";
 
@@ -14,11 +14,10 @@ interface StoreListProps {
   isLoading: boolean;
 }
 
-export function StoreList({
-  selectedStoreId,
-  stores,
-  isLoading,
-}: StoreListProps) {
+function StoreList(
+  { selectedStoreId, stores, isLoading }: StoreListProps,
+  ref
+) {
   const dispatch = useDispatch();
 
   if (isLoading) {
@@ -74,6 +73,7 @@ export function StoreList({
         <Dropdown />
       </div>
       <List
+        ref={ref}
         itemCount={stores.length}
         itemSize={136}
         width="100%"
@@ -85,3 +85,5 @@ export function StoreList({
     </>
   );
 }
+
+export default forwardRef(StoreList);

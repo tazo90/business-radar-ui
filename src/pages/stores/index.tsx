@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Layout from "../../components/layout/layout";
 import Map from "../../components/map";
 import { Footer } from "../../components/layout/footer";
 import { Search } from "../../components/common/search";
-import { StoreList } from "../../components/stores/store-list/store-list";
+import StoreList from "../../components/stores/store-list/store-list";
 import { BrandFilter } from "../../components/stores/filters/brand-filter";
 import { CountryFilter } from "../../components/stores/filters/country-filter";
 import { setStores } from "../../slices/store.slice";
@@ -16,6 +16,7 @@ export default function Stores() {
   const dispatch = useDispatch();
 
   const { stores, selectedStore } = useSelector((state: any) => state.store);
+  const storeList = useRef(null);
 
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
@@ -84,14 +85,14 @@ export default function Stores() {
               : "w-full lg:w-4/12 transition-all opacity-100 duration-500"
           }`}
         >
-          <StoreList isLoading={isLoading} stores={stores} />
+          <StoreList ref={storeList} isLoading={isLoading} stores={stores} />
         </section>
         {/* Section map */}
         <section
           aria-label="main content"
           className="min-h-0 flex-col flex-auto hidden lg:flex border-l"
         >
-          <Map cluster={true} locations={data} />
+          <Map cluster={true} locations={data} storeList={storeList} />
           <Footer />
         </section>
         {/* Drawer */}
