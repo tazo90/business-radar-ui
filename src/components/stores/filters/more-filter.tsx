@@ -24,9 +24,11 @@ export function MoreFilter() {
         title="More filters"
         searchPlaceholder="Search a brand"
         items={[]}
+        initialItems={[]}
         isSearch={false}
         isFooterSummary={false}
         isOpen={isFilterOpen}
+        onSubmit={() => {}}
         onClose={() => setFilterOpen(false)}
       />
     </>

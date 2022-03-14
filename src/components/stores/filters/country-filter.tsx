@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { GlobeAltIcon, ChevronDownIcon } from "@heroicons/react/outline";
 
 import { useCountriesQuery } from "../../../api/customer/get-all-countries";
 import { Filter } from "../../common/filter";
 import countries from "../../../constants/countries";
+import { setFilters } from "../../../slices/store.slice";
 
 export function CountryFilter() {
+  const dispatch = useDispatch();
+  const { filters } = useSelector((state: any) => state.store);
+
   const [isFilterOpen, setFilterOpen] = useState(false);
 
   const { data, isLoading, error }: any = useCountriesQuery({});
@@ -18,6 +23,16 @@ export function CountryFilter() {
     return "";
   }
 
+  function submit(countries: string[]) {
+    dispatch(
+      setFilters({
+        ...filters,
+        country: countries,
+      })
+    );
+    setFilterOpen(false);
+  }
+
   return (
     <>
       <button
@@ -27,16 +42,23 @@ export function CountryFilter() {
       >
         <GlobeAltIcon className="h-6 w-6" aria-hidden="true" />
         <span className="px-2">Countries</span>
+        {filters.country?.length > 0 && (
+          <span className="flex items-center justify-center w-5 h-5 rounded-xl bg-pink-500 text-white text-xs mr-1">
+            {filters.country?.length}
+          </span>
+        )}
         <ChevronDownIcon className="h-4 w-4" aria-hidden="true" />
       </button>
       <Filter
         title="Countries"
         searchPlaceholder="Search a country"
         items={data}
+        initialItems={filters.country}
         getIcon={getIcon}
         iconSize={6}
         isLoading={isLoading}
         isOpen={isFilterOpen}
+        onSubmit={submit}
         onClose={() => setFilterOpen(false)}
       />
     </>

@@ -19,11 +19,11 @@ export function BrandFilter() {
     return icons.amrest.brands[itemId];
   }
 
-  function submit(selectedBrands: string[]) {
+  function submit(brands: string[]) {
     dispatch(
       setFilters({
         ...filters,
-        brand: selectedBrands,
+        brand: brands,
       })
     );
     setFilterOpen(false);

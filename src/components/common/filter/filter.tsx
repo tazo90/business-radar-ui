@@ -20,7 +20,7 @@ export function Filter({
 }) {
   const [selectedItems, setSelectedItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState({});
-  const selectedItemsNum = Object.keys(selectedItems).length;
+  const selectedItemsNum = selectedItems.length;
   const totalItemsNum = Object.keys(items).length;
 
   useEffect(() => {
