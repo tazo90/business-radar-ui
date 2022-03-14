@@ -12,7 +12,7 @@ import {
   CountryFilter,
   MoreFilter,
 } from "../../components/stores/filters";
-import { setStores } from "../../slices/store.slice";
+import { setStore, setStores } from "../../slices/store.slice";
 import { useStoresQuery } from "../../api/stores/get-all-stores";
 import Drawer from "../../components/ui/drawer";
 
@@ -90,6 +90,7 @@ export default function Stores() {
       return address.includes(loc) | name.includes(loc);
     });
 
+    dispatch(setStore(null));
     dispatch(setStores(filteredStores));
   }
 
