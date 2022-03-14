@@ -1,13 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { initial } from "lodash";
 
 export interface StoreState {
   stores: any;
   selectedStore: any;
+  filters: {
+    brand: string[];
+    country: string[];
+  };
 }
 
 export const initialState: StoreState = {
   stores: null,
   selectedStore: null,
+  filters: {
+    brand: [],
+    country: [],
+  },
 };
 
 const storeSlice = createSlice({
@@ -20,9 +29,15 @@ const storeSlice = createSlice({
     setStore: (state, action) => {
       state.selectedStore = action.payload;
     },
+    setFilters: (state, action) => {
+      state.filters = {
+        ...initialState.filters,
+        ...action.payload,
+      };
+    },
   },
 });
 
-export const { setStores, setStore } = storeSlice.actions;
+export const { setStores, setStore, setFilters } = storeSlice.actions;
 
 export default storeSlice.reducer;

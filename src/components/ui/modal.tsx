@@ -2,7 +2,14 @@ import { Fragment } from "react";
 import { Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/solid";
 
-export function Modal({ title, isOpen, onClose, children, footerSummary }) {
+export function Modal({
+  title,
+  isOpen,
+  onSubmit,
+  onClose,
+  children,
+  footerSummary,
+}) {
   function renderHeader() {
     return (
       <div className="flex justify-between border-b p-3">
@@ -12,7 +19,7 @@ export function Modal({ title, isOpen, onClose, children, footerSummary }) {
         >
           {title}
         </h3>
-        <button onClick={() => onClose()}>
+        <button onClick={onClose}>
           <XIcon className="h-6 w-6" aria-hidden="true" />
         </button>
       </div>
@@ -32,13 +39,14 @@ export function Modal({ title, isOpen, onClose, children, footerSummary }) {
             <button
               type="button"
               className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm"
-              onClick={() => onClose()}
+              onClick={onClose}
             >
               Cancel
             </button>
             <button
               type="button"
               className="ml-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-400 text-base font-medium text-white hover:bg-blue-500 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
+              onClick={onSubmit}
             >
               Done
             </button>

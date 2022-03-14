@@ -8,18 +8,26 @@ export function Filter({
   title,
   searchPlaceholder,
   items = {},
+  initialItems,
   getIcon,
   iconSize = 8,
   isSearch = true,
   isLoading = false,
   isFooterSummary = true,
   isOpen,
+  onSubmit,
   onClose,
 }) {
   const [selectedItems, setSelectedItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState({});
   const selectedItemsNum = Object.keys(selectedItems).length;
   const totalItemsNum = Object.keys(items).length;
+
+  useEffect(() => {
+    if (isOpen) {
+      setSelectedItems(initialItems);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (items) {
@@ -124,6 +132,7 @@ export function Filter({
     <Modal
       title={title}
       onClose={onClose}
+      onSubmit={() => onSubmit(selectedItems)}
       footerSummary={isFooterSummary ? footerSummary : null}
       isOpen={isOpen}
     >
