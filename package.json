@@ -26,6 +26,7 @@
     "react-query": "^3.34.16",
     "react-redux": "^7.2.6",
     "react-window": "^1.8.6",
+    "sass": "^1.49.9",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {

@@ -42,7 +42,12 @@ function StoreList(
       const isActive = data.selectedStoreId === item.properties.id;
 
       return (
-        <div key={index} onClick={() => onStoreClick(item)} style={style}>
+        <div
+          key={index}
+          onClick={() => onStoreClick(item)}
+          style={style}
+          className="pr-2"
+        >
           <StoreListRow
             key={index}
             store={item.properties}
