@@ -21,15 +21,18 @@ import icons from "@constants/icons";
 import circle from "@assets/circle.png";
 import circleSmall from "@assets/circle-small.png";
 
-const Map = ({ locations, cluster, storeList }) => {
+const MAX_ZOOM_LEVEL = 16;
+
+const Map = ({ locations, storeList }) => {
   if (!locations) {
     return null;
   }
 
   const dispatch = useDispatch();
+  const { selectedStore } = useSelector((state) => state.store);
 
-  const mapContainer = useRef(null);
   const map = useRef(null);
+  const mapContainer = useRef(null);
 
   useEffect(() => {
     // initialize map only once
@@ -49,11 +52,17 @@ const Map = ({ locations, cluster, storeList }) => {
     map.current.on("load", () => onLoad(map.current));
   }, []);
 
-  const onLoad = (map) => {
+  useEffect(() => {
+    if (selectedStore) {
+      flyToLocation(selectedStore.geometry.coordinates);
+    }
+  }, [selectedStore]);
+
+  function onLoad(map) {
     map.addSource("places", {
       type: "geojson",
       data: locations,
-      cluster: cluster,
+      cluster: true,
       // clusterMaxZoom: 12,
       clusterRadius: 150,
       clusterMinPoints: 3,
@@ -77,13 +86,11 @@ const Map = ({ locations, cluster, storeList }) => {
     ]).then(() => {
       map.addLayer(pointLabelLayer);
 
-      if (cluster) {
-        map.addLayer(clusterLayer);
-        map.addLayer(clusterCountBgLayer);
-        map.addLayer(clusterCountLayer);
-        map.addLayer(unclusteredPointZoomedInLayer);
-        map.addLayer(unclusteredPointZoomedOutLayer);
-      }
+      map.addLayer(clusterLayer);
+      map.addLayer(clusterCountBgLayer);
+      map.addLayer(clusterCountLayer);
+      map.addLayer(unclusteredPointZoomedInLayer);
+      map.addLayer(unclusteredPointZoomedOutLayer);
     });
 
     map.on("styleimagemissing", (e) => {
@@ -122,9 +129,9 @@ const Map = ({ locations, cluster, storeList }) => {
     map.on("mouseleave", "unclustered-point-zoomed-out", () =>
       onMouseLeave(map)
     );
-  };
+  }
 
-  const onClick = (event) => {
+  function onClick(event) {
     const feature = event.features[0];
 
     if (feature?.source !== "places") return;
@@ -153,15 +160,32 @@ const Map = ({ locations, cluster, storeList }) => {
       dispatch(setStore(location));
       storeList.current.scrollToItem(featureIndex);
     }
-  };
+  }
 
-  const onMouseEnter = (map) => {
+  function onMouseEnter(map) {
     map.getCanvas().style.cursor = "pointer";
-  };
+  }
 
-  const onMouseLeave = (map) => {
+  function onMouseLeave(map) {
     map.getCanvas().style.cursor = "";
-  };
+  }
+
+  function flyToLocation(coords) {
+    if (!map.current) return;
+
+    const _map = map.current;
+
+    _map.setZoom(MAX_ZOOM_LEVEL);
+
+    // convert lngLat to pixels
+    const pixelCoords = _map.project(coords);
+
+    // convert pixels to lngLat
+    const latLngCoords = _map.unproject([pixelCoords.x, pixelCoords.y]);
+    const centerCoords = [latLngCoords.lng, latLngCoords.lat];
+
+    _map.jumpTo({ center: centerCoords });
+  }
 
   return (
     <div

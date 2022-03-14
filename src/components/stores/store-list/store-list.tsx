@@ -29,19 +29,10 @@ function StoreList(
   }
 
   if (stores.length === 0) {
-    return (
-      <div className="justify-center text-center">
-        <p>No results</p>
-      </div>
-    );
+    return <p className="text-center">No results</p>;
   }
 
   const onStoreClick = useCallback((store) => {
-    // const { id, name } = store.properties;
-    // const slugName = name.toLowerCase().split(" ").join("-");
-
-    // const storeLink = `/stores/${slugName}`;
-    // router.push(storeLink);
     dispatch(setStore(store));
   }, []);
 

@@ -22,7 +22,6 @@ export default function Stores() {
   const { stores, selectedStore, filters } = useSelector(
     (state: any) => state.store
   );
-  const map = useRef(null);
   const storeList = useRef(null);
 
   const [isMapVisible, setMapVisible] = useState(false);
@@ -147,12 +146,7 @@ export default function Stores() {
               : "w-full lg:w-4/12 transition-all opacity-100 duration-500"
           } ${isMapVisible && "hidden"}`}
         >
-          <StoreList
-            ref={storeList}
-            map={map}
-            isLoading={isLoading}
-            stores={stores}
-          />
+          <StoreList ref={storeList} isLoading={isLoading} stores={stores} />
         </section>
         {/* Section map */}
         <section
@@ -161,12 +155,7 @@ export default function Stores() {
             isMapVisible ? "flex" : "hidden"
           } lg:flex`}
         >
-          <Map
-            map={map}
-            cluster={true}
-            locations={data}
-            storeList={storeList}
-          />
+          <Map locations={data} storeList={storeList} />
           <Footer />
         </section>
         {/* Drawer */}
