@@ -66,9 +66,9 @@ export default function Stores() {
           return matchItem;
         }),
       };
-    }
 
-    dispatch(setStores(results.features));
+      dispatch(setStores(results.features));
+    }
   }, [filters]);
 
   function onStoreSearch(event) {
@@ -141,7 +141,7 @@ export default function Stores() {
       <div className="flex relative h-screen w-screen xs:w-full">
         {/* Section stores list */}
         <section
-          className={`flex flex-col z-0 px-4 pb-4 pt-0 flex-none bg-gray-100 min-h-0 overflow-auto transform ease-in-out ${
+          className={`flex flex-col justify-center z-0 px-4 pb-4 pt-0 flex-none bg-gray-100 min-h-0 overflow-auto transform ease-in-out ${
             selectedStore
               ? "w-1/2 transition-all opacity-0 delay-400 duration-500 -translate-x-full"
               : "w-full lg:w-4/12 transition-all opacity-100 duration-500"
