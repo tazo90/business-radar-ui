@@ -40,7 +40,7 @@ export default function Stores() {
 
   useEffect(() => {
     if (data) {
-      dispatch(setStores(data.features));
+      dispatch(setStores(data));
     }
   }, [data]);
 
@@ -66,7 +66,7 @@ export default function Stores() {
         }),
       };
 
-      dispatch(setStores(results.features));
+      dispatch(setStores(results));
     }
   }, [filters]);
 
@@ -74,7 +74,7 @@ export default function Stores() {
     const { value } = event.target;
 
     if (value === "") {
-      dispatch(setStores(data.features));
+      dispatch(setStores(data));
       return;
     }
 
@@ -82,13 +82,16 @@ export default function Stores() {
       return [];
     }
 
-    const filteredStores = data?.features.filter(({ properties }) => {
-      const address = properties.address.toLowerCase();
-      const name = properties.name.toLowerCase();
-      const loc = value.toLowerCase();
+    const filteredStores = {
+      type: "FeatureCollection",
+      features: data?.features.filter(({ properties }) => {
+        const address = properties.address.toLowerCase();
+        const name = properties.name.toLowerCase();
+        const loc = value.toLowerCase();
 
-      return address.includes(loc) | name.includes(loc);
-    });
+        return address.includes(loc) | name.includes(loc);
+      }),
+    };
 
     dispatch(setStore(null));
     dispatch(setStores(filteredStores));
@@ -147,7 +150,11 @@ export default function Stores() {
               : "w-full lg:w-4/12 transition-all opacity-100 duration-500"
           } ${isMapVisible && "hidden"}`}
         >
-          <StoreList ref={storeList} isLoading={isLoading} stores={stores} />
+          <StoreList
+            ref={storeList}
+            isLoading={isLoading}
+            stores={stores?.features}
+          />
         </section>
         {/* Section map */}
         <section
@@ -156,7 +163,7 @@ export default function Stores() {
             isMapVisible ? "flex" : "hidden"
           } lg:flex`}
         >
-          <Map locations={data} storeList={storeList} />
+          <Map locations={stores} storeList={storeList} />
           <Footer />
         </section>
         {/* Drawer */}

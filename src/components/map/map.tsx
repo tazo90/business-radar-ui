@@ -53,6 +53,12 @@ const Map = ({ locations, storeList }) => {
   }, []);
 
   useEffect(() => {
+    if (locations) {
+      flyToBoundingBox();
+    }
+  }, [locations]);
+
+  useEffect(() => {
     if (selectedStore) {
       flyToLocation(selectedStore.geometry.coordinates);
     }
@@ -185,6 +191,29 @@ const Map = ({ locations, storeList }) => {
     const centerCoords = [latLngCoords.lng, latLngCoords.lat];
 
     _map.jumpTo({ center: centerCoords });
+  }
+
+  function flyToBoundingBox() {
+    if (locations.features.length === 0) {
+      return;
+    }
+
+    const points = locations.features.map(
+      (feature: any) => feature.geometry.coordinates
+    );
+    if (points.length >= 2) {
+      const line = turf.lineString(points);
+      const bbox = turf.bbox(line);
+
+      map.current.fitBounds(bbox, {
+        padding: { top: 100, bottom: 100, left: 150, right: 150 },
+        linear: true,
+        maxZoom: MAX_ZOOM_LEVEL,
+      });
+    } else {
+      const latLng = locations.features[0].geometry.coordinates;
+      flyToLocation(latLng);
+    }
   }
 
   return (
