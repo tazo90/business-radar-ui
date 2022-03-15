@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { Map as MapLibre, NavigationControl } from "maplibre-gl";
-import { setStore } from "../../slices/store.slice";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as turf from "@turf/turf";
@@ -12,14 +11,15 @@ import {
   clusterCountBgLayer,
   unclusteredPointZoomedInLayer,
   unclusteredPointZoomedOutLayer,
-} from "@components/map/layers";
+} from "../../components//map/layers";
 import { addImages } from "./utils";
 import { drawTooltip } from "./drawers";
+import { setStore } from "../../slices/store.slice";
 
-import icons from "@constants/icons";
+import icons from "../../constants/icons";
 
-import circle from "@assets/circle.png";
-import circleSmall from "@assets/circle-small.png";
+import circle from "../../assets/circle.png";
+import circleSmall from "../../assets/circle-small.png";
 
 const MAX_ZOOM_LEVEL = 16;
 
@@ -29,7 +29,7 @@ const Map = ({ locations, storeList }) => {
   }
 
   const dispatch = useDispatch();
-  const { selectedStore } = useSelector((state) => state.store);
+  const { selectedStore } = useSelector((state: any) => state.store);
 
   const map = useRef(null);
   const mapContainer = useRef(null);

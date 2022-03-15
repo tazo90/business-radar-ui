@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 
 import { StoreListRow } from "./store-list-row";
 import { setStore } from "../../../slices/store.slice";
-import { MapButton } from "./map-button";
 import { StoreListSkeleton } from "./store-list-skeleton";
 import Dropdown from "../../ui/dropdown";
 
@@ -61,7 +60,6 @@ function StoreList(
 
   return (
     <>
-      {stores?.length > 0 && <MapButton />}
       <div className="flex items-center justify-between">
         <span className="text-sm font-semibold">
           {stores.length} stores found

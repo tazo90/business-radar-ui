@@ -9,7 +9,7 @@ export function Filter({
   searchPlaceholder,
   items = {},
   initialItems,
-  getIcon,
+  getIcon = null,
   iconSize = 8,
   isSearch = true,
   isLoading = false,

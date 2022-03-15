@@ -4,13 +4,15 @@ import { SearchIcon, XIcon } from "@heroicons/react/outline";
 export function Search({
   onSearch,
   placeholder,
-  className,
+  className = "",
   bgColor = "bg-white",
 }) {
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>();
 
   function onClear() {
-    inputRef.current.value = "";
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
   }
 
   return (
