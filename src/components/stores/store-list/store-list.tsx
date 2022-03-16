@@ -1,6 +1,8 @@
 import { forwardRef, useCallback } from "react";
 import { FixedSizeList as List } from "react-window";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import * as turf from "@turf/turf";
 
 import { StoreListRow } from "./store-list-row";
 import { setStore } from "../../../slices/store.slice";
@@ -17,8 +19,6 @@ function StoreList(
   { selectedStoreId, stores, isLoading }: StoreListProps,
   ref
 ) {
-  const dispatch = useDispatch();
-
   if (isLoading) {
     return <StoreListSkeleton itemsNum={8} />;
   }
@@ -31,6 +31,9 @@ function StoreList(
     return <p className="text-center">No results</p>;
   }
 
+  const dispatch = useDispatch();
+  const { userLocation } = useSelector((state: any) => state.location);
+
   const onStoreClick = useCallback((store) => {
     dispatch(setStore(store));
   }, []);
@@ -39,6 +42,14 @@ function StoreList(
     ({ data, index, style }) => {
       const item = stores[index];
       const isActive = data.selectedStoreId === item.properties.id;
+      let distance = null;
+
+      if (data.userLocation) {
+        const from = turf.point(data.userLocation.geometry.coordinates);
+        const to = turf.point(item.geometry.coordinates);
+
+        distance = turf.distance(from, to);
+      }
 
       return (
         <div
@@ -51,6 +62,7 @@ function StoreList(
             key={index}
             store={item.properties}
             isActive={isActive}
+            distance={distance}
           />
         </div>
       );
@@ -72,7 +84,7 @@ function StoreList(
         itemSize={136}
         width="100%"
         height={window.innerHeight}
-        itemData={{ selectedStoreId }}
+        itemData={{ selectedStoreId, userLocation }}
       >
         {Row}
       </List>

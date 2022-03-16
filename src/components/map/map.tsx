@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState, useCallback } from "react";
-import { Map as MapLibre, NavigationControl } from "maplibre-gl";
+import React, { useRef, useEffect } from "react";
+import { Map as MapLibre, NavigationControl, Marker } from "maplibre-gl";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as turf from "@turf/turf";
@@ -30,6 +30,7 @@ const Map = ({ locations, storeList }) => {
 
   const dispatch = useDispatch();
   const { selectedStore } = useSelector((state: any) => state.store);
+  const { userLocation } = useSelector((state: any) => state.location);
 
   const map = useRef(null);
   const mapContainer = useRef(null);
@@ -63,6 +64,14 @@ const Map = ({ locations, storeList }) => {
       flyToLocation(selectedStore.geometry.coordinates);
     }
   }, [selectedStore]);
+
+  useEffect(() => {
+    if (userLocation !== null) {
+      const { coordinates } = userLocation.geometry;
+      new Marker().setLngLat(coordinates).addTo(map.current);
+      flyToLocation(coordinates);
+    }
+  }, [userLocation]);
 
   function onLoad(map) {
     map.addSource("places", {

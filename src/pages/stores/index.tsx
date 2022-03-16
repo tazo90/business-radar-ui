@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MenuIcon, MapIcon } from "@heroicons/react/outline";
+import { MenuIcon, MapIcon, ShoppingBagIcon } from "@heroicons/react/outline";
 
 import Layout from "../../components/layout/layout";
 import Map from "../../components/map";
@@ -15,6 +15,8 @@ import {
 import { setStore, setStores } from "../../slices/store.slice";
 import { useStoresQuery } from "../../api/stores/get-all-stores";
 import Drawer from "../../components/ui/drawer";
+import Autocomplete from "../../components/ui/autocomplete";
+import { setUserLocation } from "../../slices/location.slice";
 
 export default function Stores() {
   const dispatch = useDispatch();
@@ -22,8 +24,10 @@ export default function Stores() {
   const { stores, selectedStore, filters } = useSelector(
     (state: any) => state.store
   );
+
   const storeList = useRef(null);
 
+  const [isOpenAutocomplete, setOpenAutocoplete] = useState(false);
   const [isMapVisible, setMapVisible] = useState(false);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
@@ -97,9 +101,23 @@ export default function Stores() {
     dispatch(setStores(filteredStores));
   }
 
+  function orderStart() {
+    setOpenAutocoplete(true);
+  }
+
+  function onAddressClick(address) {
+    dispatch(setUserLocation(address));
+    setOpenAutocoplete(false);
+  }
+
   return (
     <>
       <section className="flex">
+        <Autocomplete
+          open={isOpenAutocomplete}
+          onAddressClick={onAddressClick}
+          setOpen={setOpenAutocoplete}
+        />
         {/* Section filters */}
         <nav className="flex flex-col md:flex-row pt-2 md:pt-0 px-3 bg-gray-100 border w-full">
           <div className="flex items-center w-full md:w-5/12 lg:w-4/12">
@@ -109,6 +127,14 @@ export default function Stores() {
               placeholder="Find a store..."
               bgColor="bg-gray-300"
             />
+            <button
+              className="ml-4 md:ml-0  border border-gray-300 h-10 rounded-lg text-white bg-lime-600 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
+              type="button"
+              onClick={orderStart}
+            >
+              <ShoppingBagIcon className="h-5 w-5" aria-hidden="true" />
+              <span className="px-2">Zamów</span>
+            </button>
             <button
               className="ml-4 md:ml-0 lg:hidden border border-gray-300 h-10 rounded-lg text-white bg-slate-700 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
               type="button"
