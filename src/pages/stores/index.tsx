@@ -86,7 +86,7 @@ export default function Stores() {
     const filteredStores = {
       type: "FeatureCollection",
       features: data?.features.filter(({ properties }) => {
-        const brand = properties.brand.toLowerCase();
+        const brand = properties.brand_full.toLowerCase();
         const name = properties.name.toLowerCase();
         const address = properties.address.toLowerCase();
         const fullName = `${brand} ${name}`;

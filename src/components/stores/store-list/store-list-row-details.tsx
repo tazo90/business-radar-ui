@@ -13,7 +13,7 @@ export function StoreListRowDetails({ store }) {
         </div>
         <div className="flex flex-col items-center ml-2 py-0.5 overflow-hidden">
           <span className="text-sm font-semibold leading-none">
-            {store.brand.toUpperCase()}
+            {store.brand_full.toUpperCase()}
           </span>
           <span className="text-sm leading-1 w-full truncate">
             {store.name}
