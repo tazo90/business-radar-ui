@@ -37,10 +37,7 @@ export default function Stores() {
     }
   }, [selectedStore]);
 
-  const { data, isLoading, error }: any = useStoresQuery({
-    brand: "kfc",
-    country: "pl",
-  });
+  const { data, isLoading, error }: any = useStoresQuery({});
 
   useEffect(() => {
     if (data) {
@@ -89,11 +86,18 @@ export default function Stores() {
     const filteredStores = {
       type: "FeatureCollection",
       features: data?.features.filter(({ properties }) => {
-        const address = properties.address.toLowerCase();
+        const brand = properties.brand.toLowerCase();
         const name = properties.name.toLowerCase();
-        const loc = value.toLowerCase();
+        const address = properties.address.toLowerCase();
+        const fullName = `${brand} ${name}`;
+        const searchValue = value.toLowerCase();
 
-        return address.includes(loc) | name.includes(loc);
+        return (
+          address.includes(searchValue) |
+          name.includes(searchValue) |
+          (searchValue === brand) |
+          fullName.startsWith(searchValue)
+        );
       }),
     };
 
