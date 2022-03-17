@@ -1,5 +1,5 @@
 {
-  "name": "business-radar-front",
+  "name": "business-radar-ui",
   "private": true,
   "scripts": {
     "dev": "next dev",

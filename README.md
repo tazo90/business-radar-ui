@@ -1,4 +1,4 @@
-## Business Radar Frontend
+## Business Radar UI
 
 ### Embeeded widgets
 
