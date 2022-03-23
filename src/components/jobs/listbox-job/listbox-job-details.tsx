@@ -11,11 +11,13 @@ export function ListboxJobDetails({ job }) {
             className="object-cover"
           />
         </div>
-        <div className="flex flex-col items-center ml-2 py-0.5 overflow-hidden">
-          <span className="text-sm font-semibold leading-none">
-            {job.brand_full.toUpperCase()}
+        <div className="flex flex-col items-center ml-2 py-1 overflow-hidden">
+          <span className="text-[0.95rem] font-semibold leading-none">
+            {job.jobTitle}
           </span>
-          <span className="text-sm leading-1 w-full truncate">{job.name}</span>
+          <span className="text-sm leading-1 w-full truncate">
+            {job.brand_full.toUpperCase()} {job.name}
+          </span>
         </div>
         <div className="flex relative bottom-1.5 right-0 w-2 h-2 rounded-full bg-green-600"></div>
       </div>

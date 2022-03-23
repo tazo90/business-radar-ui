@@ -3,7 +3,8 @@ import { useQuery } from "react-query";
 
 import http from "../http";
 import { API_ENDPOINTS } from "../endpoints";
-import { toGeojson } from "../../utils";
+import { toGeojson } from "../../utils/geojson/to-geojson";
+import { jobProperties } from "../../utils/geojson/properties/job-properties";
 
 export async function fetchJobs({ queryKey }: any) {
   const [_key, _params] = queryKey;
@@ -11,7 +12,7 @@ export async function fetchJobs({ queryKey }: any) {
     params: _params,
   });
 
-  return toGeojson(data);
+  return toGeojson(data, jobProperties);
 }
 
 export const useJobsQuery = (options: any) => {
