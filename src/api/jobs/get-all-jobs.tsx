@@ -5,18 +5,18 @@ import http from "../http";
 import { API_ENDPOINTS } from "../endpoints";
 import { toGeojson } from "../../utils";
 
-export async function fetchStores({ queryKey }: any) {
+export async function fetchJobs({ queryKey }: any) {
   const [_key, _params] = queryKey;
-  const { data } = await http.get(API_ENDPOINTS.STORES, {
+  const { data } = await http.get(API_ENDPOINTS.JOBS, {
     params: _params,
   });
 
   return toGeojson(data);
 }
 
-export const useStoresQuery = (options: any) => {
-  return useQuery<{ stores: any }, Error>(
-    [API_ENDPOINTS.STORES, options],
-    fetchStores
+export const useJobsQuery = (options: any) => {
+  return useQuery<{ jobs: any }, Error>(
+    [API_ENDPOINTS.JOBS, options],
+    fetchJobs
   );
 };

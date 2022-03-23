@@ -6,7 +6,7 @@ import Layout from "../../components/layout/layout";
 import Map from "../../components/map";
 import { Footer } from "../../components/layout/footer";
 import { Search } from "../../components/common/search";
-import StoreList from "../../components/stores/store-list/store-list";
+import Listbox from "../../components/listbox/listbox";
 import {
   BrandFilter,
   CountryFilter,
@@ -181,10 +181,11 @@ export default function Stores() {
               : "w-full lg:w-4/12 transition-all opacity-100 duration-500"
           } ${isMapVisible && "hidden"}`}
         >
-          <StoreList
+          <Listbox
+            name="store"
             ref={storeList}
             isLoading={isLoading}
-            stores={stores?.features}
+            items={stores?.features}
           />
         </section>
         {/* Section map */}
