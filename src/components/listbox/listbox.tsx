@@ -14,10 +14,17 @@ interface ListboxProps {
   selectedStoreId?: number;
   items: any[];
   isLoading: boolean;
+  ItemRenderer?: any;
 }
 
 function Listbox(
-  { name, selectedStoreId, items, isLoading }: ListboxProps,
+  {
+    name,
+    selectedStoreId,
+    items,
+    isLoading,
+    ItemRenderer = ListboxItem,
+  }: ListboxProps,
   ref
 ) {
   if (isLoading) {
@@ -59,7 +66,7 @@ function Listbox(
           style={style}
           className="pr-2"
         >
-          <ListboxItem
+          <ItemRenderer
             key={index}
             item={item.properties}
             isActive={isActive}

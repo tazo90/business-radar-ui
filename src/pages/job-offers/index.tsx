@@ -17,6 +17,7 @@ import { useJobsQuery } from "../../api/jobs/get-all-jobs";
 import Drawer from "../../components/ui/drawer";
 import Autocomplete from "../../components/ui/autocomplete";
 import { setUserLocation } from "../../slices/location.slice";
+import { ListboxJob } from "../../components/jobs/listbox-job/listbox-job";
 
 export default function JobOffers() {
   const dispatch = useDispatch();
@@ -186,6 +187,7 @@ export default function JobOffers() {
             ref={storeList}
             isLoading={isLoading}
             items={stores?.features}
+            ItemRenderer={ListboxJob}
           />
         </section>
         {/* Section map */}
