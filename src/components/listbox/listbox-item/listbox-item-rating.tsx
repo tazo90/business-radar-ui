@@ -1,4 +1,4 @@
-export function StoreListRowRating() {
+export function ListboxItemRating() {
   return (
     <div className="flex flex-col items-end text-xs font-semibold">
       <div className="flex flex-col xs:flex-row items-end xs:items-center">

@@ -1,6 +1,6 @@
 const DEFAULT_ITEMS_NUM = 8;
 
-export function StoreListSkeleton({ itemsNum = DEFAULT_ITEMS_NUM }) {
+export function ListboxSkeleton({ itemsNum = DEFAULT_ITEMS_NUM }) {
   const skeletons = Array.from({ length: itemsNum }, (value, index) => {
     return (
       <div className="animate-pulse flex space-x-4 h-36 my-1" key={index}>

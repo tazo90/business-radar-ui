@@ -1,4 +1,4 @@
-export function StoreListRowSummary() {
+export function ListboxItemSummary() {
   return (
     <div className="flex justify-end">
       <div className="flex flex-col font-semibold">

@@ -4,30 +4,31 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as turf from "@turf/turf";
 
-import { StoreListRow } from "./store-list-row";
-import { setStore } from "../../../slices/store.slice";
-import { StoreListSkeleton } from "./store-list-skeleton";
-import Dropdown from "../../ui/dropdown";
+import { setStore } from "../../slices/store.slice";
+import Dropdown from "../ui/dropdown";
+import { ListboxSkeleton } from "./listbox-skeleton";
+import { ListboxItem } from "./listbox-item/listbox-item";
 
-interface StoreListProps {
+interface ListboxProps {
+  name: string;
   selectedStoreId?: number;
-  stores: any[];
+  items: any[];
   isLoading: boolean;
 }
 
-function StoreList(
-  { selectedStoreId, stores, isLoading }: StoreListProps,
+function Listbox(
+  { name, selectedStoreId, items, isLoading }: ListboxProps,
   ref
 ) {
   if (isLoading) {
-    return <StoreListSkeleton itemsNum={8} />;
+    return <ListboxSkeleton itemsNum={8} />;
   }
 
-  if (!stores) {
+  if (!items) {
     return null;
   }
 
-  if (stores.length === 0) {
+  if (items.length === 0) {
     return <p className="text-center">No results</p>;
   }
 
@@ -40,7 +41,7 @@ function StoreList(
 
   const Row = useCallback(
     ({ data, index, style }) => {
-      const item = stores[index];
+      const item = items[index];
       const isActive = data.selectedStoreId === item.properties.id;
       let distance = null;
 
@@ -58,29 +59,29 @@ function StoreList(
           style={style}
           className="pr-2"
         >
-          <StoreListRow
+          <ListboxItem
             key={index}
-            store={item.properties}
+            item={item.properties}
             isActive={isActive}
             distance={distance}
           />
         </div>
       );
     },
-    [stores]
+    [items]
   );
 
   return (
     <>
       <div className="flex items-center justify-between">
         <span className="text-sm font-semibold">
-          {stores.length} stores found
+          {items.length} {name} found
         </span>
         <Dropdown />
       </div>
       <List
         ref={ref}
-        itemCount={stores.length}
+        itemCount={items.length}
         itemSize={136}
         width="100%"
         height={window.innerHeight}
@@ -92,4 +93,4 @@ function StoreList(
   );
 }
 
-export default forwardRef(StoreList);
+export default forwardRef(Listbox);
