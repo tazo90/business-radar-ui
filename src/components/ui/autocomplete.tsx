@@ -104,7 +104,7 @@ export default function Autocomplete({ open, setOpen, onAddressClick }) {
         >
           <Combobox
             as="div"
-            className="mx-auto max-w-2xl transform divide-y divide-gray-500 divide-opacity-20 overflow-hidden rounded-xl bg-gray-700 shadow-2xl transition-all"
+            className="relative inset-y-1/3 mx-auto max-w-2xl transform divide-y divide-gray-500 divide-opacity-20 overflow-hidden rounded-xl bg-gray-700 shadow-2xl transition-all"
             onChange={(item) => onAddressClick(item)}
           >
             <div className="relative">
