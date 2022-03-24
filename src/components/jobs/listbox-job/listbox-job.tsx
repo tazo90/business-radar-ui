@@ -1,8 +1,5 @@
 import restaurantImg from "../../../assets/restaurant.jpg";
 
-import { LocationMarkerIcon } from "@heroicons/react/outline";
-import { ListboxItemSummary } from "./listbox-item-summary";
-import { ListboxItemRating } from "./listbox-item-rating";
 import { ListboxJobDetails } from "./listbox-job-details";
 
 export function ListboxJob({ item, distance, isActive }) {
@@ -16,16 +13,6 @@ export function ListboxJob({ item, distance, isActive }) {
         />
       </div>
       <ListboxJobDetails job={item} />
-      {/* <div className="flex flex-col justify-between">
-        <ListboxItemSummary />
-        {distance && (
-          <div className="flex">
-            <LocationMarkerIcon className="w-4 h-4 mr-2" />
-            <span className="font-semibold">{distance.toFixed(1)} km</span>
-          </div>
-        )}
-        <ListboxItemRating />
-      </div> */}
     </article>
   );
 }

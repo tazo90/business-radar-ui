@@ -19,7 +19,7 @@ import Autocomplete from "../../components/ui/autocomplete";
 import { setUserLocation } from "../../slices/location.slice";
 import { ListboxJob } from "../../components/jobs/listbox-job/listbox-job";
 
-export default function JobOffers() {
+export default function Jobs() {
   const dispatch = useDispatch();
 
   const { stores, selectedStore, filters } = useSelector(
@@ -94,9 +94,9 @@ export default function JobOffers() {
         const searchValue = value.toLowerCase();
 
         return (
-          address.includes(searchValue) |
-          name.includes(searchValue) |
-          (searchValue === brand) |
+          address.includes(searchValue) ||
+          name.includes(searchValue) ||
+          searchValue === brand ||
           fullName.startsWith(searchValue)
         );
       }),
@@ -209,4 +209,4 @@ export default function JobOffers() {
   );
 }
 
-JobOffers.Layout = Layout;
+Jobs.Layout = Layout;
