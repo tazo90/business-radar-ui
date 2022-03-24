@@ -93,9 +93,9 @@ export default function Stores() {
         const searchValue = value.toLowerCase();
 
         return (
-          address.includes(searchValue) |
-          name.includes(searchValue) |
-          (searchValue === brand) |
+          address.includes(searchValue) ||
+          name.includes(searchValue) ||
+          searchValue === brand ||
           fullName.startsWith(searchValue)
         );
       }),
