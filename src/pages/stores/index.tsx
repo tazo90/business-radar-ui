@@ -17,6 +17,7 @@ import { useStoresQuery } from "../../api/stores/get-all-stores";
 import Drawer from "../../components/ui/drawer";
 import Autocomplete from "../../components/ui/autocomplete";
 import { setUserLocation } from "../../slices/location.slice";
+import { StoreDetail } from "@components/stores/store-detail";
 
 export default function Stores() {
   const dispatch = useDispatch();
@@ -101,6 +102,7 @@ export default function Stores() {
       }),
     };
 
+    setDrawerOpen(false);
     dispatch(setStore(null));
     dispatch(setStores(filteredStores));
   }
@@ -200,7 +202,7 @@ export default function Stores() {
         </section>
         {/* Drawer */}
         <Drawer isOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}>
-          test
+          <StoreDetail />
         </Drawer>
       </div>
     </>
