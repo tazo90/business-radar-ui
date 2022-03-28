@@ -29,11 +29,13 @@ export function Search({
         placeholder={placeholder}
         onChange={onSearch}
       />
-      <XIcon
-        className="absolute top-2.5 right-2.5 w-5 h-5 text-gray-500 cursor-pointer"
-        aria-hidden="true"
-        onClick={onClear}
-      />
+      {inputRef.current.value !== "" && (
+        <XIcon
+          className="absolute top-2.5 right-2.5 w-5 h-5 text-gray-500 cursor-pointer"
+          aria-hidden="true"
+          onClick={onClear}
+        />
+      )}
     </div>
   );
 }
