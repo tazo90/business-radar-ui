@@ -1,16 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { ArrowLeftIcon } from '@heroicons/react/solid'
 
 import { setStore } from "../../slices/store.slice";
 
 export default function Drawer({ children, isOpen, setDrawerOpen }) {
   const dispatch = useDispatch();
-  const store = useSelector(
-    (state: any) => state.store.selectedStore?.properties
-  );
-
-  if (!store) {
-    return null;
-  }
 
   function onClose() {
     dispatch(setStore(null));
@@ -30,11 +24,10 @@ export default function Drawer({ children, isOpen, setDrawerOpen }) {
           isOpen ? "-translate-x-0" : "-translate-x-full"
         }`}
       >
-        <article className="relative w-screen max-w-full pb-10 flex flex-col space-y-6 overflow-y-auto h-full">
-          <button className="w-12 h-12 bg-red-500" onClick={() => onClose()}>
-            Back
-          </button>
-          <header className="p-4 font-bold text-lg">{store.name}</header>
+        <article className="relative w-screen max-w-full pb-10 flex flex-col overflow-y-auto h-full">
+          <button className="flex justify-center items-center absolute top-4 left-4 w-8 h-8 rounded-md bg-stone-600 " onClick={() => onClose()}>
+            <ArrowLeftIcon className="h-6 w-6 text-white" aria-hidden="true" />
+          </button>          
           {children}
         </article>
       </section>
