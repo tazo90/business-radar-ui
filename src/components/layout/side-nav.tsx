@@ -32,8 +32,8 @@ export function SideNav() {
         </li>
         <li>
           <a
-            title="Job offers"
-            href="/job-offers"
+            title="Jobs"
+            href="/jobs"
             className="h-16 px-2 flex flex-col items-center justify-center hover:text-white w-full border-b border-gray-600"
           >
             <i className="mx-auto pb-1">
