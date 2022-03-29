@@ -9,6 +9,8 @@ import {
 } from "@heroicons/react/solid";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { StoreDetailEmployees } from "./store-detail-employees";
+import { StoreDetailJobs } from "./store-detail-jobs";
 import { StoreDetailOverview } from "./store-detail-overview";
 
 function classNames(...classes) {
@@ -21,8 +23,8 @@ const tabs = [
     href: "#",
     content: <StoreDetailOverview />,
   },
-  { name: "Jobs", href: "#", content: null },
-  { name: "Employees", href: "#", content: null },
+  { name: "Jobs", href: "#", content: <StoreDetailJobs /> },
+  { name: "Employees", href: "#", content: <StoreDetailEmployees /> },
   { name: "Reviews", href: "#", content: null },
   { name: "Trainings", href: "#", content: null },
   { name: "Photos", href: "#", content: null },
