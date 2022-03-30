@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreDetailEmployees } from "./store-detail-employees";
 import { StoreDetailJobs } from "./store-detail-jobs";
+import { StoreDetailMenu } from "./store-detail-menu";
 import { StoreDetailOverview } from "./store-detail-overview";
 import { StoreDetailPhotos } from "./store-detail-photos";
 import { StoreDetailReviews } from "./store-detail-reviews";
@@ -29,7 +30,7 @@ const tabs = [
   },
   { name: "Jobs", href: "#", content: <StoreDetailJobs /> },
   { name: "Employees", href: "#", content: <StoreDetailEmployees /> },
-  { name: "Menu", href: "#", content: null },
+  { name: "Menu", href: "#", content: <StoreDetailMenu /> },
   { name: "Photos", href: "#", content: <StoreDetailPhotos /> },
   { name: "Reviews", href: "#", content: <StoreDetailReviews /> },
   { name: "Trainings", href: "#", content: null },
@@ -88,7 +89,7 @@ const team = [
 
 function Reviews() {
   return (
-    <div className="flex flex-col">
+    <div className="flex justify-between sm:flex-col">
       <div className="flex items-center">
         <span className="text-sm font-semibold pl-2">3.5</span>
         <ul className="flex justify-center ml-1">
@@ -175,12 +176,16 @@ export function StoreDetail({ isOpen }) {
               />
             </div>
             <div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6">
-              <div className="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
+              <div className="2xl:block mt-6 min-w-0 flex-1 pl-1">
                 <h1 className="text-2xl font-bold text-gray-900 truncate">
                   {store.brand_full} {store.name}
                 </h1>
                 <div className="flex flex-col">
-                  <span className="text-sm font-semibold pr-4">
+                  <span className="relative text-sm font-semibold pr-4">
+                    <span className="flex absolute h-3 w-3 top-2.5 -left-6 -mt-1 -mr-1">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-600 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-green-600"></span>
+                    </span>
                     <span className="text-green-600 font-semibold">Open</span> -
                     Closes 8 PM
                   </span>
@@ -211,11 +216,6 @@ export function StoreDetail({ isOpen }) {
               </div>
             </div>
           </div>
-          <div className="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
-            <h1 className="text-2xl font-bold text-gray-900 truncate">
-              {profile.name}
-            </h1>
-          </div>
         </div>
       </div>
 
@@ -223,7 +223,10 @@ export function StoreDetail({ isOpen }) {
       <div className="mt-6 sm:mt-2 2xl:mt-1">
         <div className="border-b border-gray-200">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+            <nav
+              className="-mb-px flex flex-col sm:flex-row sm:space-x-8"
+              aria-label="Tabs"
+            >
               {tabs.map((tab) => {
                 const isCurrent = tab.name === currentTab.name;
 
