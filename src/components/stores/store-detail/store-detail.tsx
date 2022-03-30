@@ -7,13 +7,15 @@ import {
   MailIcon,
   PhoneIcon,
   SearchIcon,
+  StarIcon,
 } from "@heroicons/react/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreDetailEmployees } from "./store-detail-employees";
 import { StoreDetailJobs } from "./store-detail-jobs";
 import { StoreDetailOverview } from "./store-detail-overview";
 import { StoreDetailPhotos } from "./store-detail-photos";
+import { StoreDetailReviews } from "./store-detail-reviews";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -29,7 +31,7 @@ const tabs = [
   { name: "Employees", href: "#", content: <StoreDetailEmployees /> },
   { name: "Menu", href: "#", content: null },
   { name: "Photos", href: "#", content: <StoreDetailPhotos /> },
-  { name: "Reviews", href: "#", content: null },
+  { name: "Reviews", href: "#", content: <StoreDetailReviews /> },
   { name: "Trainings", href: "#", content: null },
   { name: "Nearby", href: "#", content: null },
 ];
@@ -88,106 +90,38 @@ function Reviews() {
   return (
     <div className="flex flex-col">
       <div className="flex items-center">
-        <ul className="flex justify-center ml-1">
-          <li>
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="fas"
-              data-icon="star"
-              className="w-3 text-yellow-500 mr-1"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 576 512"
-            >
-              <path
-                fill="currentColor"
-                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
-              ></path>
-            </svg>
-          </li>
-          <li>
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="fas"
-              data-icon="star"
-              className="w-3 text-yellow-500 mr-1"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 576 512"
-            >
-              <path
-                fill="currentColor"
-                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
-              ></path>
-            </svg>
-          </li>
-          <li>
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="fas"
-              data-icon="star"
-              className="w-3 text-yellow-500 mr-1"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 576 512"
-            >
-              <path
-                fill="currentColor"
-                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
-              ></path>
-            </svg>
-          </li>
-          <li>
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="far"
-              data-icon="star"
-              className="w-3 text-yellow-500 mr-1"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 576 512"
-            >
-              <path
-                fill="currentColor"
-                d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"
-              ></path>
-            </svg>
-          </li>
-          <li>
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="far"
-              data-icon="star"
-              className="w-3 text-yellow-500"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 576 512"
-            >
-              <path
-                fill="currentColor"
-                d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"
-              ></path>
-            </svg>
-          </li>
-        </ul>
         <span className="text-sm font-semibold pl-2">3.5</span>
+        <ul className="flex justify-center ml-1">
+          {[0, 1, 2, 3, 4].map((rating) => (
+            <li key={rating}>
+              <StarIcon
+                className={classNames(
+                  rating < 4 ? "text-yellow-400" : "text-gray-300",
+                  "h-4 w-4"
+                )}
+                aria-hidden="true"
+              />
+            </li>
+          ))}
+        </ul>
       </div>
-      <p className="text-sm font-semibold text-right">120 reviews</p>
+      <p className="text-sm font-semibold text-right pr-1">120 reviews</p>
     </div>
   );
 }
 
-export function StoreDetail() {
+export function StoreDetail({ isOpen }) {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
 
   const store = useSelector(
     (state: any) => state.store.selectedStore?.properties
   );
+
+  useEffect(() => {
+    if (isOpen) {
+      setCurrentTab(tabs[0]);
+    }
+  }, [isOpen]);
 
   if (!store) {
     return null;
