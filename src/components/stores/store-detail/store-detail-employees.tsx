@@ -54,16 +54,16 @@ export function StoreDetailEmployees() {
         {candidates.map((candidate) => (
           <li key={candidate.email}>
             <a href="#" className="group block">
-              <div className="flex items-center py-5 px-4 sm:py-6 sm:px-0">
+              <div className="flex items-center py-5 px-4 sm:py-6 sm:px-0 bg-gray-100 rounded-lg">
                 <div className="min-w-0 flex-1 flex items-center">
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0 px-4">
                     <img
                       className="h-12 w-12 rounded-full group-hover:opacity-75"
                       src={candidate.imageUrl}
                       alt=""
                     />
                   </div>
-                  <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-3 md:gap-4">
+                  <div className="min-w-0 flex-1 px-2 md:grid md:grid-cols-3 md:gap-4">
                     <div>
                       <p className="text-sm font-medium text-purple-600 truncate">
                         {candidate.name}

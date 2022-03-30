@@ -39,7 +39,7 @@ export function StoreDetailJobs() {
         {jobs.map((job) => (
           <li key={job.email}>
             <a href="#" className="group block">
-              <div className="flex items-center py-5 px-4 sm:py-6 sm:px-0">
+              <div className="flex items-center py-5 px-4 sm:py-6 sm:px-0 bg-gray-100 rounded-md">
                 <div className="min-w-0 flex-1 flex items-center">
                   <div className="w-full flex justify-between px-4">
                     <div>
