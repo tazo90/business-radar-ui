@@ -30,18 +30,6 @@ const candidates = [
   },
   // More candidates...
 ];
-const publishingOptions = [
-  {
-    name: "Published",
-    description: "This job posting can be viewed by anyone who has the link.",
-    current: true,
-  },
-  {
-    name: "Draft",
-    description: "This job posting will no longer be publicly accessible.",
-    current: false,
-  },
-];
 
 export function StoreDetailEmployees() {
   return (

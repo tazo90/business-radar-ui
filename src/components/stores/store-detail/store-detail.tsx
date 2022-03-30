@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { StoreDetailEmployees } from "./store-detail-employees";
 import { StoreDetailJobs } from "./store-detail-jobs";
 import { StoreDetailOverview } from "./store-detail-overview";
+import { StoreDetailPhotos } from "./store-detail-photos";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -27,7 +28,7 @@ const tabs = [
   { name: "Jobs", href: "#", content: <StoreDetailJobs /> },
   { name: "Employees", href: "#", content: <StoreDetailEmployees /> },
   { name: "Menu", href: "#", content: null },
-  { name: "Photos", href: "#", content: null },
+  { name: "Photos", href: "#", content: <StoreDetailPhotos /> },
   { name: "Reviews", href: "#", content: null },
   { name: "Trainings", href: "#", content: null },
   { name: "Nearby", href: "#", content: null },
