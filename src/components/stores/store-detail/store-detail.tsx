@@ -27,9 +27,10 @@ const tabs = [
   { name: "Jobs", href: "#", content: <StoreDetailJobs /> },
   { name: "Employees", href: "#", content: <StoreDetailEmployees /> },
   { name: "Menu", href: "#", content: null },
+  { name: "Photos", href: "#", content: null },
   { name: "Reviews", href: "#", content: null },
   { name: "Trainings", href: "#", content: null },
-  { name: "Photos", href: "#", content: null },
+  { name: "Nearby", href: "#", content: null },
 ];
 
 const profile = {
