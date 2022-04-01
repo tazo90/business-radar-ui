@@ -202,7 +202,7 @@ export default function Stores() {
         </section>
         {/* Drawer */}
         <Drawer isOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}>
-          <StoreDetail />
+          <StoreDetail isOpen={isDrawerOpen} />
         </Drawer>
       </div>
     </>
