@@ -77,10 +77,10 @@ export function StoreDetailMenu() {
     <>
       <div className="mt-4 lg:py-1 xl:py-0 border-b border-gray-300 px-8 pb-9 md:pb-14 lg:pb-16 2xl:pb-20 3xl:pb-24">
         <div className="flex flex-col md:flex-row">
-          <nav className="md:w-72 xl:w-3/12 mb-8 md:mb-0">
-            <ol className="sticky top-4 z-10">
-              {categories?.map((category, index) => (
-                <li key={category.id}>
+          <nav className="sticky top-4 md:w-72 xl:w-3/12 mb-8 md:mb-0">
+            <ol className="flex md:flex-col overflow-x-auto z-10">
+              {categories?.map((category) => (
+                <li key={category.id} className="mx-4 md:mx-auto">
                   <Link
                     onClick={() => onScroll(category)}
                     spy={true}
