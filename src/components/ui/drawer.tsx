@@ -24,7 +24,10 @@ export default function Drawer({ children, isOpen, setDrawerOpen }) {
           isOpen ? "-translate-x-0" : "-translate-x-full"
         }`}
       >
-        <article className="relative w-screen max-w-full pb-10 flex flex-col overflow-y-auto h-full">
+        <article
+          id="drawer-content"
+          className="relative w-screen max-w-full pb-10 flex flex-col overflow-y-auto h-full"
+        >
           <button
             className="flex justify-center items-center absolute top-4 left-4 w-8 h-8 rounded-md bg-white "
             onClick={() => onClose()}

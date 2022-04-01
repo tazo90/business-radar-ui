@@ -92,7 +92,7 @@ function Reviews() {
     <div className="flex justify-between sm:flex-col">
       <div className="flex items-center">
         <span className="text-sm font-semibold pl-2">3.5</span>
-        <ul className="flex justify-center ml-1">
+        <ul className="flex justify-center7 ml-1">
           {[0, 1, 2, 3, 4].map((rating) => (
             <li key={rating}>
               <StarIcon
