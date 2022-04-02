@@ -142,7 +142,7 @@ export default function Stores() {
               <span className="px-2">Zamów</span>
             </button>
             <button
-              className="ml-4 md:ml-0 lg:hidden border border-gray-300 h-10 rounded-lg text-white bg-slate-700 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
+              className="ml-2 lg:hidden border border-gray-300 h-10 rounded-lg text-white bg-slate-700 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
               type="button"
               onClick={() => setMapVisible(!isMapVisible)}
             >

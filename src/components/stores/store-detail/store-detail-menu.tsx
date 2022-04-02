@@ -38,7 +38,7 @@ export function StoreDetailMenu() {
       <div className="lg:py-1 xl:py-0 border-b border-gray-300 pb-9 md:pb-14 lg:pb-16 2xl:pb-20 3xl:pb-24">
         <div className="flex flex-col md:flex-row">
           <nav className="sticky top-16 md:w-72 xl:w-3/12 mb-8 md:mb-0 w-full z-50">
-            <ol className="md:sticky md:top-4 flex md:flex-col overflow-x-auto bg-white">
+            <ol className="md:sticky md:top-4 flex md:flex-col items-center md:items-start overflow-x-auto bg-white">
               {categories?.map((category) => (
                 <li key={category.id} className="mx-4 md:h-14">
                   <Link
@@ -55,12 +55,12 @@ export function StoreDetailMenu() {
                         : ""
                     )}
                   >
-                    <div className="md:flex md:items-center">
+                    <div className="flex md:flex-row flex-col items-center whitespace-nowrap">
                       <img
                         src={category.img}
                         className="w-16 md:w-12 md:mr-4"
                       />
-                      {capitalize(category.name.toLowerCase())}
+                      <span>{capitalize(category.name.toLowerCase())}</span>
                     </div>
                   </Link>
                 </li>
@@ -100,8 +100,8 @@ export function StoreDetailMenu() {
                         <span className="text-md md:text-sm">
                           PLN {product.price}
                         </span>
-                        <button className="absolute top-2 right-2 w-8 h-8 rounded-full bg-black flex items-center justify-center group-hover:bg-lime-600">
-                          <PlusIcon className="w-5 h-5 text-white" />
+                        <button className="absolute top-1 right-1 w-8 h-8 rounded-full bg-black flex items-center justify-center group-hover:bg-black border border-black">
+                          <PlusIcon className="w-5 h-5 text-white group-hover:text-white" />
                         </button>
                       </div>
                     );

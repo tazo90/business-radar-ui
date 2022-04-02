@@ -89,10 +89,10 @@ const team = [
 
 function Reviews() {
   return (
-    <div className="flex justify-between sm:flex-col">
+    <div className="flex items-center">
       <div className="flex items-center">
         <span className="text-sm font-semibold pl-2">3.5</span>
-        <ul className="flex justify-center7 ml-1">
+        <ul className="flex justify-center ml-1 mt-0.5">
           {[0, 1, 2, 3, 4].map((rating) => (
             <li key={rating}>
               <StarIcon
@@ -106,7 +106,7 @@ function Reviews() {
           ))}
         </ul>
       </div>
-      <p className="text-sm font-semibold text-right pr-1">120 reviews</p>
+      <p className="text-sm font-semibold pl-1">(120)</p>
     </div>
   );
 }
@@ -180,7 +180,7 @@ export function StoreDetail({ isOpen }) {
                 <h1 className="text-2xl font-bold text-gray-900 truncate">
                   {store.brand_full} {store.name}
                 </h1>
-                <div className="flex flex-col">
+                <div className="flex justify-between">
                   <span className="relative text-sm font-semibold pr-4">
                     <span className="flex absolute h-3 w-3 top-2.5 -left-6 -mt-1 -mr-1">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-600 opacity-75"></span>
@@ -189,6 +189,7 @@ export function StoreDetail({ isOpen }) {
                     <span className="text-green-600 font-semibold">Open</span> -
                     Closes 8 PM
                   </span>
+                  <Reviews />
                 </div>
               </div>
               <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
@@ -212,7 +213,6 @@ export function StoreDetail({ isOpen }) {
                   />
                   <span>Call</span>
                 </button>
-                <Reviews />
               </div>
             </div>
           </div>
