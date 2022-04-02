@@ -1,2 +1,2 @@
-export * from './geojson';
-export * from './strings';
+export * from "./geojson/to-geojson";
+export * from "./strings";
