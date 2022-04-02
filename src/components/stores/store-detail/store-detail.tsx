@@ -220,7 +220,7 @@ export function StoreDetail({ isOpen }) {
       </div>
 
       {/* Tabs */}
-      <div className="overflow-x-auto md:overflow-hidden sticky md:relative top-0 mt-6 sm:mt-2 2xl:mt-1">
+      <div className="overflow-x-auto md:overflow-hidden sticky md:relative top-0 mt-6 sm:mt-2 2xl:mt-1 z-50 bg-white">
         <div className="border-b border-gray-200">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav className="-mb-px flex space-x-8" aria-label="Tabs">

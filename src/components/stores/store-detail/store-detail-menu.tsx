@@ -68,7 +68,7 @@ export function StoreDetailMenu() {
       duration: 500,
       delay: 100,
       smooth: true,
-      offset: -180,
+      offset: window.innerWidth > 768 ? -10 : -180,
     });
 
     setActiveCategory(category);
@@ -76,12 +76,12 @@ export function StoreDetailMenu() {
 
   return (
     <>
-      <div className="mt-4 lg:py-1 xl:py-0 border-b border-gray-300 px-8 pb-9 md:pb-14 lg:pb-16 2xl:pb-20 3xl:pb-24">
+      <div className="lg:py-1 xl:py-0 border-b border-gray-300 pb-9 md:pb-14 lg:pb-16 2xl:pb-20 3xl:pb-24">
         <div className="flex flex-col md:flex-row">
-          <nav className="sticky top-20 md:w-72 xl:w-3/12 mb-8 md:mb-0">
-            <ol className="md:sticky md:top-20 flex md:flex-col overflow-x-auto z-10">
+          <nav className="sticky top-16 md:w-72 xl:w-3/12 mb-8 md:mb-0 w-full">
+            <ol className="md:sticky md:top-4 flex md:flex-col overflow-x-auto z-50 bg-white">
               {categories?.map((category) => (
-                <li key={category.id} className="mx-4 md:mx-auto">
+                <li key={category.id} className="mx-8">
                   <Link
                     onClick={() => onScroll(category)}
                     spy={true}
@@ -90,7 +90,7 @@ export function StoreDetailMenu() {
                     duration={500}
                     to={makeTitleToDOMId(category.title)}
                     className={classNames(
-                      "block font-semibold cursor-pointer py-3 lg:py-3.5 text-sm lg:text-base text-gray-700 uppercase",
+                      "block font-semibold cursor-pointer py-3 lg:py-3.5 text-sm lg:text-base text-gray-700 uppercase px-2",
                       activeCategory?.title === category.title
                         ? "underline underline-offset-4"
                         : ""
