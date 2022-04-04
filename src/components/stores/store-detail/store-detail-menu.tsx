@@ -6,11 +6,17 @@ import { capitalize } from "../../../utils/";
 import { useCategoriesQuery } from "../../../api/category/get-all-categories";
 import { classNames } from "../../../utils/classnames";
 
+interface StoreDetailMenuProps {
+  showMenuImage?: boolean;
+}
+
 function makeTitleToDOMId(title: string) {
   return title.toLowerCase().split(" ").join("_");
 }
 
-export function StoreDetailMenu() {
+export function StoreDetailMenu({
+  showMenuImage = false,
+}: StoreDetailMenuProps) {
   const [activeCategory, setActiveCategory] = useState(null);
 
   const { data, isLoading, error } = useCategoriesQuery({});
@@ -37,7 +43,13 @@ export function StoreDetailMenu() {
           <nav className="sticky top-16 md:w-72 xl:w-4/12 mb-8 md:mb-0 w-full z-50">
             <ol className="md:sticky md:top-4 flex md:flex-col items-center md:items-start overflow-x-auto bg-white">
               {categories?.map((category) => (
-                <li key={category.id} className="mx-4 md:h-14">
+                <li
+                  key={category.id}
+                  className={classNames(
+                    showMenuImage ? "md:h-14" : "md:h-12",
+                    "mx-4 md:h-14"
+                  )}
+                >
                   <Link
                     onClick={() => onScroll(category)}
                     spy={true}
@@ -53,11 +65,13 @@ export function StoreDetailMenu() {
                     )}
                   >
                     <div className="flex md:flex-row flex-col items-center whitespace-nowrap">
-                      <img
-                        src={category.img}
-                        className="w-16 md:w-12 md:mr-4"
-                      />
-                      <span className="text-sm">
+                      {showMenuImage && (
+                        <img
+                          src={category.img}
+                          className="w-16 md:w-12 md:mr-4"
+                        />
+                      )}
+                      <span className="text-md">
                         {capitalize(category.name.toLowerCase())}
                       </span>
                     </div>

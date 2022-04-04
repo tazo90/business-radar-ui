@@ -5,5 +5,5 @@ export const API_ENDPOINTS = {
     BRANDS: "/customer/brands",
     COUNTRIES: "/customer/countries",
   },
-  CATEGORIES: "/categories-kfc.json",
+  CATEGORIES: "/categories-bk.json",
 };
