@@ -30,7 +30,7 @@ export function Filter({
   }, [isOpen]);
 
   useEffect(() => {
-    if (items) {
+    if (Object.keys(items).length > 0) {
       setFilteredItems(items);
     }
   }, [items]);

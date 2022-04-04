@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: "http://localhost:8000/api/v1/",
+  baseURL: process.env.NEXT_PUBLIC_API_ENDPOINT,
   timeout: 30000,
   headers: {
     Accept: "application/json",
@@ -10,7 +10,7 @@ const http = axios.create({
 });
 
 export const httpMock = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_REST_API_ENDPOINT,
+  baseURL: process.env.NEXT_PUBLIC_MOCK_API_ENDPOINT,
   timeout: 30000,
   headers: {
     Accept: "application/json",
