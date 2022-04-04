@@ -13,7 +13,7 @@ export default function Drawer({ children, isOpen, setDrawerOpen }) {
 
   return (
     <main
-      className={`max-w-[56rem] absolute overflow-hidden inset-0 transform ease-in-out ${
+      className={`max-w-[60rem] absolute overflow-hidden inset-0 transform ease-in-out ${
         isOpen
           ? "transition-opacity opacity-100 duration-500 -translate-x-0"
           : "transition-all delay-500 opacity-0 -translate-x-full"

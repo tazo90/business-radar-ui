@@ -37,7 +37,7 @@ export function StoreDetailMenu() {
     <>
       <div className="lg:py-1 xl:py-0 border-b border-gray-300 pb-9 md:pb-14 lg:pb-16 2xl:pb-20 3xl:pb-24">
         <div className="flex flex-col md:flex-row">
-          <nav className="sticky top-16 md:w-72 xl:w-3/12 mb-8 md:mb-0 w-full z-50">
+          <nav className="sticky top-16 md:w-72 xl:w-4/12 mb-8 md:mb-0 w-full z-50">
             <ol className="md:sticky md:top-4 flex md:flex-col items-center md:items-start overflow-x-auto bg-white">
               {categories?.map((category) => (
                 <li key={category.id} className="mx-4 md:h-14">
@@ -51,7 +51,7 @@ export function StoreDetailMenu() {
                     className={classNames(
                       "block font-semibold cursor-pointer text-sm lg:text-base text-gray-700 px-2",
                       activeCategory?.name === category.name
-                        ? "underline underline-offset-4"
+                        ? "underline underline-offset-4 decoration-2"
                         : ""
                     )}
                   >
@@ -60,7 +60,9 @@ export function StoreDetailMenu() {
                         src={category.img}
                         className="w-16 md:w-12 md:mr-4"
                       />
-                      <span>{capitalize(category.name.toLowerCase())}</span>
+                      <span className="text-sm">
+                        {capitalize(category.name.toLowerCase())}
+                      </span>
                     </div>
                   </Link>
                 </li>
