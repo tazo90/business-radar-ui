@@ -1,26 +1,20 @@
-import { ListboxItemRating } from "@components/listbox/listbox-item/listbox-item-rating";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import {
-  ChevronLeftIcon,
-  FilterIcon,
   HeartIcon,
   LocationMarkerIcon,
   MailIcon,
   PhoneIcon,
-  SearchIcon,
-  StarIcon,
 } from "@heroicons/react/solid";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { classNames } from "../../../utils/classnames";
 import { StoreDetailEmployees } from "./store-detail-employees";
 import { StoreDetailJobs } from "./store-detail-jobs";
 import { StoreDetailMenu } from "./store-detail-menu";
 import { StoreDetailOverview } from "./store-detail-overview";
 import { StoreDetailPhotos } from "./store-detail-photos";
 import { StoreDetailReviews } from "./store-detail-reviews";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { Rating } from "../../../components/ui/rating";
 
 const tabs = [
   {
@@ -86,30 +80,6 @@ const team = [
       "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
   },
 ];
-
-function Reviews() {
-  return (
-    <div className="flex items-center">
-      <div className="flex items-center">
-        <span className="text-sm font-semibold pl-2">3.5</span>
-        <ul className="flex justify-center ml-1 mt-0.5">
-          {[0, 1, 2, 3, 4].map((rating) => (
-            <li key={rating}>
-              <StarIcon
-                className={classNames(
-                  rating < 4 ? "text-yellow-400" : "text-gray-300",
-                  "h-4 w-4"
-                )}
-                aria-hidden="true"
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-      <p className="text-sm font-semibold pl-1">(120)</p>
-    </div>
-  );
-}
 
 export function StoreDetail({ isOpen }) {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
@@ -189,7 +159,7 @@ export function StoreDetail({ isOpen }) {
                     <span className="text-green-600 font-semibold">Open</span> -
                     Closes 8 PM
                   </span>
-                  <Reviews />
+                  <Rating count={120} rate={3.5} />
                 </div>
               </div>
               <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">

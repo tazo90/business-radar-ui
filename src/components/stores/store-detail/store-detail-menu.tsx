@@ -4,13 +4,10 @@ import { Link, Element, scroller } from "react-scroll";
 
 import { capitalize } from "../../../utils/";
 import { useCategoriesQuery } from "../../../api/category/get-all-categories";
+import { classNames } from "../../../utils/classnames";
 
 function makeTitleToDOMId(title: string) {
   return title.toLowerCase().split(" ").join("_");
-}
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
 }
 
 export function StoreDetailMenu() {

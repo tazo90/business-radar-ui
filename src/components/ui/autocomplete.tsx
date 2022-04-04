@@ -8,10 +8,7 @@ import {
 
 import { useGeocodingQuery } from "../../api/geocoding/geocoding";
 import { useDebounce } from "../../hooks/useDebounce";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { classNames } from "../../utils/classnames";
 
 function renderPlaceHouse({
   street,

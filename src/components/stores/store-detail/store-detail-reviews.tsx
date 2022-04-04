@@ -1,5 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { StarIcon } from "@heroicons/react/solid";
+import { classNames } from "../../../utils/classnames";
 
 const reviews = {
   average: 4,
@@ -25,10 +26,6 @@ const reviews = {
     // More reviews...
   ],
 };
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export function StoreDetailReviews() {
   return (

@@ -1,27 +1,3 @@
-import {
-  ChevronLeftIcon,
-  FilterIcon,
-  HeartIcon,
-  LocationMarkerIcon,
-  MailIcon,
-  PhoneIcon,
-  SearchIcon,
-} from "@heroicons/react/solid";
-import { useDispatch, useSelector } from "react-redux";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-const tabs = [
-  { name: "Overview", href: "#", current: true },
-  { name: "Jobs", href: "#", current: false },
-  { name: "Employees", href: "#", current: false },
-  { name: "Reviews", href: "#", current: false },
-  { name: "Trainings", href: "#", current: false },
-  { name: "Photos", href: "#", current: false },
-];
-
 const profile = {
   name: "Ricardo Cooper",
   imageUrl:
