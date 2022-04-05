@@ -13,7 +13,7 @@ export function ListboxJobDetails({ job }) {
         </div>
         <div className="flex flex-col items-center ml-2 py-1 overflow-hidden">
           <span className="text-[0.95rem] font-semibold leading-none">
-            {job.jobTitle}
+            {job.title}
           </span>
           <span className="text-sm leading-1 w-full truncate">
             {job.brand_full.toUpperCase()} {job.name}
