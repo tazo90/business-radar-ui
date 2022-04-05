@@ -5,7 +5,7 @@ function getStoreField(feature) {
 }
 
 export function toGeojson({
-  data
+  data,
   getProperties = baseProperties,
   getStore = getStoreField,
 }) {
