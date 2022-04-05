@@ -17,7 +17,7 @@ import { useStoresQuery } from "../../api/stores/get-all-stores";
 import Drawer from "../../components/ui/drawer";
 import Autocomplete from "../../components/ui/autocomplete";
 import { setUserLocation } from "../../slices/location.slice";
-import { StoreDetail } from "@components/stores/store-detail";
+import { StoreDetail } from "../../components/stores/store-detail";
 
 export default function Stores() {
   const dispatch = useDispatch();
