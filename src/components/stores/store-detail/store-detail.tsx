@@ -146,13 +146,13 @@ export function StoreDetail({ isOpen }) {
               />
             </div>
             <div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6">
-              <div className="2xl:block mt-6 min-w-0 flex-1 pl-1">
+              <div className="2xl:block -mt-4 sm:mt-12 min-w-0 flex-1 pl-2">
                 <h1 className="text-2xl font-bold text-gray-900 truncate">
                   {store.brand_full} {store.name}
                 </h1>
-                <div className="flex justify-between">
-                  <span className="relative text-sm font-semibold pr-4">
-                    <span className="flex absolute h-3 w-3 top-2.5 -left-6 -mt-1 -mr-1">
+                <div className="flex flex-col justify-between pl-0 space-y-1">
+                  <span className="relative text-sm font-semibold pl-5">
+                    <span className="flex absolute h-3 w-3 top-2.5 left-0 -mt-1 -mr-1">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-600 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-3 w-3 bg-green-600"></span>
                     </span>

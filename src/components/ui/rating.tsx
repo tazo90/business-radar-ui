@@ -12,7 +12,7 @@ export function Rating({ rate, count, textSize = "text-sm" }: RatingProps) {
   return (
     <div className="flex items-center">
       <div className="flex items-center">
-        <span className={`${textSize} font-semibold pl-2`}>{rate}</span>
+        <span className={`${textSize} font-semibold`}>{rate}</span>
         <ul className="flex justify-center ml-1 mt-0.5">
           {[0, 1, 2, 3, 4].map((rating) => (
             <li key={rating}>
