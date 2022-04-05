@@ -18,6 +18,7 @@ import Drawer from "../../components/ui/drawer";
 import Autocomplete from "../../components/ui/autocomplete";
 import { setUserLocation } from "../../slices/location.slice";
 import { ListboxJob } from "../../components/jobs/listbox-job/listbox-job";
+import { JobDetail } from "../../components/jobs/job-detail";
 
 export default function Jobs() {
   const dispatch = useDispatch();
@@ -202,7 +203,7 @@ export default function Jobs() {
         </section>
         {/* Drawer */}
         <Drawer isOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}>
-          test
+          <JobDetail />
         </Drawer>
       </div>
     </>

@@ -1,14 +1,17 @@
 import { baseProperties } from "./base-properties";
 
 export function jobProperties(feature: any) {
-  let properties = baseProperties(feature);
+  let properties = baseProperties(feature.store);
 
-  const { brand, is_manager, job_category_name, profession_name, title } =
-    feature;
+  const { store, profession_name } = feature;
 
   const jobTitle = profession_name.replace("Eksternal - ", "");
-  const brandIndex = jobTitle.toUpperCase().indexOf(brand.name);
-  const formattedJobTitle = jobTitle.slice(0, brandIndex);
+  const brandIndex = jobTitle.toUpperCase().indexOf(store.brand.name);
+
+  let formattedJobTitle = jobTitle;
+  if (brandIndex >= 0) {
+    formattedJobTitle = jobTitle.slice(0, brandIndex);
+  }
 
   return {
     ...properties,

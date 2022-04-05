@@ -11,7 +11,7 @@ export async function fetchStores({ queryKey }: any) {
     params: _params,
   });
 
-  return toGeojson(data);
+  return toGeojson({ data });
 }
 
 export const useStoresQuery = (options: any) => {

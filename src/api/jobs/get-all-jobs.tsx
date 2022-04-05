@@ -12,7 +12,11 @@ export async function fetchJobs({ queryKey }: any) {
     params: _params,
   });
 
-  return toGeojson(data, jobProperties);
+  return toGeojson({
+    data,
+    getProperties: jobProperties,
+    getStore: (feature) => feature.store,
+  });
 }
 
 export const useJobsQuery = (options: any) => {
