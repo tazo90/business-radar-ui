@@ -1,6 +1,9 @@
+import { useRouter } from "next/router";
 import BaseLayout from "../components/layouts/base";
 
 export default function RegisterPage() {
+  const router = useRouter();
+
   return (
     <>
       <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -109,7 +112,13 @@ export default function RegisterPage() {
               <div className="relative">
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-white text-gray-500">
-                    Have an account? Sign in
+                    <span className="mr-1">Have an account?</span>
+                    <button
+                      onClick={() => router.push("/login")}
+                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                    >
+                      Sign in
+                    </button>
                   </span>
                 </div>
               </div>

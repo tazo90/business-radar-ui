@@ -156,6 +156,7 @@ import {
   MailIcon,
   ScaleIcon,
 } from "@heroicons/react/outline";
+import { Router, useRouter } from "next/router";
 
 const transferFeatures = [
   {
@@ -198,6 +199,8 @@ const communicationFeatures = [
 ];
 
 export default function HomePage() {
+  const router = useRouter();
+
   return (
     <div className="bg-white">
       <div className="relative overflow-hidden">
@@ -237,12 +240,12 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="hidden md:flex md:items-center md:space-x-6">
-                <a
-                  href="#"
+                <button
+                  onClick={() => router.push("/login")}
                   className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
                 >
                   Login
-                </a>
+                </button>
               </div>
             </nav>
           </div>

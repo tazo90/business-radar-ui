@@ -1,6 +1,9 @@
+import { useRouter } from "next/router";
 import BaseLayout from "../components/layouts/base";
 
 export default function LoginPage() {
+  const router = useRouter();
+
   return (
     <>
       <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -73,12 +76,12 @@ export default function LoginPage() {
                 </div>
 
                 <div className="text-sm">
-                  <a
-                    href="#"
+                  <button
+                    onClick={() => router.push("/forgot-password")}
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     Forgot your password?
-                  </a>
+                  </button>
                 </div>
               </div>
 
