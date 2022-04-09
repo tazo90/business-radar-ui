@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MenuIcon, MapIcon, ShoppingBagIcon } from "@heroicons/react/outline";
 
-import Layout from "../../components/layout/layout";
+import DashboardLayout from "../../components/layouts/dashboard";
 import Map from "../../components/map";
-import { Footer } from "../../components/layout/footer";
 import { Search } from "../../components/common/search";
 import Listbox from "../../components/listbox/listbox";
 import {
@@ -20,7 +19,7 @@ import { setUserLocation } from "../../slices/location.slice";
 import { ListboxJob } from "../../components/jobs/listbox-job/listbox-job";
 import { JobDetail } from "../../components/jobs/job-detail";
 
-export default function Jobs() {
+export default function JobsPage() {
   const dispatch = useDispatch();
 
   const { stores, selectedStore, filters } = useSelector(
@@ -199,7 +198,6 @@ export default function Jobs() {
           } lg:flex`}
         >
           <Map locations={stores} storeList={storeList} />
-          <Footer />
         </section>
         {/* Drawer */}
         <Drawer isOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}>
@@ -210,4 +208,4 @@ export default function Jobs() {
   );
 }
 
-Jobs.Layout = Layout;
+JobsPage.Layout = DashboardLayout;

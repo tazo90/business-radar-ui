@@ -1,7 +1,7 @@
-import Layout from "@components/layout/layout";
+import DashboardLayout from "@components/layouts/dashboard";
 
-export default function JobOfferDetails() {
+export default function JobOfferPage() {
   return <div>Job offer details</div>;
 }
 
-JobOfferDetails.Layout = Layout;
+JobOfferPage.Layout = DashboardLayout;

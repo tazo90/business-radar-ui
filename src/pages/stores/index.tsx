@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MenuIcon, MapIcon, ShoppingBagIcon } from "@heroicons/react/outline";
 
-import Layout from "../../components/layout/layout";
+import DashboardLayout from "@components/layouts/dashboard";
 import Map from "../../components/map";
-import { Footer } from "../../components/layout/footer";
 import { Search } from "../../components/common/search";
 import Listbox from "../../components/listbox/listbox";
 import {
@@ -19,7 +18,7 @@ import Autocomplete from "../../components/ui/autocomplete";
 import { setUserLocation } from "../../slices/location.slice";
 import { StoreDetail } from "../../components/stores/store-detail";
 
-export default function Stores() {
+export default function StoresPage() {
   const dispatch = useDispatch();
 
   const { stores, selectedStore, filters } = useSelector(
@@ -198,7 +197,6 @@ export default function Stores() {
           } lg:flex`}
         >
           <Map locations={stores} storeList={storeList} />
-          <Footer />
         </section>
         {/* Drawer */}
         <Drawer isOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}>
@@ -209,4 +207,4 @@ export default function Stores() {
   );
 }
 
-Stores.Layout = Layout;
+StoresPage.Layout = DashboardLayout;

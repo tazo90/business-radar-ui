@@ -1,7 +1,7 @@
-import Layout from "@components/layout/layout";
+import DashboardLayout from "@components/layouts/dashboard";
 
-export default function StoreDetails() {
+export default function StorePage() {
   return <div>Store details</div>;
 }
 
-StoreDetails.Layout = Layout;
+StorePage.Layout = DashboardLayout;

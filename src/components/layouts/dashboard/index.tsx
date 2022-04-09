@@ -1,13 +1,13 @@
 import { SideNav } from "./side-nav";
 import { TopNav } from "./top-nav";
 
-interface LayoutProps {
+interface DashboardLayoutProps {
   children?: any;
 }
 
 const DARK_MODE = false;
 
-function Layout({ children }: LayoutProps) {
+function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <div
       className={`${
@@ -25,4 +25,4 @@ function Layout({ children }: LayoutProps) {
   );
 }
 
-export default Layout;
+export default DashboardLayout;
