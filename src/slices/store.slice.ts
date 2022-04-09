@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initial } from "lodash";
 
 export interface StoreState {
   stores: any;

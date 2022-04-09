@@ -3,6 +3,7 @@ const glob = require('glob');
 const webpack = require('webpack');
 const dotenv = require('dotenv')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const BrotliPlugin = require('brotli-webpack-plugin');
 
 // this will update the process.env with environment variables in .env file
 dotenv.config();
@@ -21,6 +22,7 @@ function collectWidgets(path) {
 
 const config = {
   mode: 'production', 
+  devtool: false,
   entry: collectWidgets(WIDGETS_DIR),
   output: {
     path: path.resolve(ROOT_DIR, 'public', 'static', 'widgets'),
@@ -67,8 +69,19 @@ const config = {
     }),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env)
-   })
-  ]
+    }),
+    new BrotliPlugin({
+      asset: '[path].br[query]',
+      test: /\.(js|css|html|svg)$/,
+      threshold: 10240,
+      minRatio: 0.8
+    })
+  ],
+  performance: {
+    hints: 'warning',
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
 };
 
 module.exports = config;
