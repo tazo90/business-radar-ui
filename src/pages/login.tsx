@@ -26,7 +26,7 @@ export default function LoginPage() {
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email address
+                  Email
                 </label>
                 <div className="mt-1">
                   <input
@@ -166,6 +166,22 @@ export default function LoginPage() {
                     </svg>
                   </a>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <div className="relative">
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 text-gray-500">
+                  <span className="mr-1">Don't have account?</span>
+                  <button
+                    onClick={() => router.push("/register")}
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    Sign up
+                  </button>
+                </span>
               </div>
             </div>
           </div>
