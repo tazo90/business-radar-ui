@@ -15,23 +15,23 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "paths": {
+      "@api/*": [
+        "src/api/*"
+      ],
       "@assets/*": [
         "src/assets/*"
       ],
       "@components/*": [
         "src/components/*"
       ],
-      "@containers/*": [
-        "src/containers/*"
-      ],
       "@constants/*": [
         "src/constants/*"
       ],
-      "@api/*": [
-        "src/api/*"
+      "@containers/*": [
+        "src/containers/*"
       ],
-      "@settings/*": [
-        "src/settings/*"
+      "@lib/*": [
+        "src/lib/*"
       ],
       "@slices/*": [
         "src/slices/*"
@@ -39,9 +39,6 @@
       "@styles/*": [
         "src/styles/*"
       ],
-      "@utils/*": [
-        "src/utils/*"
-      ]
     },
     "incremental": true
   },

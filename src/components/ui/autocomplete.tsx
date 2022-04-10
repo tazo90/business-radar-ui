@@ -7,8 +7,8 @@ import {
 } from "@heroicons/react/outline";
 
 import { useGeocodingQuery } from "../../api/geocoding/geocoding";
-import { useDebounce } from "../../hooks/useDebounce";
-import { classNames } from "../../utils/classnames";
+import { useDebounce } from "../../lib/hooks/useDebounce";
+import { classNames } from "../../lib/classnames";
 
 function renderPlaceHouse({
   street,
