@@ -39,11 +39,11 @@ export function TopBar() {
               <div className="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
                 <div className="flex items-center flex-shrink-0 px-4">
                   <img
-                    className="h-8 w-auto"
+                    className="h-6 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
                     alt="StoreEye"
                   />
-                  <p className="text-white font-semibold text-2xl ml-3">
+                  <p className="text-white font-semibold text-xl ml-3">
                     StoreEye
                   </p>
                 </div>
