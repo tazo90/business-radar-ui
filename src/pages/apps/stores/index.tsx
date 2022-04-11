@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { MenuIcon, MapIcon, ShoppingBagIcon } from "@heroicons/react/outline";
 
 import DashboardLayout from "@components/layouts/dashboard";
-import Map from "../../components/map";
-import { Search } from "../../components/common/search";
-import Listbox from "../../components/listbox/listbox";
+import Map from "../../../components/map";
+import { Search } from "../../../components/common/search";
+import Listbox from "../../../components/listbox/listbox";
 import {
   BrandFilter,
   CountryFilter,
   MoreFilter,
-} from "../../components/stores/filters";
-import { setStore, setStores } from "../../slices/store.slice";
-import { useStoresQuery } from "../../api/stores/get-all-stores";
-import Drawer from "../../components/ui/drawer";
-import Autocomplete from "../../components/ui/autocomplete";
-import { setUserLocation } from "../../slices/location.slice";
-import { StoreDetail } from "../../components/stores/store-detail";
+} from "../../../components/stores/filters";
+import { setStore, setStores } from "../../../slices/store.slice";
+import { useStoresQuery } from "../../../api/stores/get-all-stores";
+import Drawer from "../../../components/ui/drawer";
+import Autocomplete from "../../../components/ui/autocomplete";
+import { setUserLocation } from "../../../slices/location.slice";
+import { StoreDetail } from "../../../components/stores/store-detail";
 
 export default function StoresPage() {
   const dispatch = useDispatch();
@@ -124,16 +124,12 @@ export default function StoresPage() {
           setOpen={setOpenAutocoplete}
         />
         {/* Section filters */}
-        <nav className="flex flex-col md:flex-row pt-2 md:pt-0 px-3 bg-gray-100 border w-full">
+        <nav className="flex flex-col md:flex-row pt-2 md:pt-0 px-3 bg-gray-50 border-b w-full">
           <div className="flex items-center w-full md:w-5/12 lg:w-4/12">
-            <Search
-              className="w-full md:mr-4"
-              onSearch={onStoreSearch}
-              placeholder="Find a store..."
-              bgColor="bg-gray-300"
-            />
+            <Search onSearch={onStoreSearch} placeholder="Find a store..." />
+
             <button
-              className="ml-4 md:ml-0  border border-gray-300 h-10 rounded-lg text-white bg-lime-600 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
+              className="ml-4 md:ml-2 border border-gray-300 h-10 rounded-lg text-white bg-lime-600 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
               type="button"
               onClick={orderStart}
             >
@@ -172,11 +168,11 @@ export default function StoresPage() {
           </div>
         </nav>
       </section>
-      <div className="flex relative h-screen w-screen xs:w-full bg-gray-100">
+      <div className="flex relative h-screen w-screen xs:w-full">
         {/* Section stores list */}
         <section
           id="store-list-section"
-          className={`flex flex-col justify-center z-0 px-4 pb-4 pt-0 flex-none bg-gray-100 min-h-0 overflow-auto transform ease-in-out ${
+          className={`flex flex-col justify-center z-0 px-4 pb-4 pt-0 flex-none bg-gray-50 min-h-0 overflow-auto transform ease-in-out ${
             selectedStore
               ? "w-1/2 transition-all opacity-0 delay-300 duration-500 -translate-x-full"
               : "w-full lg:w-4/12 transition-all opacity-100 duration-500"

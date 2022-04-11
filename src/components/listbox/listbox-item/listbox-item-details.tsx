@@ -3,7 +3,7 @@ import { icons } from "../../../constants";
 export function ListboxItemDetails({ item }) {
   return (
     <div className="flex flex-col h-full w-full ml:0 xs:ml-3 mr-3">
-      <div className="flex items-center justify-between relative pl-3 pr-4 min-h-fit w-full rounded-3xl bg-gray-700 dark:bg-gray-100 text-gray-200 dark:text-gray-800">
+      <div className="flex items-center justify-between relative pl-3 pr-4 min-h-fit w-full rounded-3xl bg-white dark:bg-gray-100 text-gray-900 dark:text-gray-800">
         <div className="flex relative h-7 w-7">
           <img
             src={icons.amrest.markers[item.brand]}
@@ -28,7 +28,7 @@ export function ListboxItemDetails({ item }) {
         </p>
         <p>
           <span className="font-bold">Hours:</span> 08:00 - 16:00 -{" "}
-          <span className="font-bold text-green-700">Open</span>
+          <span className="font-semibold text-green-500">Open</span>
         </p>
       </div>
     </div>
