@@ -37,7 +37,7 @@ export function TopBar() {
           <div className="flex justify-between h-12 px-4 sm:px-6 lg:px-0 lg:flex lg:items-center">
             <div className="relative w-full flex justify-between">
               <div className="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
-                <div className="flex items-center flex-shrink-0 px-4">
+                <div className="flex items-center flex-shrink-0">
                   <img
                     className="h-6 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"

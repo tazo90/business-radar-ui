@@ -168,7 +168,10 @@ export default function StoresPage() {
           </div>
         </nav>
       </section>
-      <div className="flex relative h-screen w-screen xs:w-full">
+      <div
+        className="flex relative w-screen xs:w-full"
+        style={{ height: "calc(100vh - 105px)" }}
+      >
         {/* Section stores list */}
         <section
           id="store-list-section"
