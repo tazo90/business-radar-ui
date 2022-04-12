@@ -7,7 +7,7 @@ import {
   MailIcon,
   PhoneIcon,
 } from "@heroicons/react/solid";
-import { classNames } from "../../../utils/classnames";
+import { classNames } from "../../../lib/classnames";
 import { StoreDetailEmployees } from "./store-detail-employees";
 import { StoreDetailJobs } from "./store-detail-jobs";
 import { StoreDetailMenu } from "./store-detail-menu";

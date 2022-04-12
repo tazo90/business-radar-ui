@@ -1,5 +1,6 @@
-import { SideNav } from "./side-nav";
-import { TopNav } from "./top-nav";
+import { SidebarDesktop } from "./sidebar-desktop";
+import { SidebarMobile } from "./sidebar-mobile";
+import { TopBar } from "./topbar";
 
 interface DashboardLayoutProps {
   children?: any;
@@ -7,22 +8,19 @@ interface DashboardLayoutProps {
 
 const DARK_MODE = false;
 
-function DashboardLayout({ children }: DashboardLayoutProps) {
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
-    <div
-      className={`${
-        DARK_MODE ? "dark" : ""
-      } h-screen w-full flex overflow-hidden antialiased text-gray-800 bg-white`}
-    >
-      <SideNav />
-      <div className="flex-1 flex flex-col">
-        <TopNav />
-        <main className="flex-grow flex flex-col min-h-0 border-t">
-          {children}
-        </main>
+    <div className={`min-h-full ${DARK_MODE ? "dark" : ""}`}>
+      <TopBar />
+      <SidebarMobile />
+      <div className="flex">
+        <SidebarDesktop />
+        {/* Main column */}
+        <div className="flex flex-col w-full">
+          {/* Search header */}
+          <main className="flex-1">{children}</main>
+        </div>
       </div>
     </div>
   );
 }
-
-export default DashboardLayout;

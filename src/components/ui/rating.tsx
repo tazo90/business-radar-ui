@@ -1,6 +1,6 @@
 import { StarIcon } from "@heroicons/react/solid";
 
-import { classNames } from "../../utils/classnames";
+import { classNames } from "../../lib/classnames";
 
 interface RatingProps {
   rate: number;

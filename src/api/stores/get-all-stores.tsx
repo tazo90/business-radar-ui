@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 import http from "../http";
 import { API_ENDPOINTS } from "../endpoints";
-import { toGeojson } from "../../utils/geojson/to-geojson";
+import { toGeojson } from "../../lib/geojson/to-geojson";
 
 export async function fetchStores({ queryKey }: any) {
   const [_key, _params] = queryKey;
