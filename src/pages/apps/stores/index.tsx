@@ -175,7 +175,7 @@ export default function StoresPage() {
         {/* Section stores list */}
         <section
           id="store-list-section"
-          className={`flex flex-col justify-center z-40 px-4 pb-4 pt-0 flex-none bg-gray-50 min-h-0 overflow-auto transform ease-in-out ${
+          className={`flex flex-col justify-center z-30 px-4 pb-4 pt-0 flex-none bg-gray-50 min-h-0 overflow-auto transform ease-in-out ${
             selectedStore
               ? "w-1/2 transition-all opacity-0 delay-300 duration-500 -translate-x-full"
               : "w-full lg:w-4/12 transition-all opacity-100 duration-500"

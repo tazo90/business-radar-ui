@@ -75,7 +75,7 @@ export default function Autocomplete({ open, setOpen, onAddressClick }) {
     <Transition.Root show={open} as={Fragment} afterLeave={() => setQuery("")}>
       <Dialog
         as="div"
-        className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20"
+        className="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-20"
         onClose={setOpen}
       >
         <Transition.Child

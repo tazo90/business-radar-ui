@@ -59,7 +59,7 @@ export function Modal({
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <div
-        className="fixed z-10 inset-0 overflow-y-auto"
+        className="fixed z-50 inset-0 overflow-y-auto"
         aria-labelledby="modal-base"
         role="dialog"
         aria-modal="true"

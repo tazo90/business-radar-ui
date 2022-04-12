@@ -37,7 +37,7 @@ export function TopBar() {
           <div className="flex justify-between h-12 px-4 sm:px-6 lg:px-0 lg:flex lg:items-center">
             <div className="relative w-full flex justify-between">
               <div className="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
-                <div className="flex items-center flex-shrink-0">
+                <div className="flex items-center flex-shrink-0 lg:ml-4">
                   <img
                     className="h-6 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
@@ -50,7 +50,7 @@ export function TopBar() {
               </div>
               <div className="flex items-center md:absolute md:right-0 md:inset-y-0 lg:hidden">
                 {/* Mobile menu button */}
-                <Popover.Button className="-mx-2 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                <Popover.Button className="-mx-2 rounded-md p-2 inline-flex items-center justify-center text-gray-400 focus:outline-none focus:ring-0">
                   <span className="sr-only">Open menu</span>
                   {open ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -122,7 +122,7 @@ export function TopBar() {
                   className={classNames(
                     item.current
                       ? "bg-gray-100 text-gray-900"
-                      : "hover:bg-gray-50",
+                      : "hover:bg-gray-50 text-gray-200",
                     "block rounded-md py-2 px-3 text-base font-medium"
                   )}
                 >
@@ -140,10 +140,10 @@ export function TopBar() {
                   />
                 </div>
                 <div className="ml-3">
-                  <div className="text-base font-medium text-gray-800">
+                  <div className="text-base font-medium text-gray-200">
                     {user.name}
                   </div>
-                  <div className="text-sm font-medium text-gray-500">
+                  <div className="text-sm font-medium text-gray-300">
                     {user.email}
                   </div>
                 </div>
@@ -160,7 +160,7 @@ export function TopBar() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                    className="block rounded-md py-2 px-3 text-base font-medium text-gray-200 hover:bg-gray-50 hover:text-gray-900"
                   >
                     {item.name}
                   </a>
