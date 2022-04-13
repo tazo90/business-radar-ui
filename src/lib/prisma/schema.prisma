@@ -1,0 +1,184 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["filterJson"]
+}
+
+enum UserPlan {
+  FREE
+  TRIAL
+  PRO
+}
+
+enum IdentityProvider {
+  STORE_EYE
+  GOOGLE
+}
+
+model Credential {
+  id     Int    @id @default(autoincrement())
+  type   String
+  key    Json
+  user   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int?
+}
+
+model User {
+  id                 Int              @id @default(autoincrement())
+  username           String?          @unique
+  name               String?
+  email              String           @unique
+  emailVerified      DateTime?
+  password           String?
+  avatar             String?
+  createdDate        DateTime         @default(now()) @map(name: "created")
+  credentials        Credential[]
+  teams              Membership[]
+  applications       Application[]
+  identityProvider   IdentityProvider @default(STORE_EYE)
+  identityProviderId String?
+  plan               UserPlan         @default(TRIAL)
+  verified           Boolean?         @default(false)
+
+  @@map(name: "users")
+}
+
+model Organization {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  slug         String?       @unique
+  logo         String?
+  members      Membership[]
+  applications Application[]
+  brands       Brand[]
+  countries    Country[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Brand {
+  id             Int          @id @default(autoincrement())
+  name           String       @unique
+  full_name      String       @unique
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId Int
+
+  application   Application? @relation(fields: [applicationId], references: [id])
+  applicationId Int?
+  @@unique([name, organizationId])
+}
+
+model Country {
+  id            Int            @id @default(autoincrement())
+  name          String         @unique
+  code          String         @unique
+  organizations Organization[]
+
+  application   Application? @relation(fields: [applicationId], references: [id])
+  applicationId Int?
+  @@unique([name, code])
+}
+
+enum MembershipRole {
+  MEMBER
+  ADMIN
+  OWNER
+}
+
+model Membership {
+  role           MembershipRole
+  accepted       Boolean        @default(false)
+  organization   Organization   @relation(fields: [organizationId], references: [id])
+  organizationId Int
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         Int
+
+  @@id([userId, organizationId])
+}
+
+model VerificationRequest {
+  id         Int      @id @default(autoincrement())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, token])
+}
+
+model ResetPasswordRequest {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String
+  expires   DateTime
+}
+
+enum PaymentType {
+  STRIPE
+}
+
+model Payment {
+  id            Int          @id @default(autoincrement())
+  uid           String       @unique
+  type          PaymentType
+  applicationId Int
+  application   Application? @relation(fields: [applicationId], references: [id])
+  amount        Int
+  fee           Int
+  currency      String
+  success       Boolean
+  refunded      Boolean
+  data          Json
+  externalId    String       @unique
+}
+
+enum ApplicationStatus {
+  ACTIVE  @map("active")
+  DRAFT   @map("draft")
+  CLOSED  @map("closed")
+}
+
+model Application {
+  id             Int               @id @default(autoincrement())
+  uid            String            @unique
+  user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         Int
+  organizationId Int
+  organization   Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  title          String
+  description    String?
+  brands         Brand[]
+  countries      Country[]
+  token          String
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime?
+  status         ApplicationStatus @default(DRAFT)
+  paid           Boolean
+  payment        Payment[]
+  domain         String
+  components     Component[]
+
+  // TODO: Allow to define colors per application
+}
+
+model Component {
+  id            Int         @id @default(autoincrement())
+  name          String
+  slug          String
+  description   String?
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  applicationId Int
+  clientId      String?
+  secretId      String?
+  tokenUrl      String?
+  dataUrl       String?
+}
