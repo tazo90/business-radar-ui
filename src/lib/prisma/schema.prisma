@@ -28,6 +28,8 @@ model Credential {
   key    Json
   user   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int?
+
+  @@map(name: "credential")
 }
 
 model User {
@@ -61,6 +63,8 @@ model Organization {
   countries    Country[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
+
+  @@map(name: "organization")
 }
 
 model Brand {
@@ -72,7 +76,9 @@ model Brand {
 
   application   Application? @relation(fields: [applicationId], references: [id])
   applicationId Int?
+
   @@unique([name, organizationId])
+  @@map(name: "brand")
 }
 
 model Country {
@@ -83,7 +89,9 @@ model Country {
 
   application   Application? @relation(fields: [applicationId], references: [id])
   applicationId Int?
+
   @@unique([name, code])
+  @@map(name: "country")
 }
 
 enum MembershipRole {
@@ -101,6 +109,7 @@ model Membership {
   userId         Int
 
   @@id([userId, organizationId])
+  @@map(name: "membership")
 }
 
 model VerificationRequest {
@@ -111,7 +120,9 @@ model VerificationRequest {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+
   @@unique([identifier, token])
+  @@map(name: "verification_request")
 }
 
 model ResetPasswordRequest {
@@ -120,6 +131,8 @@ model ResetPasswordRequest {
   updatedAt DateTime @updatedAt
   email     String
   expires   DateTime
+
+  @@map(name: "reset_password_request")
 }
 
 enum PaymentType {
@@ -139,6 +152,8 @@ model Payment {
   refunded      Boolean
   data          Json
   externalId    String       @unique
+
+  @@map(name: "payment")
 }
 
 enum ApplicationStatus {
@@ -168,6 +183,7 @@ model Application {
   components     Component[]
 
   // TODO: Allow to define colors per application
+  @@map(name: "application")
 }
 
 model Component {
@@ -181,4 +197,6 @@ model Component {
   secretId      String?
   tokenUrl      String?
   dataUrl       String?
+
+  @@map(name: "component")
 }
