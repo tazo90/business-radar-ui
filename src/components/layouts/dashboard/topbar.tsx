@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { Menu, Popover, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { classNames } from "@lib/classnames";
+import { signOut } from "next-auth/react";
 
 const user = {
   name: "Chelsea Hagon",
@@ -18,7 +19,11 @@ const navigationTop = [
 const userNavigation = [
   { name: "Your Profile", href: "#" },
   { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
+  {
+    name: "Sign out",
+    href: "#",
+    onClick: () => signOut({ callbackUrl: window.location.origin }),
+  },
 ];
 
 export function TopBar() {
@@ -99,6 +104,9 @@ export function TopBar() {
                                 active ? "bg-gray-100" : "",
                                 "block py-2 px-4 text-sm text-gray-700"
                               )}
+                              onClick={() =>
+                                item.onClick ? item.onClick() : null
+                              }
                             >
                               {item.name}
                             </a>

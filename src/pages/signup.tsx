@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import BaseLayout from "../components/layouts/base";
 
-export default function RegisterPage() {
+export default function SignupPage() {
   const router = useRouter();
 
   return (
@@ -130,4 +130,4 @@ export default function RegisterPage() {
   );
 }
 
-RegisterPage.Layout = BaseLayout;
+SignupPage.Layout = BaseLayout;

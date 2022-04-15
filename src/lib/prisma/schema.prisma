@@ -1,0 +1,297 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["filterJson"]
+}
+
+enum UserPlan {
+  FREE
+  TRIAL
+  PRO
+}
+
+enum IdentityProvider {
+  STORE_EYE
+  GOOGLE
+}
+
+model Credential {
+  id     Int    @id @default(autoincrement())
+  type   String
+  key    Json
+  user   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int?
+
+  @@map(name: "credential")
+}
+
+model User {
+  id                 Int              @id @default(autoincrement())
+  username           String?          @unique
+  name               String?
+  email              String           @unique
+  emailVerified      DateTime?
+  password           String?
+  avatar             String?
+  createdDate        DateTime         @default(now()) @map(name: "created")
+  credentials        Credential[]
+  teams              Membership[] // organizations
+  applications       Application[]
+  identityProvider   IdentityProvider @default(STORE_EYE)
+  identityProviderId String?
+  plan               UserPlan         @default(TRIAL)
+  verified           Boolean?         @default(false)
+
+  @@map(name: "users")
+}
+
+model Organization {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  slug         String?       @unique
+  logo         String?
+  members      Membership[]
+  applications Application[]
+  brands       Brand[]
+  countries    Country[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  jobs   Job[]
+  stores Store[]
+
+  @@map(name: "organization")
+}
+
+model Country {
+  id             Int          @id @default(autoincrement())
+  name           String       @unique
+  code           String       @unique
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId Int
+
+  applications Application[]
+  job          Job[]
+  store        Store[]
+
+  @@unique([name, code])
+  @@map(name: "country")
+}
+
+model Brand {
+  id             Int          @id @default(autoincrement())
+  name           String       @unique
+  fullName       String       @unique
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId Int
+
+  applications Application[]
+  job          Job[]
+  store        Store[]
+
+  @@unique([name, organizationId])
+  @@map(name: "brand")
+}
+
+enum MembershipRole {
+  MEMBER
+  ADMIN
+  OWNER
+}
+
+model Membership {
+  role           MembershipRole
+  accepted       Boolean        @default(false)
+  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId Int
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         Int
+
+  @@id([userId, organizationId])
+  @@map(name: "membership")
+}
+
+model VerificationRequest {
+  id         Int      @id @default(autoincrement())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+
+  @@unique([identifier, token])
+  @@map(name: "verification_request")
+}
+
+model ResetPasswordRequest {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String
+  expires   DateTime
+
+  @@map(name: "reset_password_request")
+}
+
+enum PaymentType {
+  STRIPE
+}
+
+model Payment {
+  id            Int          @id @default(autoincrement())
+  uid           String       @unique
+  type          PaymentType
+  applicationId Int
+  application   Application? @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  amount        Int
+  fee           Int
+  currency      String
+  success       Boolean
+  refunded      Boolean
+  data          Json
+  externalId    String       @unique
+
+  @@map(name: "payment")
+}
+
+enum ApplicationStatus {
+  ACTIVE  @map("active")
+  DRAFT   @map("draft")
+  CLOSED  @map("closed")
+}
+
+model Application {
+  id             Int               @id @default(autoincrement())
+  uid            String            @unique
+  user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         Int
+  organizationId Int
+  organization   Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  title          String
+  description    String?
+  brands         Brand[]
+  countries      Country[]
+  token          String
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime?
+  status         ApplicationStatus @default(DRAFT)
+  paid           Boolean
+  payment        Payment[]
+  expires        DateTime
+  domain         String
+  components     Component[]
+
+  // TODO: Allow to define colors per application
+  @@map(name: "application")
+}
+
+model Component {
+  id            Int         @id @default(autoincrement())
+  name          String
+  slug          String
+  description   String?
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  applicationId Int
+  clientId      String?
+  secretId      String?
+  tokenUrl      String?
+  dataUrl       String?
+
+  @@map(name: "component")
+}
+
+model Job {
+  id             Int          @id @default(autoincrement())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId Int
+
+  brand   Brand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  brandId Int
+
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  countryId Int
+
+  profession_name   String?
+  job_category_name String?
+
+  title      String
+  banner_url String?
+  body       String?
+  footer     String?
+
+  apply_url  String?
+  is_manager Boolean?
+  language   String?
+  externalId String
+
+  @@map(name: "job")
+}
+
+enum StoreType {
+  RESTAURANT
+  FASTFOOD
+}
+
+enum StoreStatus {
+  CLOSED
+  OPEN
+}
+
+model Store {
+  id             Int          @id @default(autoincrement())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId Int
+
+  brand   Brand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  brandId Int
+
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  countryId Int
+
+  osm_id      String?
+  store_id    String?
+  cost_center String?
+  type        StoreType   @default(FASTFOOD)
+  status      StoreStatus @default(OPEN)
+
+  lat      String
+  lng      String
+  name     String
+  name_osm String?
+
+  address_osm    String?
+  address_google String?
+  address        String?
+
+  located_in_name String?
+  located_in_url  String?
+
+  phone String?
+
+  image_place_url       String?
+  image_street_view_url String?
+  manu_url              String?
+  map_url               String?
+  order_url             String?
+  street_view_url       String?
+  reviews_url           String?
+
+  payment_types      String[]
+  photos             String[]
+  orders             Json
+  features           String[]
+  services           Json
+  franchisee_details Json
+  opening_hours      Json
+  ownership          String
+
+  @@map(name: "store")
+}

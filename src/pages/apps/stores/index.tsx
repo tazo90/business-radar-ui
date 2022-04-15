@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { MenuIcon, MapIcon, ShoppingBagIcon } from "@heroicons/react/outline";
 
 import DashboardLayout from "@components/layouts/dashboard";
-import Map from "../../../components/map";
-import { Search } from "../../../components/common/search";
-import Listbox from "../../../components/listbox/listbox";
+import Map from "@components/map";
+import { Search } from "@components/common/search";
+import Listbox from "@components/listbox/listbox";
 import {
   BrandFilter,
   CountryFilter,
   MoreFilter,
-} from "../../../components/stores/filters";
-import { setStore, setStores } from "../../../slices/store.slice";
-import { useStoresQuery } from "../../../api/stores/get-all-stores";
-import Drawer from "../../../components/ui/drawer";
-import Autocomplete from "../../../components/ui/autocomplete";
-import { setUserLocation } from "../../../slices/location.slice";
-import { StoreDetail } from "../../../components/stores/store-detail";
+} from "@components/stores/filters";
+import { setStore, setStores } from "@slices/store.slice";
+import { useStoresQuery } from "@api/stores/get-all-stores";
+import Drawer from "@components/ui/drawer";
+import Autocomplete from "@components/ui/autocomplete";
+import { setUserLocation } from "@slices/location.slice";
+import { StoreDetail } from "@components/stores/store-detail";
 
 export default function StoresPage() {
   const dispatch = useDispatch();
