@@ -22,7 +22,7 @@ const userNavigation = [
   {
     name: "Sign out",
     href: "#",
-    onClick: () => signOut({ callbackUrl: "/login" }),
+    onClick: () => signOut({ callbackUrl: window.location.origin }),
   },
 ];
 
