@@ -5,7 +5,7 @@ import React, { forwardRef } from "react";
 type SVGComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 
 export type ButtonBaseProps = {
-  color?: "primary" | "secondary" | "minimal" | "warn";
+  color?: "main" | "primary" | "secondary" | "minimal" | "warn";
   size?: "base" | "sm" | "lg" | "fab" | "icon";
   loading?: boolean;
   disabled?: boolean;
@@ -62,6 +62,10 @@ export const Button = forwardRef<
           "justify-center bottom-20 right-8 rounded-full p-4 w-14 h-14",
 
         // different styles depending on color
+        color === "main" &&
+          (disabled
+            ? "text-white bg-gray-400"
+            : "border border-transparent text-white bg-indigo-600 hover:bg-indigo-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-neutral-900"),
         color === "primary" &&
           (disabled
             ? "border border-transparent bg-gray-400 text-white"
