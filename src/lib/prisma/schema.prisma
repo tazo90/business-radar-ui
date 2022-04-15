@@ -64,6 +64,9 @@ model Organization {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
+  jobs   Job[]
+  stores Store[]
+
   @@map(name: "organization")
 }
 
@@ -75,8 +78,9 @@ model Country {
   organizationId Int
 
   applications Application[]
-  // application   Application? @relation(fields: [applicationId], references: [id])
-  // applicationId Int?
+  job          Job[]
+  store        Store[]
+
   @@unique([name, code])
   @@map(name: "country")
 }
@@ -89,25 +93,12 @@ model Brand {
   organizationId Int
 
   applications Application[]
-  // application   Application? @relation(fields: [applicationId], references: [id])
-  // applicationId Int?
+  job          Job[]
+  store        Store[]
 
   @@unique([name, organizationId])
   @@map(name: "brand")
 }
-
-// model Country {
-//   id            Int                   @id @default(autoincrement())
-//   name          String                @unique
-//   code          String                @unique
-//   organizations OrganizationCountry[]
-
-//   application   Application? @relation(fields: [applicationId], references: [id])
-//   applicationId Int?
-
-//   @@unique([name, code])
-//   @@map(name: "country")
-// }
 
 enum MembershipRole {
   MEMBER
@@ -215,4 +206,92 @@ model Component {
   dataUrl       String?
 
   @@map(name: "component")
+}
+
+model Job {
+  id             Int          @id @default(autoincrement())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId Int
+
+  brand   Brand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  brandId Int
+
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  countryId Int
+
+  profession_name   String?
+  job_category_name String?
+
+  title      String
+  banner_url String?
+  body       String?
+  footer     String?
+
+  apply_url  String?
+  is_manager Boolean?
+  language   String?
+  externalId String
+
+  @@map(name: "job")
+}
+
+enum StoreType {
+  RESTAURANT
+  FASTFOOD
+}
+
+enum StoreStatus {
+  CLOSED
+  OPEN
+}
+
+model Store {
+  id             Int          @id @default(autoincrement())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId Int
+
+  brand   Brand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  brandId Int
+
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  countryId Int
+
+  osm_id      String?
+  store_id    String?
+  cost_center String?
+  type        StoreType   @default(FASTFOOD)
+  status      StoreStatus @default(OPEN)
+
+  lat      String
+  lng      String
+  name     String
+  name_osm String?
+
+  address_osm    String?
+  address_google String?
+  address        String?
+
+  located_in_name String?
+  located_in_url  String?
+
+  phone String?
+
+  image_place_url       String?
+  image_street_view_url String?
+  manu_url              String?
+  map_url               String?
+  order_url             String?
+  street_view_url       String?
+  reviews_url           String?
+
+  payment_types      String[]
+  photos             String[]
+  orders             Json
+  features           String[]
+  services           Json
+  franchisee_details Json
+  opening_hours      Json
+  ownership          String
+
+  @@map(name: "store")
 }

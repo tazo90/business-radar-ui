@@ -1,11 +1,4 @@
-import {
-  PrismaClient,
-  Prisma,
-  User,
-  Organization,
-  MembershipRole,
-  UserPlan,
-} from "@prisma/client";
+import { PrismaClient, Prisma, MembershipRole, UserPlan } from "@prisma/client";
 
 import { hashPassword } from "../auth";
 import data from "./fixtures/amrest";
@@ -134,8 +127,11 @@ async function createApps(organization: any, user: any, apps: any) {
     await prisma.application.create({
       data: {
         ...app,
-        userId: user.id,
-        organizationId: organization.id,
+        user: { connect: { id: user.id } },
+        organization: { connect: { id: organization.id } },
+        expires: new Date(
+          "Tue Sep 21 2022 16:16:50 GMT-0400 (Eastern Daylight Time)"
+        ),
       },
     });
   });
