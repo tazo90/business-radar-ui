@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import BaseLayout from "../components/layouts/base";
 
@@ -6,7 +7,7 @@ export default function ForgotPasswordPage() {
 
   return (
     <>
-      <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="relative -top-24 min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <img
             className="mx-auto h-12 w-auto"
@@ -59,12 +60,11 @@ export default function ForgotPasswordPage() {
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-white text-gray-500">
                     Return to{" "}
-                    <button
-                      onClick={() => router.push("/login")}
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      sign in
-                    </button>
+                    <Link href="/login">
+                      <a className="font-medium text-indigo-600 hover:text-indigo-500">
+                        sign in
+                      </a>
+                    </Link>
                   </span>
                 </div>
               </div>
