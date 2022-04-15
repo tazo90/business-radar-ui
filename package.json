@@ -8,9 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "db:migrate": "yarn prisma migrate dev --schema=./src/lib/prisma/schema.prisma",
-    "db:generate": "prisma generate && prisma format --schema=./src/lib/prisma/schema.prisma",
+    "db:generate": "prisma generate --schema=./src/lib/prisma/schema.prisma && prisma format --schema=./src/lib/prisma/schema.prisma",
     "db:reset": "prisma migrate reset --schema=./src/lib/prisma/schema.prisma",
-    "db:deploy": "yarn prisma migrate deploy",
+    "db:deploy": "yarn prisma migrate deploy --schema=./src/lib/prisma/schema.prisma",
     "db:studio": "yarn prisma studio",
     "db:seed": "yarn prisma db seed",
     "db:nuke": "docker-compose down --volumes --remove-orphans"

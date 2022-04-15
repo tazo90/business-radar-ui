@@ -42,7 +42,7 @@ model User {
   avatar             String?
   createdDate        DateTime         @default(now()) @map(name: "created")
   credentials        Credential[]
-  teams              Membership[]
+  teams              Membership[] // organizations
   applications       Application[]
   identityProvider   IdentityProvider @default(STORE_EYE)
   identityProviderId String?
@@ -67,32 +67,47 @@ model Organization {
   @@map(name: "organization")
 }
 
-model Brand {
+model Country {
   id             Int          @id @default(autoincrement())
   name           String       @unique
-  full_name      String       @unique
+  code           String       @unique
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId Int
 
-  application   Application? @relation(fields: [applicationId], references: [id])
-  applicationId Int?
+  applications Application[]
+  // application   Application? @relation(fields: [applicationId], references: [id])
+  // applicationId Int?
+  @@unique([name, code])
+  @@map(name: "country")
+}
+
+model Brand {
+  id             Int          @id @default(autoincrement())
+  name           String       @unique
+  fullName       String       @unique
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId Int
+
+  applications Application[]
+  // application   Application? @relation(fields: [applicationId], references: [id])
+  // applicationId Int?
 
   @@unique([name, organizationId])
   @@map(name: "brand")
 }
 
-model Country {
-  id            Int            @id @default(autoincrement())
-  name          String         @unique
-  code          String         @unique
-  organizations Organization[]
+// model Country {
+//   id            Int                   @id @default(autoincrement())
+//   name          String                @unique
+//   code          String                @unique
+//   organizations OrganizationCountry[]
 
-  application   Application? @relation(fields: [applicationId], references: [id])
-  applicationId Int?
+//   application   Application? @relation(fields: [applicationId], references: [id])
+//   applicationId Int?
 
-  @@unique([name, code])
-  @@map(name: "country")
-}
+//   @@unique([name, code])
+//   @@map(name: "country")
+// }
 
 enum MembershipRole {
   MEMBER
@@ -103,7 +118,7 @@ enum MembershipRole {
 model Membership {
   role           MembershipRole
   accepted       Boolean        @default(false)
-  organization   Organization   @relation(fields: [organizationId], references: [id])
+  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId Int
   user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         Int
@@ -144,7 +159,7 @@ model Payment {
   uid           String       @unique
   type          PaymentType
   applicationId Int
-  application   Application? @relation(fields: [applicationId], references: [id])
+  application   Application? @relation(fields: [applicationId], references: [id], onDelete: Cascade)
   amount        Int
   fee           Int
   currency      String
@@ -179,6 +194,7 @@ model Application {
   status         ApplicationStatus @default(DRAFT)
   paid           Boolean
   payment        Payment[]
+  expires        DateTime
   domain         String
   components     Component[]
 
