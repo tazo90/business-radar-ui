@@ -38,14 +38,14 @@ export default function LoginPage({ csrfToken }: any) {
   // If not absolute URL, make it absolute
   if (/"\//.test(callbackUrl)) callbackUrl = callbackUrl.substring(1);
   if (!/^https?:\/\//.test(callbackUrl)) {
-    callbackUrl = `http://localhost:3000/app`;
+    callbackUrl = `http://localhost:3000/`;
   }
 
   const handleSubmit = async (values: any) => {
     try {
       const res = await signIn<"credentials">("credentials", {
         ...values,
-        callbackUrl: `${window.location.origin}/app`,
+        callbackUrl: `${window.location.origin}/`,
         redirect: false,
       });
 
