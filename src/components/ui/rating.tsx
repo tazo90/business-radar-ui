@@ -6,15 +6,23 @@ interface RatingProps {
   rate: number;
   count: number;
   textSize?: string;
+  stars?: number;
+  withReviews?: boolean;
 }
 
-export function Rating({ rate, count, textSize = "text-sm" }: RatingProps) {
+export function Rating({
+  rate,
+  count,
+  textSize = "text-sm",
+  stars = 5,
+  withReviews = true,
+}: RatingProps) {
   return (
     <div className="flex items-center">
       <div className="flex items-center">
         <span className={`${textSize} font-semibold`}>{rate}</span>
         <ul className="flex justify-center ml-1 mt-0.5">
-          {[0, 1, 2, 3, 4].map((rating) => (
+          {[...Array(stars).keys()].map((rating) => (
             <li key={rating}>
               <StarIcon
                 className={classNames(
@@ -27,7 +35,9 @@ export function Rating({ rate, count, textSize = "text-sm" }: RatingProps) {
           ))}
         </ul>
       </div>
-      <p className={`${textSize} font-semibold pl-1`}>({count})</p>
+      {withReviews && (
+        <p className={`${textSize} font-semibold pl-1`}>({count})</p>
+      )}
     </div>
   );
 }

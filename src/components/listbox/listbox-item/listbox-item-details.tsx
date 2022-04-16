@@ -1,8 +1,9 @@
+import { Rating } from "@components/ui/rating";
 import icons from "@constants/icons";
 
 export function ListboxItemDetails({ item }) {
   return (
-    <div className="flex flex-col h-full w-full ml-0 xs:ml-3 mr-3">
+    <div className="flex flex-col h-full w-full ml-0 xs:ml-3">
       <div className="flex items-center justify-between relative pl-3 pr-4 min-h-fit w-full rounded-3xl bg-white dark:bg-gray-100 text-gray-900 dark:text-gray-800">
         <div className="flex relative h-7 w-7">
           <img
@@ -26,10 +27,13 @@ export function ListboxItemDetails({ item }) {
         <p>
           <span className="font-bold">Phone:</span> {item.phone}
         </p>
-        <p>
-          <span className="font-bold">Hours:</span> 08:00 - 16:00 -{" "}
-          <span className="font-semibold text-green-500">Open</span>
-        </p>
+        <div className="flex justify-between">
+          <p>
+            <span className="font-bold">Hours:</span> 08:00 - 16:00 -{" "}
+            <span className="font-semibold text-green-500">Open</span>
+          </p>
+          <Rating count={120} rate={3.6} textSize="text-xs" />
+        </div>
       </div>
     </div>
   );

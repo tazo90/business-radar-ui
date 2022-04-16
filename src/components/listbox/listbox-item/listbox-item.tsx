@@ -3,7 +3,6 @@ import restaurantImg from "@assets/restaurant.jpg";
 import { LocationMarkerIcon } from "@heroicons/react/outline";
 import { ListboxItemDetails } from "./listbox-item-details";
 import { ListboxItemSummary } from "./listbox-item-summary";
-import { ListboxItemRating } from "./listbox-item-rating";
 
 export function ListboxItem({ item, distance, isActive }) {
   return (
@@ -17,14 +16,13 @@ export function ListboxItem({ item, distance, isActive }) {
       </div>
       <ListboxItemDetails item={item} />
       <div className="flex flex-col justify-between">
-        <ListboxItemSummary />
+        {/* <ListboxItemSummary /> */}
         {distance && (
           <div className="flex">
             <LocationMarkerIcon className="w-4 h-4 mr-2" />
             <span className="font-semibold">{distance.toFixed(1)} km</span>
           </div>
         )}
-        <ListboxItemRating />
       </div>
     </article>
   );
