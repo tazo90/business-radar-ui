@@ -1,4 +1,4 @@
-import restaurantImg from "../../../assets/restaurant.jpg";
+import restaurantImg from "@assets/restaurant.jpg";
 
 import { LocationMarkerIcon } from "@heroicons/react/outline";
 import { ListboxItemDetails } from "./listbox-item-details";

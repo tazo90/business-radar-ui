@@ -1,20 +1,9 @@
-import { Fragment, useState } from "react";
-import { Disclosure, Listbox, Menu, Transition } from "@headlessui/react";
 import {
   ArrowNarrowLeftIcon,
   ArrowNarrowRightIcon,
-  BriefcaseIcon,
-  CalendarIcon,
   CheckCircleIcon,
-  CheckIcon,
-  ChevronDownIcon,
   ChevronRightIcon,
-  CurrencyDollarIcon,
-  LinkIcon,
-  LocationMarkerIcon,
   MailIcon,
-  PencilIcon,
-  SearchIcon,
 } from "@heroicons/react/solid";
 
 const candidates = [

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { Search } from "../../common/search";
+import { Search } from "@components/common/search";
 import { FilterSkeleton } from "./filter-skeleton";
-import { Modal } from "../../ui/modal";
+import { Modal } from "@components/ui/modal";
 
 export function Filter({
   title,

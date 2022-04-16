@@ -7,14 +7,14 @@ import {
   MailIcon,
   PhoneIcon,
 } from "@heroicons/react/solid";
-import { classNames } from "../../../lib/classnames";
+import { classNames } from "@lib/classnames";
+import { Rating } from "@components/ui/rating";
 import { StoreDetailEmployees } from "./store-detail-employees";
 import { StoreDetailJobs } from "./store-detail-jobs";
 import { StoreDetailMenu } from "./store-detail-menu";
 import { StoreDetailOverview } from "./store-detail-overview";
 import { StoreDetailPhotos } from "./store-detail-photos";
 import { StoreDetailReviews } from "./store-detail-reviews";
-import { Rating } from "../../../components/ui/rating";
 
 const tabs = [
   {

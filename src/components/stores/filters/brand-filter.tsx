@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeIcon, ChevronDownIcon } from "@heroicons/react/outline";
 
-import { icons } from "../../../constants";
+import icons from "@constants/icons";
 import { useBrandsQuery } from "@api/organization/get-all-brands";
 import { Filter } from "@components/common/filter";
 import { setFilters } from "@slices/store.slice";

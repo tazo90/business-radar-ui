@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import BaseLayout from "../components/layouts/base";
+import BaseLayout from "@components/layouts/base";
 
 export default function ForgotPasswordPage() {
   const router = useRouter();

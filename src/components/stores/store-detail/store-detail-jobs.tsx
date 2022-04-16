@@ -1,22 +1,4 @@
-import { Fragment, useState } from "react";
-import { Disclosure, Listbox, Menu, Transition } from "@headlessui/react";
-import {
-  ArrowNarrowLeftIcon,
-  ArrowNarrowRightIcon,
-  BriefcaseIcon,
-  CalendarIcon,
-  CheckCircleIcon,
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-  CurrencyDollarIcon,
-  LinkIcon,
-  LocationMarkerIcon,
-  MailIcon,
-  PencilIcon,
-  SearchIcon,
-  UsersIcon,
-} from "@heroicons/react/solid";
+import { ChevronRightIcon, UsersIcon } from "@heroicons/react/solid";
 
 const jobs = [
   {

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { PlusIcon } from "@heroicons/react/solid";
 import { Link, Element, scroller } from "react-scroll";
 
-import { capitalize } from "../../../lib";
-import { useCategoriesQuery } from "../../../api/category/get-all-categories";
-import { classNames } from "../../../lib/classnames";
+import { capitalize } from "@lib/strings";
+import { useCategoriesQuery } from "@api/category/get-all-categories";
+import { classNames } from "@lib/classnames";
 
 interface StoreDetailMenuProps {
   showMenuImage?: boolean;

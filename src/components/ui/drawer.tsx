@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 
-import { setStore } from "../../slices/store.slice";
+import { setStore } from "@slices/store.slice";
 
 export default function Drawer({ children, isOpen, setDrawerOpen }) {
   const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import BaseLayout from "../components/layouts/base";
+import BaseLayout from "@components/layouts/base";
 
 export default function SignupPage() {
   const router = useRouter();

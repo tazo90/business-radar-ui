@@ -1,4 +1,4 @@
-import restaurantImg from "../../../assets/restaurant.jpg";
+import restaurantImg from "@assets/restaurant.jpg";
 
 import { ListboxJobDetails } from "./listbox-job-details";
 

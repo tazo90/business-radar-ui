@@ -1,4 +1,4 @@
-import { icons } from "../../../constants";
+import icons from "@constants/icons";
 
 export function ListboxItemDetails({ item }) {
   return (

@@ -11,15 +11,15 @@ import {
   clusterCountBgLayer,
   unclusteredPointZoomedInLayer,
   unclusteredPointZoomedOutLayer,
-} from "../../components//map/layers";
+} from "@components//map/layers";
 import { addImages } from "./utils";
 import { drawTooltip } from "./drawers";
-import { setStore } from "../../slices/store.slice";
+import { setStore } from "@slices/store.slice";
 
-import icons from "../../constants/icons";
+import icons from "@constants/icons";
 
-import circle from "../../assets/circle.png";
-import circleSmall from "../../assets/circle-small.png";
+import circle from "@assets/circle.png";
+import circleSmall from "@assets/circle-small.png";
 
 const MAX_ZOOM_LEVEL = 16;
 

@@ -6,9 +6,9 @@ import {
   LocationMarkerIcon,
 } from "@heroicons/react/outline";
 
-import { useGeocodingQuery } from "../../api/geocoding/geocoding";
-import { useDebounce } from "../../lib/hooks/useDebounce";
-import { classNames } from "../../lib/classnames";
+import { useGeocodingQuery } from "@api/geocoding/geocoding";
+import { useDebounce } from "@lib/hooks/useDebounce";
+import { classNames } from "@lib/classnames";
 
 function renderPlaceHouse({
   street,

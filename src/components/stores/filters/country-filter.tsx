@@ -4,7 +4,7 @@ import { GlobeAltIcon, ChevronDownIcon } from "@heroicons/react/outline";
 
 import { useCountriesQuery } from "@api/organization/get-all-countries";
 import { Filter } from "@components/common/filter";
-import countries from "../../../constants/countries";
+import countries from "@constants/countries";
 import { setFilters } from "@slices/store.slice";
 
 export function CountryFilter() {

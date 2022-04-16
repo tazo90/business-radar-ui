@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AdjustmentsIcon, ChevronDownIcon } from "@heroicons/react/outline";
 
-import { Filter } from "../../common/filter";
+import { Filter } from "@components/common/filter";
 
 export function MoreFilter() {
   const [isFilterOpen, setFilterOpen] = useState(false);

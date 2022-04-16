@@ -1,4 +1,4 @@
-import { Rating } from "../../ui/rating";
+import { Rating } from "@components/ui/rating";
 
 export function ListboxItemRating() {
   return (

@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as turf from "@turf/turf";
 
-import { setStore } from "../../slices/store.slice";
-import Dropdown from "../ui/dropdown";
+import { setStore } from "@slices/store.slice";
+import Dropdown from "@components/ui/dropdown";
 import { ListboxSkeleton } from "./listbox-skeleton";
 import { ListboxItem } from "./listbox-item/listbox-item";
 
