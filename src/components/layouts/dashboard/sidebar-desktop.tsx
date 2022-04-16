@@ -17,7 +17,7 @@ const applications = [
 
 export function SidebarDesktop() {
   return (
-    <div className="hidden lg:flex lg:flex-col lg:w-64 lg:inset-y-0 lg:border-r lg:border-gray-300 lg:pb-4 lg:bg-gray-100 z-50">
+    <div className="hidden lg:flex lg:flex-col lg:w-64 lg:inset-y-0 lg:border-r lg:border-gray-300 lg:pb-4 lg:bg-gray-100 z-50 shadow-2xl">
       {/* Sidebar component, swap this element with another sidebar if you like */}
       <div className="h-0 flex-1 flex flex-col overflow-y-auto">
         {/* User account dropdown */}
