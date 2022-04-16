@@ -219,30 +219,20 @@ model Job {
   country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
   countryId Int
 
-  profession_name   String?
-  job_category_name String?
+  professionName  String?
+  jobCategoryName String?
 
-  title      String
-  banner_url String?
-  body       String?
-  footer     String?
+  title     String
+  bannerUrl String?
+  body      String?
+  footer    String?
 
-  apply_url  String?
-  is_manager Boolean?
+  applyUrl   String?
+  isManager  Boolean?
   language   String?
   externalId String
 
   @@map(name: "job")
-}
-
-enum StoreType {
-  RESTAURANT
-  FASTFOOD
-}
-
-enum StoreStatus {
-  CLOSED
-  OPEN
 }
 
 model Store {
@@ -256,42 +246,42 @@ model Store {
   country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
   countryId Int
 
-  osm_id      String?
-  store_id    String?
-  cost_center String?
-  type        StoreType   @default(FASTFOOD)
-  status      StoreStatus @default(OPEN)
+  osmId      String?
+  storeId    String?
+  costCenter String?
+  type       String  @default("FASTFOOD")
+  status     String  @default("OPEN")
 
-  lat      String
-  lng      String
-  name     String
-  name_osm String?
+  lat     String
+  lng     String
+  name    String
+  nameOsm String?
 
-  address_osm    String?
-  address_google String?
-  address        String?
+  addressOsm    String?
+  addressGoogle String?
+  address       String?
 
-  located_in_name String?
-  located_in_url  String?
+  locatedInName String?
+  locatedInUrl  String?
 
   phone String?
 
-  image_place_url       String?
-  image_street_view_url String?
-  manu_url              String?
-  map_url               String?
-  order_url             String?
-  street_view_url       String?
-  reviews_url           String?
+  imagePlaceUrl      String?
+  imageStreetViewUrl String?
+  menuUrl            String?
+  mapUrl             String?
+  orderUrl           String?
+  streetViewUrl      String?
+  reviewsUrl         String?
 
-  payment_types      String[]
-  photos             String[]
-  orders             Json
-  features           String[]
-  services           Json
-  franchisee_details Json
-  opening_hours      Json
-  ownership          String
+  paymentTypes      String[]
+  photos            String[]
+  orders            Json?
+  features          String[]
+  services          Json?
+  franchiseeDetails Json?
+  openingHours      Json?
+  ownership         String?
 
   @@map(name: "store")
 }
