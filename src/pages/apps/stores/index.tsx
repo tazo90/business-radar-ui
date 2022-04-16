@@ -37,7 +37,9 @@ export default function StoresPage() {
     }
   }, [selectedStore]);
 
-  const { data, isLoading, error }: any = useStoresQuery({});
+  const { data, isLoading, error }: any = useStoresQuery({
+    org: "amrest",
+  });
 
   useEffect(() => {
     if (data) {
