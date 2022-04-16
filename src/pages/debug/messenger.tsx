@@ -1,4 +1,4 @@
-import Layout from "../components/layout/layout";
+import DashboardLayout from "@components/layouts/dashboard";
 
 export default function Messenger() {
   return (
@@ -668,4 +668,4 @@ export default function Messenger() {
   );
 }
 
-Messenger.Layout = Layout;
+Messenger.Layout = DashboardLayout;

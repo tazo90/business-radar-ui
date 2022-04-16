@@ -29,6 +29,17 @@ const config = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.css'],
+    alias: {
+      '@api': path.resolve(__dirname, '../api/'),
+      '@assets': path.resolve(__dirname, '../assets/'),
+      '@components': path.resolve(__dirname, '../components/'),
+      '@constants': path.resolve(__dirname, '../constants/'),
+      '@containers': path.resolve(__dirname, '../containers/'),
+      '@lib': path.resolve(__dirname, '../lib/'),
+      '@pages': path.resolve(__dirname, '../pages/'),
+      '@slices': path.resolve(__dirname, '../slices/'),
+      '@styles': path.resolve(__dirname, '../styles/'),
+    },
   },
   module: {
     rules: [

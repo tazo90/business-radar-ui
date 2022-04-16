@@ -127,10 +127,8 @@ export default function JobsPage() {
         <nav className="flex flex-col md:flex-row pt-2 md:pt-0 px-3 bg-gray-100 border w-full">
           <div className="flex items-center w-full md:w-5/12 lg:w-4/12">
             <Search
-              className="w-full md:mr-4"
               onSearch={onStoreSearch}
               placeholder="Find a job offer..."
-              bgColor="bg-gray-300"
             />
             <button
               className="ml-4 md:ml-0  border border-gray-300 h-10 rounded-lg text-white bg-lime-600 font-medium text-sm px-2 py-1 text-center inline-flex items-center"

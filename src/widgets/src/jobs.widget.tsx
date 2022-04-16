@@ -1,5 +1,5 @@
 import { withWidget } from "./hooks/with-widget";
-import Jobs from "../../pages/apps/jobs/index";
+import Jobs from "@pages/apps/jobs/index";
 
 function JobsWidget() {
   return (
