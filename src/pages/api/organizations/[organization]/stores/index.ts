@@ -39,6 +39,8 @@ export default async function handler(
         },
         name: true,
         slug: true,
+        lat: true,
+        lng: true,
         address: true,
         phone: true,
       },

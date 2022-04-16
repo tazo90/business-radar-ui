@@ -5,7 +5,7 @@ export function baseProperties(feature: any) {
     address: feature.address || feature.address_osm || feature.address_google,
     summary: "4,3;30;10;90%",
     brand: feature.brand.name.toLowerCase(),
-    brand_full: feature.brand.full_name,
+    brand_full: feature.brand.fullName,
     country: feature.country.code,
     located_in_name: feature.located_in_name,
     phone: feature.phone,
