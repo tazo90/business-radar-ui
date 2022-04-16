@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { SearchIcon } from "@heroicons/react/outline";
 
-export function Search({ onSearch, placeholder }) {
+export function Search({ onSearch, placeholder, bgColor = "bg-white" }) {
   const inputRef = useRef<HTMLInputElement>();
 
   return (
@@ -22,7 +22,7 @@ export function Search({ onSearch, placeholder }) {
               id="search"
               name="search"
               ref={inputRef}
-              className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-gray-400 focus:outline-none focus:text-gray-900 focus:ring-0 sm:text-sm"
+              className={`${bgColor} block w-full border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-gray-400 focus:outline-none focus:text-gray-900 focus:ring-0 sm:text-sm`}
               type="search"
               placeholder={placeholder}
               onChange={onSearch}
