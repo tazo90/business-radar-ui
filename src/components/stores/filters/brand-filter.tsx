@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { HomeIcon, ChevronDownIcon } from "@heroicons/react/outline";
 
 import { icons } from "../../../constants";
-import { useBrandsQuery } from "../../../api/customer/get-all-brands";
-import { Filter } from "../../common/filter";
-import { setFilters } from "../../../slices/store.slice";
+import { useBrandsQuery } from "@api/organization/get-all-brands";
+import { Filter } from "@components/common/filter";
+import { setFilters } from "@slices/store.slice";
 
 export function BrandFilter() {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export function BrandFilter() {
 
   const [isFilterOpen, setFilterOpen] = useState(false);
 
-  const { data, isLoading, error }: any = useBrandsQuery({});
+  const { data, isLoading, error }: any = useBrandsQuery({ org: "amrest" });
 
   function getIcon(itemId) {
     return icons.amrest.brands[itemId];

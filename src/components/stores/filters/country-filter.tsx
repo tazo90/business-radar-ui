@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GlobeAltIcon, ChevronDownIcon } from "@heroicons/react/outline";
 
-import { useCountriesQuery } from "../../../api/customer/get-all-countries";
-import { Filter } from "../../common/filter";
+import { useCountriesQuery } from "@api/organization/get-all-countries";
+import { Filter } from "@components/common/filter";
 import countries from "../../../constants/countries";
-import { setFilters } from "../../../slices/store.slice";
+import { setFilters } from "@slices/store.slice";
 
 export function CountryFilter() {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export function CountryFilter() {
 
   const [isFilterOpen, setFilterOpen] = useState(false);
 
-  const { data, isLoading, error }: any = useCountriesQuery({});
+  const { data, isLoading, error }: any = useCountriesQuery({ org: "amrest" });
 
   function getIcon(itemId: string) {
     const filtered = countries.filter((country) => country.value === itemId);

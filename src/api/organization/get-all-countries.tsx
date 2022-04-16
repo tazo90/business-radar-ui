@@ -3,15 +3,15 @@ import { useQuery } from "react-query";
 
 import http from "../http";
 import { API_ENDPOINTS } from "../endpoints";
+import { reverse } from "@lib/urls";
 
 export async function fetchCountries({ queryKey }: any) {
-  const [_key, _params] = queryKey;
-  const { data } = await http.get(API_ENDPOINTS.CUSTOMER.COUNTRIES, {
-    params: _params,
-  });
+  const [_, params] = queryKey;
+  const endpoint = reverse(API_ENDPOINTS.ORGANIZATIONS.COUNTRIES, params);
+  const { data } = await http.get(endpoint);
 
   const countries = {};
-  Object.entries(data).map((item) => {
+  Object.entries(data.countries).map((item) => {
     const country = item[1];
     const countryKey = country.code.toLowerCase();
     countries[countryKey] = country;
@@ -22,7 +22,7 @@ export async function fetchCountries({ queryKey }: any) {
 
 export const useCountriesQuery = (options: any) => {
   return useQuery<{ countries: any }, Error>(
-    [API_ENDPOINTS.CUSTOMER.COUNTRIES, options],
+    [API_ENDPOINTS.ORGANIZATIONS.COUNTRIES, options],
     fetchCountries
   );
 };

@@ -12,7 +12,7 @@ import {
   MoreFilter,
 } from "@components/stores/filters";
 import { setStore, setStores } from "@slices/store.slice";
-import { useJobsQuery } from "@api/jobs/get-all-jobs";
+import { useJobsQuery } from "@api/organization/jobs/get-all-jobs";
 import Drawer from "@components/ui/drawer";
 import Autocomplete from "@components/ui/autocomplete";
 import { setUserLocation } from "@slices/location.slice";

@@ -3,15 +3,15 @@ import { useQuery } from "react-query";
 
 import http from "../http";
 import { API_ENDPOINTS } from "../endpoints";
+import { reverse } from "@lib/urls";
 
 export async function fetchBrands({ queryKey }: any) {
-  const [_key, _params] = queryKey;
-  const { data } = await http.get(API_ENDPOINTS.CUSTOMER.BRANDS, {
-    params: _params,
-  });
+  const [_, params] = queryKey;
+  const endpoint = reverse(API_ENDPOINTS.ORGANIZATIONS.BRANDS, params);
+  const { data } = await http.get(endpoint);
 
   const brands = {};
-  Object.entries(data).map((item) => {
+  Object.entries(data.brands).map((item) => {
     const brand = item[1];
     const brandKey = brand.name.toLowerCase();
     brands[brandKey] = brand;
@@ -22,7 +22,7 @@ export async function fetchBrands({ queryKey }: any) {
 
 export const useBrandsQuery = (options: any) => {
   return useQuery<{ brands: any }, Error>(
-    [API_ENDPOINTS.CUSTOMER.BRANDS, options],
+    [API_ENDPOINTS.ORGANIZATIONS.BRANDS, options],
     fetchBrands
   );
 };

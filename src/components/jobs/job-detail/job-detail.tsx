@@ -1,5 +1,5 @@
 import { icons } from "../../../constants";
-import { useJobQuery } from "../../../api/jobs/get-job";
+import { useJobQuery } from "@api/organization/jobs/get-job";
 import {
   LocationMarkerIcon,
   OfficeBuildingIcon,

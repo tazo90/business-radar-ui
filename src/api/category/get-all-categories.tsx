@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
 
 import http from "../http";
-import { httpMock } from "../http";
 import { API_ENDPOINTS } from "../endpoints";
 import { Category } from "../types";
 
@@ -9,7 +8,7 @@ export async function fetchCategories({ queryKey }: any) {
   const [_key, _params] = queryKey;
   const {
     data: { menu },
-  } = await httpMock.get(API_ENDPOINTS.CATEGORIES);
+  } = await http.get(API_ENDPOINTS.CATEGORIES);
 
   // http.interceptors.request.use(function (config) {
   //   config.headers.Authorization =
