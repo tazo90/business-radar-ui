@@ -31,8 +31,8 @@ const brands = [
     fullName: "Blue Frog",
   },
   {
-    name: "Kaab",
-    fullName: "Kaab",
+    name: "Kabb",
+    fullName: "Kabb",
   },
   {
     name: "BCA",
