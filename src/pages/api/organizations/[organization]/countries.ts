@@ -14,6 +14,9 @@ export default async function handler(
           slug: req.query.organization,
         },
       },
+      orderBy: {
+        name: "asc",
+      },
       select: {
         id: true,
         name: true,

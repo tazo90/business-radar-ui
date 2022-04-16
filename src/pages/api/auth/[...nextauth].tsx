@@ -29,8 +29,6 @@ const providers: Provider[] = [
         throw new Error(ErrorCode.InternalServerError);
       }
 
-      console.log("USER", credentials.email);
-
       const user = await prisma.user.findUnique({
         where: {
           email: credentials.email.toLowerCase(),
