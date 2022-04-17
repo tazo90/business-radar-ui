@@ -1,9 +1,15 @@
 /** @type {import('next').NextConfig} */
 const withImages = require('next-images');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+})
 
-module.exports = withImages({
+module.exports = withBundleAnalyzer(withImages({
   fileExtensions: ["jpg", "jpeg", "png", "gif", "svg"],
   reactStrictMode: true,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     disableStaticImages: true
   },
@@ -26,4 +32,4 @@ module.exports = withImages({
       }
     ];
   },
-})
+}));

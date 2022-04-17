@@ -10,6 +10,10 @@ interface RatingProps {
   withReviews?: boolean;
 }
 
+function range(number: number) {
+  return Array.from({ length: number }, (x, i) => i);
+}
+
 export function Rating({
   rate,
   count,
@@ -22,7 +26,7 @@ export function Rating({
       <div className="flex items-center">
         <span className={`${textSize} font-semibold`}>{rate}</span>
         <ul className="flex justify-center ml-1 mt-0.5">
-          {[...Array(stars).keys()].map((rating) => (
+          {range(5).map((rating) => (
             <li key={rating}>
               <StarIcon
                 className={classNames(

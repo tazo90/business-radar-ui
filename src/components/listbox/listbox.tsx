@@ -27,18 +27,6 @@ function Listbox(
   }: ListboxProps,
   ref
 ) {
-  if (isLoading) {
-    return <ListboxSkeleton itemsNum={8} />;
-  }
-
-  if (!items) {
-    return null;
-  }
-
-  if (items.length === 0) {
-    return <p className="text-center">No results</p>;
-  }
-
   const dispatch = useDispatch();
   const { userLocation } = useSelector((state: any) => state.location);
 
@@ -77,6 +65,18 @@ function Listbox(
     },
     [items]
   );
+
+  if (isLoading) {
+    return <ListboxSkeleton itemsNum={8} />;
+  }
+
+  if (!items) {
+    return null;
+  }
+
+  if (items.length === 0) {
+    return <p className="text-center">No results</p>;
+  }
 
   return (
     <>
