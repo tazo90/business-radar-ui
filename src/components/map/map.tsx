@@ -39,19 +39,21 @@ const Map = ({ locations, storeList }) => {
     // initialize map only once
     if (map.current) return;
 
-    map.current = new MapLibre({
-      container: mapContainer.current,
-      style:
-        "https://api.maptiler.com/maps/bright/style.json?key=olPbAXB9QkZuFSDG4x2V",
-      center: [17.031421166039646, 51.10925017838582],
-      zoom: 13,
-      maxZoom: 18,
-    });
+    if (mapContainer.current) {
+      map.current = new MapLibre({
+        container: mapContainer.current,
+        style:
+          "https://api.maptiler.com/maps/bright/style.json?key=olPbAXB9QkZuFSDG4x2V",
+        center: [17.031421166039646, 51.10925017838582],
+        zoom: 13,
+        maxZoom: 18,
+      });
 
-    // map.current.addControl(new NavigationControl());
+      // map.current.addControl(new NavigationControl());
 
-    map.current.on("load", () => onLoad(map.current));
-  }, []);
+      map.current.on("load", () => onLoad(map.current));
+    }
+  }, [mapContainer, map]);
 
   useEffect(() => {
     if (locations) {

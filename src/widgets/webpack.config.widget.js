@@ -93,6 +93,23 @@ const config = {
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
   },
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/](maplibre-gl)[\\/]/,
+          name: `vendor`,
+          //Apply optimization over both dynamically imported module or non-dynamically imported module.
+          chunks: 'all'
+        },
+        defaultVendors: {
+          reuseExistingChunk: true,
+          enforce: true
+        }
+      }
+    },
+  }
 };
 
 module.exports = config;
