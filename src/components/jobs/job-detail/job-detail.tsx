@@ -6,7 +6,7 @@ import {
   PhoneIcon,
 } from "@heroicons/react/outline";
 
-export function JobDetail() {
+export default function JobDetail() {
   // const store = useSelector(
   //   (state: any) => state.store.selectedStore?.properties
   // );

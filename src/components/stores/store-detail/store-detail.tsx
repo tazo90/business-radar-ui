@@ -81,7 +81,7 @@ const team = [
   },
 ];
 
-export function StoreDetail({ isOpen }) {
+export default function StoreDetail({ isOpen }) {
   const [currentTab, setCurrentTab] = useState(tabs[0]);
 
   const store = useSelector(

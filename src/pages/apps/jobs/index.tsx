@@ -1,11 +1,8 @@
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MenuIcon, MapIcon, ShoppingBagIcon } from "@heroicons/react/outline";
 
-import DashboardLayout from "@components/layouts/dashboard";
-import Map from "@components/map";
-import { Search } from "@components/common/search";
-import Listbox from "@components/listbox/listbox";
 import {
   BrandFilter,
   CountryFilter,
@@ -13,11 +10,21 @@ import {
 } from "@components/stores/filters";
 import { setStore, setStores } from "@slices/store.slice";
 import { useJobsQuery } from "@api/organization/jobs/get-all-jobs";
-import Drawer from "@components/ui/drawer";
-import Autocomplete from "@components/ui/autocomplete";
 import { setUserLocation } from "@slices/location.slice";
 import { ListboxJob } from "@components/jobs/listbox-job/listbox-job";
-import { JobDetail } from "@components/jobs/job-detail";
+
+const Drawer = dynamic(() => import("@components/ui/drawer"));
+const Autocomplete = dynamic(() => import("@components/ui/autocomplete"));
+const Listbox = dynamic(() => import("@components/listbox/listbox"));
+const DashboardLayout = dynamic(() => import("@components/layouts/dashboard"));
+const Map = dynamic(() => import("@components/map"));
+const JobDetail = dynamic(() => import("@components/jobs/job-detail"));
+const Search = dynamic(() =>
+  import("@components/common/search").then(
+    (mod) => mod.Search,
+    () => null as never
+  )
+);
 
 export default function JobsPage() {
   const dispatch = useDispatch();
@@ -182,7 +189,7 @@ export default function JobsPage() {
         >
           <Listbox
             name="job"
-            ref={storeList}
+            forwardedRef={storeList}
             isLoading={isLoading}
             items={stores?.features}
             ItemRenderer={ListboxJob}

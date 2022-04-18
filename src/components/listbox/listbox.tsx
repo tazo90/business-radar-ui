@@ -1,4 +1,4 @@
-import { forwardRef, useCallback } from "react";
+import { useCallback } from "react";
 import { FixedSizeList as List } from "react-window";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,19 +14,20 @@ interface ListboxProps {
   selectedStoreId?: number;
   items: any[];
   isLoading: boolean;
+  // dynamically imported components doesn't support forwardRef
+  // https://github.com/vercel/next.js/issues/4957#issuecomment-413841689
+  forwardedRef: React.ForwardedRef<any>;
   ItemRenderer?: any;
 }
 
-function Listbox(
-  {
-    name,
-    selectedStoreId,
-    items,
-    isLoading,
-    ItemRenderer = ListboxItem,
-  }: ListboxProps,
-  ref
-) {
+function Listbox({
+  name,
+  selectedStoreId,
+  items,
+  isLoading,
+  forwardedRef,
+  ItemRenderer = ListboxItem,
+}: ListboxProps) {
   const dispatch = useDispatch();
   const { userLocation } = useSelector((state: any) => state.location);
 
@@ -87,7 +88,7 @@ function Listbox(
         <Dropdown />
       </div>
       <List
-        ref={ref}
+        ref={forwardedRef}
         itemCount={items.length}
         itemSize={136}
         width="100%"
@@ -100,4 +101,4 @@ function Listbox(
   );
 }
 
-export default forwardRef(Listbox);
+export default Listbox;
