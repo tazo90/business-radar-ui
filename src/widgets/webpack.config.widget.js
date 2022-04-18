@@ -51,7 +51,7 @@ const config = {
         options: {
           transpileOnly: false,
           compilerOptions: {
-            module: 'es2015',
+            module: 'esnext',
           },
         },
       },
