@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const dotenv = require('dotenv')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BrotliPlugin = require('brotli-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 // this will update the process.env with environment variables in .env file
 dotenv.config();
@@ -45,8 +46,15 @@ const config = {
     rules: [
       {
         test: /\.ts(x?)$/,
-        exclude: /node_modules/,
-        include: [WIDGETS_DIR],
+        exclude: [
+          /node_modules/,
+          // path.resolve(__dirname, '../pages/home'),
+          // path.resolve(__dirname, '../pages/api'),
+          // path.resolve(__dirname, '../pages/index'),
+        ],
+        include: [
+          WIDGETS_DIR,
+        ],
         loader: 'ts-loader',
         options: {
           transpileOnly: false,
@@ -86,13 +94,36 @@ const config = {
       test: /\.(js|css|html|svg)$/,
       threshold: 10240,
       minRatio: 0.8
-    })
+    }),
+    // new CompressionPlugin({
+    //   filename: `v1/[base].gz[query]`,
+    //   algorithm: "gzip",
+    //   test: /\.(js|css)$/,
+    //   deleteOriginalAssets: true,
+    // })
   ],
   performance: {
     hints: 'warning',
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
   },
+  // optimization: {
+  //   minimize: true,
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       vendor: {
+  //         test: /[\\/]node_modules[\\/](maplibre-gl)[\\/]/,
+  //         name: `embeed-vendor`,
+  //         //Apply optimization over both dynamically imported module or non-dynamically imported module.
+  //         chunks: 'all'
+  //       },
+  //       defaultVendors: {
+  //         reuseExistingChunk: true,
+  //         enforce: true
+  //       }
+  //     }
+  //   },
+  // }
 };
 
 module.exports = config;
