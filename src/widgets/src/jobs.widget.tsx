@@ -1,5 +1,8 @@
+import dynamic from "next/dynamic";
+
 import { withWidget } from "./hooks/with-widget";
-import Jobs from "@pages/apps/jobs/index";
+
+const Jobs = dynamic(() => import("@pages/apps/jobs/index"));
 
 function JobsWidget() {
   return (

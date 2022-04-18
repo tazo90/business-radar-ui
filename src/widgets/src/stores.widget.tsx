@@ -1,5 +1,8 @@
+import dynamic from "next/dynamic";
+
 import { withWidget } from "./hooks/with-widget";
-import Stores from "@pages/apps/stores/index";
+
+const Stores = dynamic(() => import("@pages/apps/stores/index"));
 
 function StoresWidget() {
   return (
