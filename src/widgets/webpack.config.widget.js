@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const dotenv = require('dotenv')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BrotliPlugin = require('brotli-webpack-plugin');
+// const CompressionPlugin = require("compression-webpack-plugin");
 
 // this will update the process.env with environment variables in .env file
 dotenv.config();
@@ -86,7 +87,13 @@ const config = {
       test: /\.(js|css|html|svg)$/,
       threshold: 10240,
       minRatio: 0.8
-    })
+    }),
+    // new CompressionPlugin({
+    //   filename: `[base].gz[query]`,
+    //   algorithm: "gzip",
+    //   test: /\.(js|css)$/,
+    //   deleteOriginalAssets: true,
+    // })
   ],
   performance: {
     hints: 'warning',
