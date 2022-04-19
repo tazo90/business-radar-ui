@@ -179,12 +179,12 @@ model Application {
   description    String?
   brands         Brand[]
   countries      Country[]
-  token          String
   createdAt      DateTime          @default(now())
   updatedAt      DateTime?
   status         ApplicationStatus @default(DRAFT)
   paid           Boolean
   payment        Payment[]
+  token          String            @unique
   expires        DateTime
   domain         String
   components     Component[]

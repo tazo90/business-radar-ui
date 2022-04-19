@@ -2,6 +2,7 @@ import { PrismaClient, Prisma, MembershipRole, UserPlan } from "@prisma/client";
 
 import { hashPassword } from "../auth";
 import data from "./fixtures/amrest";
+import { generateUniqueAPIKey } from "../api-keys";
 
 require("dotenv");
 
@@ -124,6 +125,8 @@ async function createCountries(
 
 async function createApps(organization: any, user: any, apps: any) {
   apps.map(async (app: any) => {
+    const [hashedApiKey, apiKey] = generateUniqueAPIKey();
+
     await prisma.application.create({
       data: {
         ...app,
@@ -132,6 +135,7 @@ async function createApps(organization: any, user: any, apps: any) {
         expires: new Date(
           "Tue Sep 21 2022 16:16:50 GMT-0400 (Eastern Daylight Time)"
         ),
+        token: hashedApiKey,
       },
     });
   });
