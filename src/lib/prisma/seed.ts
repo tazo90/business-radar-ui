@@ -127,15 +127,38 @@ async function createApps(organization: any, user: any, apps: any) {
   apps.map(async (app: any) => {
     const [hashedApiKey, apiKey] = generateUniqueAPIKey();
 
+    const brands = await prisma.brand.findMany({
+      where: {
+        organizationId: organization.id,
+      },
+      select: {
+        id: true,
+      },
+    });
+    const countries = await prisma.country.findMany({
+      where: {
+        organizationId: organization.id,
+      },
+      select: {
+        id: true,
+      },
+    });
+
     await prisma.application.create({
       data: {
         ...app,
-        user: { connect: { id: user.id } },
+        user: { connect: { email: "tazo90@gmail.com" } },
         organization: { connect: { id: organization.id } },
         expires: new Date(
           "Tue Sep 21 2022 16:16:50 GMT-0400 (Eastern Daylight Time)"
         ),
         token: hashedApiKey,
+        brands: {
+          connect: [{ id: brands[0].id }, { id: brands[1].id }], // KFC & PH
+        },
+        countries: {
+          connect: [{ id: countries[0].id }, { id: countries[1].id }], // PL & CZ
+        },
       },
     });
   });

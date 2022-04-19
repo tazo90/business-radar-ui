@@ -1,13 +1,24 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { ClockIcon, HomeIcon, ViewListIcon } from "@heroicons/react/outline";
+import {
+  ClockIcon,
+  HomeIcon,
+  ShoppingBagIcon,
+  ViewListIcon,
+} from "@heroicons/react/outline";
 
 import { classNames } from "@lib/classnames";
+import {
+  CogIcon,
+  ShoppingCartIcon,
+  ViewGridAddIcon,
+} from "@heroicons/react/solid";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Applications", href: "#", icon: ViewListIcon, current: false },
-  { name: "Settings", href: "#", icon: ClockIcon, current: false },
+  { name: "Applications", href: "#", icon: ViewGridAddIcon, current: false },
+  { name: "Store", href: "#", icon: ShoppingCartIcon, current: false },
+  { name: "Settings", href: "#", icon: CogIcon, current: false },
 ];
 const applications = [
   { name: "Stores", href: "#", bgColorClass: "bg-indigo-500" },
@@ -17,7 +28,7 @@ const applications = [
 
 export function SidebarDesktop() {
   return (
-    <div className="hidden lg:flex lg:flex-col lg:w-64 lg:inset-y-0 lg:border-r lg:border-gray-300 lg:pb-4 lg:bg-gray-100 z-50 shadow-2xl">
+    <div className="hidden h-screen lg:flex lg:flex-col lg:w-64 lg:inset-y-0 lg:border-r lg:border-gray-300 lg:pb-4 lg:bg-gray-100 z-50 shadow-2xl">
       {/* Sidebar component, swap this element with another sidebar if you like */}
       <div className="h-0 flex-1 flex flex-col overflow-y-auto">
         {/* User account dropdown */}
