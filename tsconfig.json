@@ -39,6 +39,9 @@
       "@styles/*": [
         "styles/*"
       ],
+      "@server/*": [
+        "server/*"
+      ],
     },
     "incremental": true
   },
