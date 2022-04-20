@@ -16,7 +16,7 @@ import {
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Applications", href: "#", icon: ViewGridAddIcon, current: false },
+  { name: "Projects", href: "#", icon: ViewGridAddIcon, current: false },
   { name: "Store", href: "#", icon: ShoppingCartIcon, current: false },
   { name: "Settings", href: "#", icon: CogIcon, current: false },
 ];

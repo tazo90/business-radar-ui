@@ -128,14 +128,57 @@ const users = [
   },
 ];
 
+const projects = [
+  {
+    name: "CTS",
+    slug: "cts",
+  },
+  {
+    name: "AmSpace",
+    slug: "amspace",
+  },
+  {
+    name: "ECommerce",
+    slug: "ecommerce",
+  },
+];
+
 const apps = [
   {
-    uid: "123",
+    uid: "1",
     title: "Stores KFC PL",
-    token: "abcd",
+    token: "abc",
     status: ApplicationStatus.DRAFT,
     paid: false,
     domain: "localhost",
+    project: "cts",
+  },
+  {
+    uid: "2",
+    title: "Stores KFC PL",
+    token: "def",
+    status: ApplicationStatus.DRAFT,
+    paid: false,
+    domain: "localhost",
+    project: "ecommerce",
+  },
+  {
+    uid: "3",
+    title: "Stores PH PL",
+    token: "ghi",
+    status: ApplicationStatus.DRAFT,
+    paid: false,
+    domain: "localhost",
+    project: "ecommerce",
+  },
+  {
+    uid: "4",
+    title: "Jobs All",
+    token: "jkl",
+    status: ApplicationStatus.DRAFT,
+    paid: false,
+    domain: "localhost",
+    project: "amspace",
   },
 ];
 
@@ -144,5 +187,6 @@ export default {
   brands,
   countries,
   users,
+  projects,
   apps,
 };

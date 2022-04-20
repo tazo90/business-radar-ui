@@ -13,6 +13,23 @@ export default async function handler(
   //   return res.status(401).json({ message: "Not authenticated" });
   // }
 
+  res.status(401).json({ message: "Invalid api key" });
+
+  if (req.query.apiKey) {
+    const application = await prisma.application.findUnique({
+      where: {
+        token: req.query.apiKey,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!application) {
+      res.status(401).json({ message: "Invalid api key" });
+    }
+  }
+
   // GET /api/organizations/:organization/stores
   if (req.method === "GET") {
     const stores = await prisma.store.findMany({

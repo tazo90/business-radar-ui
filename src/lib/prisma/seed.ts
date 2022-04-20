@@ -123,50 +123,87 @@ async function createCountries(
   });
 }
 
-async function createApps(organization: any, user: any, apps: any) {
-  apps.map(async (app: any) => {
-    const [hashedApiKey, apiKey] = generateUniqueAPIKey();
+async function createProjectsAndApps(
+  organization: any,
+  projectOwner: any,
+  appOwner: any,
+  projects: any,
+  apps: any
+) {
+  projects.map(async (project: any) => {
+    const projectApps = apps.filter((app: any) => app.project === project.slug);
 
-    const brands = await prisma.brand.findMany({
-      where: {
-        organizationId: organization.id,
-      },
-      select: {
-        id: true,
-      },
-    });
-    const countries = await prisma.country.findMany({
-      where: {
-        organizationId: organization.id,
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    await prisma.application.create({
+    const proj = await prisma.project.create({
       data: {
-        ...app,
-        user: { connect: { email: "tazo90@gmail.com" } },
+        ...project,
         organization: { connect: { id: organization.id } },
-        expires: new Date(
-          "Tue Sep 21 2022 16:16:50 GMT-0400 (Eastern Daylight Time)"
-        ),
-        token: hashedApiKey,
-        brands: {
-          connect: [{ id: brands[0].id }, { id: brands[1].id }], // KFC & PH
-        },
-        countries: {
-          connect: [{ id: countries[0].id }, { id: countries[1].id }], // PL & CZ
-        },
+        owner: { connect: { id: projectOwner.id } },
       },
+    });
+
+    console.log(`\t👤 Created project '${proj.name}'`);
+
+    // Create apps
+    projectApps?.map(async (app: any) => {
+      const { project, ...appData } = app;
+
+      await createApp(organization, appOwner, proj, appData);
     });
   });
+}
+
+async function createApp(
+  organization: any,
+  owner: any,
+  project: any,
+  app: any
+) {
+  const [hashedApiKey, apiKey] = generateUniqueAPIKey();
+
+  const brands = await prisma.brand.findMany({
+    where: {
+      organizationId: organization.id,
+    },
+    select: {
+      id: true,
+    },
+  });
+  const countries = await prisma.country.findMany({
+    where: {
+      organizationId: organization.id,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  const application = await prisma.application.create({
+    data: {
+      ...app,
+      project: { connect: { id: project.id } },
+      user: { connect: { id: owner.id } },
+      expires: new Date(
+        "Tue Sep 21 2022 16:16:50 GMT-0400 (Eastern Daylight Time)"
+      ),
+      token: hashedApiKey,
+      brands: {
+        connect: [{ id: brands[0].id }, { id: brands[1].id }], // KFC & PH
+      },
+      countries: {
+        connect: [{ id: countries[0].id }, { id: countries[1].id }], // PL & CZ
+      },
+    },
+  });
+
+  console.log(
+    `\t👤 Created app '${application.title}' in project '${project.slug}`
+  );
 }
 
 async function main() {
   await dropTables();
 
+  // Create users
   const freeUser = await createUser({
     user: data.users[0],
   });
@@ -175,6 +212,7 @@ async function main() {
     user: data.users[1],
   });
 
+  // Create organization and members
   const org = await createOrganizationAndUsers(data.organization, [
     {
       id: freeUser.id,
@@ -187,10 +225,18 @@ async function main() {
   ]);
 
   if (org) {
+    // Create brands
     await createBrands(org, data.brands);
+    // Create countries
     await createCountries(org, data.countries);
-
-    await createApps(org, proUser, data.apps);
+    // Create projects
+    await createProjectsAndApps(
+      org,
+      proUser,
+      freeUser,
+      data.projects,
+      data.apps
+    );
   }
 }
 
