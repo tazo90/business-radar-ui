@@ -25,7 +25,7 @@ const Search = dynamic(() =>
   )
 );
 
-export default function StoresPage() {
+export default function StoresPage({ apiKey }) {
   const dispatch = useDispatch();
 
   const { stores, selectedStore, filters } = useSelector(
@@ -46,7 +46,10 @@ export default function StoresPage() {
 
   const { data, isLoading, error }: any = useStoresQuery({
     org: "amrest",
+    apiKey,
   });
+
+  console.log("ERROR", data);
 
   useEffect(() => {
     if (data) {
