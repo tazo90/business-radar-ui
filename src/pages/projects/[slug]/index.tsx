@@ -10,7 +10,7 @@ import {
 } from "@heroicons/react/outline";
 import DetailedLayout from "@components/layouts/detailed";
 
-export const pageMenu = [
+export const projectMenu = [
   {
     name: "Overview",
     href: "/projects/:slug",
@@ -52,7 +52,7 @@ export default function ProjectPage() {
 
   return (
     <DetailedLayout
-      pageMenu={pageMenu}
+      pageMenu={projectMenu}
       pageTitle="Overview"
       pageDescription="You can customize your plan."
       header={

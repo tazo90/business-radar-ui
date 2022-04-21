@@ -1,12 +1,28 @@
 import DashboardLayout from "@components/layouts/dashboard";
 import DetailedLayout from "@components/layouts/detailed";
-import { projectMenu } from ".";
+import { PencilAltIcon, ViewGridIcon } from "@heroicons/react/outline";
+import { useRouter } from "next/router";
 
-export default function ProjectBillingPage() {
+export const appMenu = [
+  {
+    name: "Overview",
+    href: "/projects/:slug/apps/:id",
+    icon: PencilAltIcon,
+  },
+  {
+    name: "Integrations",
+    href: "/projects/:slug/apps/:id/integrations",
+    icon: ViewGridIcon,
+  },
+];
+
+export default function ProjectAppIntegrationsPage() {
+  const router = useRouter();
+
   return (
     <DetailedLayout
-      pageMenu={projectMenu}
-      pageTitle="Plan & Billing"
+      pageMenu={appMenu}
+      pageTitle="Integrations"
       header={
         <button
           type="button"
@@ -16,9 +32,9 @@ export default function ProjectBillingPage() {
         </button>
       }
     >
-      Billing page
+      APP {router.query.id}
     </DetailedLayout>
   );
 }
 
-ProjectBillingPage.Layout = DashboardLayout;
+ProjectAppIntegrationsPage.Layout = DashboardLayout;

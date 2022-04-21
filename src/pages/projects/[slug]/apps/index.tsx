@@ -10,7 +10,7 @@ import {
   CalendarIcon,
 } from "@heroicons/react/solid";
 import DetailedLayout from "@components/layouts/detailed";
-import { pageMenu } from "..";
+import { projectMenu } from "..";
 
 export default function ProjectAppsPage() {
   const router = useRouter();
@@ -29,7 +29,7 @@ export default function ProjectAppsPage() {
 
   return (
     <DetailedLayout
-      pageMenu={pageMenu}
+      pageMenu={projectMenu}
       pageTitle="Applications"
       pageDescription="You can register at most 5 application in your plan."
       header={

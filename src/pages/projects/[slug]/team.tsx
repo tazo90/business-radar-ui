@@ -1,11 +1,11 @@
 import DashboardLayout from "@components/layouts/dashboard";
 import DetailedLayout from "@components/layouts/detailed";
-import { pageMenu } from ".";
+import { projectMenu } from ".";
 
 export default function ProjectTeamPage() {
   return (
     <DetailedLayout
-      pageMenu={pageMenu}
+      pageMenu={projectMenu}
       pageTitle="Team"
       header={
         <button
