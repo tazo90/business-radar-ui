@@ -6,5 +6,5 @@ export const hashAPIKey = (apiKey: string): string =>
 
 // Generate a random API key. Prisma already makes sure it's unique. So no need to add salts like with passwords.
 export const generateUniqueAPIKey = (
-  apiKey = randomBytes(16).toString("hex")
+  apiKey = randomBytes(10).toString("hex")
 ) => [hashAPIKey(apiKey), apiKey];

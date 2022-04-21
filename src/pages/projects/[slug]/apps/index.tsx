@@ -4,7 +4,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import icons from "@constants/icons";
 
-import { CheckCircleIcon } from "@heroicons/react/solid";
+import {
+  CheckCircleIcon,
+  ClipboardCopyIcon,
+  CalendarIcon,
+} from "@heroicons/react/solid";
+import DetailedLayout from "@components/layouts/detailed";
+import { pageMenu } from "..";
 
 export default function ProjectAppsPage() {
   const router = useRouter();
@@ -21,118 +27,111 @@ export default function ProjectAppsPage() {
     }
   );
 
-  console.log("APPS", project);
-
-  console.log("SLUG", router.query.slug);
-
   return (
-    <div className="flex flex-col">
-      <main className="flex-1">
-        {/* Page title & actions */}
-        <div className="border-b border-gray-200 bg-gray-50 px-4 py-2 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
-          <div className="flex-1 min-w-0">
-            <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">
-              Project {project?.name}
-            </h1>
-          </div>
-          <div className="mt-4 flex sm:mt-0 sm:ml-0">
-            <button
-              type="button"
-              className="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
-            >
-              Create application
-            </button>
+    <DetailedLayout
+      pageMenu={pageMenu}
+      header={
+        <button
+          type="button"
+          className="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
+        >
+          Create application
+        </button>
+      }
+    >
+      <div className="shadow sm:rounded-md sm:overflow-hidden">
+        <div className="bg-white py-4 px-4 space-y-4 sm:p-4">
+          <div>
+            <h3 className="text-lg leading-6 font-medium text-gray-900">
+              Applications
+            </h3>
           </div>
         </div>
+        <ul role="list" className="divide-y divide-gray-200 ">
+          {project?.applications.map((app) => {
+            const appUrl = `/projects/${project.slug}/apps/${app.id}`;
 
-        {/* Applications table (small breakpoint and up) */}
-        <div className="hidden mt-8 sm:block px-8">
-          <div className="align-middle inline-block min-w-full ">
-            <div className="bg-pink-300 w-32 rounded-tl-lg rounded-tr-lg">
-              <h2 className="px-4 py-2">Applications</h2>
-            </div>
-            <table className="min-w-full border border-gray-200">
-              <thead>
-                <tr>
-                  <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <span className="lg:pl-2">Application</span>
-                  </th>
-                  <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <span className="lg:pl-2">Brands</span>
-                  </th>
-                  <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <span className="lg:pl-2">Countries</span>
-                  </th>
-                  <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <span className="lg:pl-2">Paid</span>
-                  </th>
-                  <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <span className="lg:pl-2">API key</span>
-                  </th>
-                  <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <span className="lg:pl-2">Expires</span>
-                  </th>
-                  <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" />
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-100">
-                {project?.applications.map((app) => {
-                  const appUrl = `/projects/${project.slug}/apps/${app.id}`;
+            return (
+              <li key={app.id}>
+                <Link href={appUrl}>
+                  <a className="block hover:bg-gray-50 bg-slate-100">
+                    <div className="px-4 py-4 sm:px-6">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm font-medium text-lime-600 truncate">
+                          {app.title}
+                        </p>
 
-                  return (
-                    <tr key={app.id}>
-                      <td className="px-6 py-3 max-w-0 whitespace-nowrap text-sm font-medium text-gray-900">
-                        <Link href={appUrl}>{app.title}</Link>
-                      </td>
-                      <td className="px-6 py-3 text-sm text-gray-500 font-medium uppercase">
-                        <div className="flex items-center space-x-2">
-                          <div className="flex flex-shrink-0 -space-x-1">
-                            {app?.brands.map((brand) => (
-                              <img
-                                key={brand.id}
-                                className="max-w-none h-6 w-6 rounded-full ring-2 ring-white"
-                                src={
-                                  icons.amrest.brands[brand.name.toLowerCase()]
-                                }
-                                alt={brand.name}
-                              />
-                            ))}
+                        <div className="ml-2 flex-shrink-0 flex">
+                          <p className="px-4 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            PAID
+                            <CheckCircleIcon className="ml-2 h-5 w-5 text-green-600" />
+                          </p>
+                        </div>
+                      </div>
+                      <div className="mt-2 sm:flex sm:justify-between">
+                        <div className="sm:flex">
+                          <div className="flex items-center text-sm text-gray-500">
+                            <p className="pr-2">Brands</p>
+                            <div className="flex items-center space-x-2">
+                              <div className="flex flex-shrink-0 -space-x-1">
+                                {app?.brands.map((brand) => (
+                                  <img
+                                    key={brand.id}
+                                    className="max-w-none h-6 w-6 rounded-full ring-2 ring-white"
+                                    src={
+                                      icons.amrest.brands[
+                                        brand.name.toLowerCase()
+                                      ]
+                                    }
+                                    alt={brand.name}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+                            <p className="pr-2">Countries</p>
+                            <div className="flex items-center">
+                              {app.countries.map((country) => (
+                                <img
+                                  key={country.id}
+                                  className="max-w-none h-6 w-6 ring-2 ring-white"
+                                  src={icons.flags[country.code.toLowerCase()]}
+                                  alt={country.code}
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
-                      </td>
-                      <td className="px-6 py-3 text-sm text-gray-500 font-medium uppercase">
-                        <div className="flex items-center">
-                          {app.countries.map((country) => (
-                            <img
-                              key={country.id}
-                              className="max-w-none h-6 w-6 ring-2 ring-white"
-                              src={icons.flags[country.code.toLowerCase()]}
-                              alt={country.code}
-                            />
-                          ))}
+                        <p className="ml-4 flex items-center text-sm text-gray-500">
+                          <span className="font-semibold mr-2">API Key:</span>
+                          <span className="underline mr-2">{app.token}</span>
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              navigator.clipboard.writeText(app.token);
+                            }}
+                          >
+                            <ClipboardCopyIcon className="h-5 w-5" />
+                          </button>
+                        </p>
+                        <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                          <CalendarIcon
+                            className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
+                          <p>Expires on 2022-02-01</p>
                         </div>
-                      </td>
-                      <td className="px-6 py-3 text-sm text-gray-500 font-medium">
-                        <CheckCircleIcon className="h-5 w-5 text-green-600" />
-                      </td>
-                      <td className="px-6 py-3 text-sm text-gray-500 font-medium">
-                        {app.token}
-                      </td>
-                      <td className="px-6 py-3 text-sm text-gray-500 font-medium">
-                        2022-03-02 10:20
-                      </td>
-                      <td className="px-6 py-3 whitespace-nowrap text-right text-sm font-medium">
-                        <Link href={appUrl}>Edit</Link>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </main>
-    </div>
+                      </div>
+                    </div>
+                  </a>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </DetailedLayout>
   );
 }
 
