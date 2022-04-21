@@ -34,7 +34,7 @@ export default function Breadcrumb() {
 
   return (
     <nav className="flex" aria-label="Breadcrumb">
-      <ol role="list" className="flex items-center space-x-4">
+      <ol role="list" className="flex items-center space-x-2">
         <li>
           <div>
             <Link href="/">
@@ -60,7 +60,7 @@ export default function Breadcrumb() {
                 <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
               </svg>
               <Link href={page.href}>
-                <a className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
+                <a className="ml-2 text-sm font-medium text-gray-500 hover:text-gray-700">
                   {page.name}
                 </a>
               </Link>
