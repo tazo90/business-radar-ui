@@ -1,14 +1,14 @@
-import { HomeIcon } from "@heroicons/react/solid";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-const pages = [
-  { name: "Projects", href: "#", current: false },
-  { name: "CTS", href: "#", current: true },
-];
+import { HomeIcon } from "@heroicons/react/solid";
+
+import { capitalize } from "@lib/strings";
 
 export default function Breadcrumb() {
   const [pages, setPages] = useState([]);
+  const { query } = useRouter();
 
   useEffect(() => {
     setPages(buildPages());
@@ -17,16 +17,14 @@ export default function Breadcrumb() {
   function buildPages() {
     const paths = window.location.pathname.split("/");
     const _pages = [];
+    const queryValues = Object.values(query);
 
-    for (let i = 0; i < paths.length; i++) {
-      const currPage = paths[i];
-      if (i > 0) {
-        const prevPage = paths[i - 1];
-        _pages.push({
-          name: currPage.toUpperCase(),
-          href: `${i > 1 ? "/" : ""}${prevPage}/${currPage}`,
-        });
-      }
+    for (let i = 1; i < paths.length; i++) {
+      const pageName = paths[i];
+      _pages.push({
+        name: queryValues.includes(pageName) ? pageName : capitalize(pageName),
+        href: paths.slice(0, i + 1).join("/"),
+      });
     }
 
     return _pages;
