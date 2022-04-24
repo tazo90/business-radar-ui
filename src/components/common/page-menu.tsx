@@ -17,6 +17,7 @@ export default function PageMenu({ menu }) {
 
   return (
     <aside className="py-6 px-2 sm:px-6 lg:p-2 lg:col-span-2 bg-gray-50">
+      <h1 className="px-2 pb-2 text-gray-600 font-semibold">Projects</h1>
       <nav className="space-y-1">
         {menu.map((item) => {
           const page = item.href.split("/").slice(-1)[0].replace(":", "");
