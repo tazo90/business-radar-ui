@@ -8,24 +8,36 @@ import { Menu, Transition } from "@headlessui/react";
 import { classNames } from "@lib/classnames";
 import { Fragment } from "react";
 import router from "next/router";
+import showToast from "@lib/notification";
 
 const userAvatar =
   "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
 const users = [...Array(3).fill(userAvatar)];
 
-const projectActions = [
-  {
-    name: "Edit",
-    href: "#",
-    onClick: (slug: string) => router.push(`/projects/${slug}`),
-  },
-  { name: "Delete", href: "#" },
-];
-
 export default function ProjectsPage() {
   const utils = trpc.useContext();
 
   const projects = trpc.useQuery(["api.project.list"]);
+
+  const deleteProject = trpc.useMutation("api.project.delete", {
+    onSuccess: () => {
+      showToast("Project removed", "success");
+    },
+    onError: () => {},
+  });
+
+  const projectActions = [
+    {
+      name: "Edit",
+      href: "#",
+      onClick: (slug: string) => router.push(`/projects/${slug}`),
+    },
+    {
+      name: "Delete",
+      href: "#",
+      onClick: (slug: string) => deleteProject.mutate({ slug }),
+    },
+  ];
 
   return (
     <div className="mx-8">

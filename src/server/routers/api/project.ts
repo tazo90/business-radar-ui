@@ -59,4 +59,15 @@ export const projectRouter = createRouter()
         },
       });
     },
+  })
+  .mutation("delete", {
+    input: z.object({
+      slug: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const { slug } = input;
+      await ctx.prisma.project.delete({
+        where: { slug },
+      });
+    },
   });
