@@ -1,11 +1,6 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import {
-  ClockIcon,
-  HomeIcon,
-  ShoppingBagIcon,
-  ViewListIcon,
-} from "@heroicons/react/outline";
+import { HomeIcon } from "@heroicons/react/outline";
 
 import { classNames } from "@lib/classnames";
 import {
@@ -13,13 +8,19 @@ import {
   ShoppingCartIcon,
   ViewGridAddIcon,
 } from "@heroicons/react/solid";
+import { useRouter } from "next/router";
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Projects", href: "#", icon: ViewGridAddIcon, current: false },
-  { name: "Store", href: "#", icon: ShoppingCartIcon, current: false },
-  { name: "Settings", href: "#", icon: CogIcon, current: false },
+  { name: "Dashboard", href: "/", icon: HomeIcon },
+  {
+    name: "Projects",
+    href: "/projects",
+    icon: ViewGridAddIcon,
+  },
+  { name: "Store", href: "/store", icon: ShoppingCartIcon },
+  { name: "Settings", href: "/settings", icon: CogIcon },
 ];
+
 const applications = [
   { name: "Stores", href: "#", bgColorClass: "bg-indigo-500" },
   { name: "Jobs", href: "#", bgColorClass: "bg-green-500" },
@@ -27,6 +28,8 @@ const applications = [
 ];
 
 export function SidebarDesktop() {
+  const { asPath: pathname } = useRouter();
+
   return (
     <div className="hidden min-h-full lg:flex lg:flex-col lg:w-64 lg:inset-y-0 lg:border-r lg:border-gray-300 lg:pb-4 lg:bg-gray-100 z-50 shadow-2xl">
       {/* Sidebar component, swap this element with another sidebar if you like */}
@@ -133,30 +136,36 @@ export function SidebarDesktop() {
         {/* Navigation */}
         <nav className="px-3 mt-2.5">
           <div className="space-y-1">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className={classNames(
-                  item.current
-                    ? "bg-gray-300 text-gray-900"
-                    : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
-                  "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                )}
-                aria-current={item.current ? "page" : undefined}
-              >
-                <item.icon
+            {navigation.map((item) => {
+              const isActive =
+                item.href.length > 1
+                  ? pathname.startsWith(item.href)
+                  : item.href === pathname;
+              return (
+                <a
+                  key={item.name}
+                  href={item.href}
                   className={classNames(
-                    item.current
-                      ? "text-gray-700"
-                      : "text-gray-500 group-hover:text-gray-500",
-                    "mr-3 flex-shrink-0 h-6 w-6"
+                    isActive
+                      ? "bg-gray-300 text-gray-900"
+                      : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
+                    "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                   )}
-                  aria-hidden="true"
-                />
-                {item.name}
-              </a>
-            ))}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  <item.icon
+                    className={classNames(
+                      isActive
+                        ? "text-gray-700"
+                        : "text-gray-500 group-hover:text-gray-500",
+                      "mr-3 flex-shrink-0 h-6 w-6"
+                    )}
+                    aria-hidden="true"
+                  />
+                  {item.name}
+                </a>
+              );
+            })}
           </div>
           <div className="mt-8">
             {/* Secondary navigation */}

@@ -22,7 +22,6 @@ export default function PageMenu({ menu }) {
         {menu.map((item) => {
           const page = item.href.split("/").slice(-1)[0].replace(":", "");
           const isActive = currentPage === page;
-          console.log("PAGE", page, currentPage, isActive, router);
           return (
             <Link key={item.name} href={subst(item.href, query)}>
               <a
