@@ -4,10 +4,23 @@ import { trpc } from "@lib/trpc";
 import Link from "next/link";
 
 import { DotsHorizontalIcon, ViewGridAddIcon } from "@heroicons/react/solid";
+import { Menu, Transition } from "@headlessui/react";
+import { classNames } from "@lib/classnames";
+import { Fragment } from "react";
+import router from "next/router";
 
 const userAvatar =
   "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
 const users = [...Array(3).fill(userAvatar)];
+
+const projectActions = [
+  {
+    name: "Edit",
+    href: "#",
+    onClick: (slug: string) => router.push(`/projects/${slug}`),
+  },
+  { name: "Delete", href: "#" },
+];
 
 export default function ProjectsPage() {
   const utils = trpc.useContext();
@@ -23,7 +36,7 @@ export default function ProjectsPage() {
         <div className="mt-4 p-2 flex sm:mt-0 sm:ml-0">
           <button
             type="button"
-            className="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-purple-500 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
+            className="order-0 inline-flex items-center px-4 h-10 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-500 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
           >
             + Create project
           </button>
@@ -38,14 +51,75 @@ export default function ProjectsPage() {
             key={project.id}
             className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
           >
-            <div className="bg-gray-100 w-full flex items-center justify-between p-6 space-x-6 rounded-lg shadow-lg">
+            <div className="bg-gray-100 w-full flex items-center justify-between px-6 py-4 space-x-6 rounded-lg shadow-lg">
               <Link href={`/projects/${project.slug}`}>
                 <a className="flex-1 truncate space-y-3">
                   <div className="flex items-center justify-between">
                     <h3 className="text-gray-900 text-md font-semibold truncate">
                       {project.name}
                     </h3>
-                    <DotsHorizontalIcon className="h-4 w-4" />
+                    <Menu as="div" className="flex-shrink-0 relative ml-5">
+                      <div>
+                        <Menu.Button className="p-1 bg-gray-100 rounded-full flex focus:outline-none">
+                          <DotsHorizontalIcon className="h-5 w-5" />
+                        </Menu.Button>
+                      </div>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items className="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none">
+                          {projectActions.map((item) => (
+                            <Menu.Item key={item.name}>
+                              {({ active }) => (
+                                <a
+                                  href={item.href}
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block py-2 px-4 text-sm text-gray-700"
+                                  )}
+                                  onClick={() =>
+                                    item.onClick
+                                      ? item.onClick(project.slug)
+                                      : null
+                                  }
+                                >
+                                  {item.name}
+                                </a>
+                              )}
+                            </Menu.Item>
+                          ))}
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                    {/* <Menu>
+                      {({ open }) => (
+                        <>
+                          <Menu.Button>
+                            <DotsHorizontalIcon className="h-4 w-4" />
+                          </Menu.Button>
+                          {open && (
+                            <Menu.Items>
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <a
+                                    className={`${active && "bg-blue-500"}`}
+                                    href="/account-settings"
+                                  >
+                                    Account settings
+                                  </a>
+                                )}
+                              </Menu.Item>
+                            </Menu.Items>
+                          )}
+                        </>
+                      )}
+                    </Menu> */}
                   </div>
                   <div className="flex justify-between">
                     <span className="flex-shrink-0 inline-block px-2 py-0.5 text-white text-xs font-medium bg-green-500 rounded-md">
