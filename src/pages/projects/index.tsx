@@ -6,24 +6,27 @@ import Link from "next/link";
 import { DotsHorizontalIcon, ViewGridAddIcon } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
 import { classNames } from "@lib/classnames";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import router from "next/router";
 import showToast from "@lib/notification";
+import ProjectModalForm from "@components/projects/project-modal-form";
+import { Dialog } from "@components/ui/dialog";
 
 const userAvatar =
   "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
 const users = [...Array(3).fill(userAvatar)];
 
 export default function ProjectsPage() {
-  const utils = trpc.useContext();
+  const [newProjectModal, setNewProjectModal] = useState(false);
 
-  const projects = trpc.useQuery(["api.project.list"]);
+  const utils = trpc.useContext();
+  const { isFetching, data: projects } = trpc.useQuery(["api.project.list"]);
 
   const deleteProject = trpc.useMutation("api.project.delete", {
-    onSuccess: () => {
+    async onSuccess() {
       showToast("Project removed", "success");
+      await utils.invalidateQueries(["api.project.list"]);
     },
-    onError: () => {},
   });
 
   const projectActions = [
@@ -47,6 +50,7 @@ export default function ProjectsPage() {
         </div>
         <div className="mt-4 p-2 flex sm:mt-0 sm:ml-0">
           <button
+            onClick={() => setNewProjectModal(true)}
             type="button"
             className="order-0 inline-flex items-center px-4 h-9 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-500 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
           >
@@ -58,7 +62,7 @@ export default function ProjectsPage() {
         role="list"
         className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
-        {projects.data?.map((project) => (
+        {projects?.map((project) => (
           <li
             key={project.id}
             className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
@@ -93,11 +97,13 @@ export default function ProjectsPage() {
                                     active ? "bg-gray-100" : "",
                                     "block py-2 px-4 text-sm text-gray-700"
                                   )}
-                                  onClick={() =>
+                                  onClick={(e) => {
+                                    e.preventDefault();
+
                                     item.onClick
                                       ? item.onClick(project.slug)
-                                      : null
-                                  }
+                                      : null;
+                                  }}
                                 >
                                   {item.name}
                                 </a>
@@ -128,8 +134,9 @@ export default function ProjectsPage() {
                     </div>
                   </div>
                   <div className="flex items-center space-x-1 pt-2">
-                    {users.map((user) => (
+                    {users.map((user, index) => (
                       <img
+                        key={index}
                         className="object-cover h-7 w-7 rounded-full"
                         src={user}
                         alt=""
@@ -144,6 +151,18 @@ export default function ProjectsPage() {
           </li>
         ))}
       </ul>
+
+      {/* New project dialog */}
+      <Dialog
+        title="Create new project"
+        open={newProjectModal}
+        onClose={() => setNewProjectModal(false)}
+      >
+        <ProjectModalForm
+          title="Create new project"
+          onClose={() => setNewProjectModal(false)}
+        />
+      </Dialog>
     </div>
   );
 }
