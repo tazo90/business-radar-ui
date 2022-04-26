@@ -1,13 +1,11 @@
 import { z } from "zod";
 
-import { createProtectedRouter, createRouter } from "@server/create-router";
+import { createProtectedRouter } from "@server/create-router";
 import slugify from "@lib/slugify";
 import { TRPCError } from "@trpc/server";
 
 export const projectRouter = createProtectedRouter()
-  // export const projectRouter = createRouter()
-  //
-  .query("list", {
+  .query("all", {
     async resolve({ ctx }) {
       return await ctx.prisma.project.findMany({
         where: {
@@ -62,7 +60,7 @@ export const projectRouter = createProtectedRouter()
       });
     },
   })
-  .mutation("create", {
+  .mutation("add", {
     input: z.object({
       name: z.string(),
     }),
