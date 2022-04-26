@@ -17,15 +17,15 @@ const userAvatar =
 const users = [...Array(3).fill(userAvatar)];
 
 export default function ProjectsPage() {
-  const [newProjectModal, setNewProjectModal] = useState(false);
+  const [addProjectModal, setAddProjectModal] = useState(false);
 
   const utils = trpc.useContext();
-  const { isFetching, data: projects } = trpc.useQuery(["api.project.list"]);
+  const { isFetching, data: projects } = trpc.useQuery(["api.project.all"]);
 
   const deleteProject = trpc.useMutation("api.project.delete", {
     async onSuccess() {
       showToast("Project removed", "success");
-      await utils.invalidateQueries(["api.project.list"]);
+      await utils.invalidateQueries(["api.project.all"]);
     },
   });
 
@@ -50,7 +50,7 @@ export default function ProjectsPage() {
         </div>
         <div className="mt-4 p-2 flex sm:mt-0 sm:ml-0">
           <button
-            onClick={() => setNewProjectModal(true)}
+            onClick={() => setAddProjectModal(true)}
             type="button"
             className="order-0 inline-flex items-center px-4 h-9 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-500 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
           >
@@ -152,16 +152,13 @@ export default function ProjectsPage() {
         ))}
       </ul>
 
-      {/* New project dialog */}
+      {/* Add project dialog */}
       <Dialog
         title="Create new project"
-        open={newProjectModal}
-        onClose={() => setNewProjectModal(false)}
+        open={addProjectModal}
+        onClose={() => setAddProjectModal(false)}
       >
-        <ProjectModalForm
-          title="Create new project"
-          onClose={() => setNewProjectModal(false)}
-        />
+        <ProjectModalForm onClose={() => setAddProjectModal(false)} />
       </Dialog>
     </div>
   );

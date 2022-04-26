@@ -11,13 +11,19 @@ import {
 } from "@heroicons/react/solid";
 import DetailedLayout from "@components/layouts/detailed";
 import { projectMenu } from "..";
+import { useState } from "react";
+import ApplicationModalForm from "@components/projects/application-modal-form";
+import { Dialog } from "@components/ui/dialog";
 
 export default function ProjectAppsPage() {
-  const router = useRouter();
+  const { query } = useRouter();
   const utils = trpc.useContext();
+  const [addAppModal, setAddAppModal] = useState(false);
 
-  const { data: project, isLoading } = trpc.useQuery(
-    ["api.project.get", { slug: router.query.slug }],
+  const projectSlug = query.slug;
+
+  const { data: apps, isLoading } = trpc.useQuery(
+    ["api.application.all", { projectSlug }],
     {
       refetchOnWindowFocus: false,
       onError: (e) => {
@@ -32,18 +38,19 @@ export default function ProjectAppsPage() {
       pageMenu={projectMenu}
       pageTitle="Applications"
       pageDescription="You can register at most 5 application in your plan."
-      header={
+      pageAction={
         <button
+          onClick={() => setAddAppModal(true)}
           type="button"
-          className="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
+          className="order-0 h-10 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
         >
           Create application
         </button>
       }
     >
       <ul role="list" className="divide-y divide-gray-200 ">
-        {project?.applications.map((app) => {
-          const appUrl = `/projects/${project.slug}/apps/${app.id}`;
+        {apps?.map((app) => {
+          const appUrl = `/projects/${projectSlug}/apps/${app.id}`;
 
           return (
             <li key={app.id}>
@@ -124,6 +131,18 @@ export default function ProjectAppsPage() {
           );
         })}
       </ul>
+
+      {/* Add application dialog */}
+      <Dialog
+        title="Create new application"
+        open={addAppModal}
+        onClose={() => setAddAppModal(false)}
+      >
+        <ApplicationModalForm
+          projectSlug={projectSlug}
+          onClose={() => setAddAppModal(false)}
+        />
+      </Dialog>
     </DetailedLayout>
   );
 }

@@ -6,13 +6,11 @@ import { inferQueryOutput, trpc } from "@lib/trpc";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export type TProject = inferQueryOutput<"api.project.list">[number];
+export type TProject = inferQueryOutput<"api.project.all">[number];
 
 type ProjectModalFormProps = {
-  title: string;
   defaultValues?: Omit<TProject, "name">;
   onClose: () => void;
-  onSubmit?: () => void;
 };
 
 export default function ProjectModalForm(props: ProjectModalFormProps) {
@@ -20,13 +18,13 @@ export default function ProjectModalForm(props: ProjectModalFormProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const form = useForm({ defaultValues: props.defaultValues });
 
-  const createProject = trpc.useMutation("api.project.create", {
-    onSuccess: (data: any) => {
+  const createProject = trpc.useMutation("api.project.add", {
+    onSuccess() {
       showToast("Finished", "success");
-      utils.invalidateQueries(["api.project.list"]);
+      utils.invalidateQueries(["api.project.all"]);
       props.onClose();
     },
-    onError: (err) => {
+    onError(err) {
       setErrorMessage(err.message);
     },
   });
