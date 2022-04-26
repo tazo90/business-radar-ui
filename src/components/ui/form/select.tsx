@@ -39,17 +39,11 @@ function SelectField<
   Option,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>
->({ className, ...props }: SelectProps<Option, IsMulti, Group>) {
+>({ className, label, ...props }: SelectProps<Option, IsMulti, Group>) {
   const id = useId();
-  const { label = props.name, labelProps } = props;
-  console.log("LABEL", label);
   return (
     <div>
-      {!!props.name && (
-        <Label htmlFor={id} {...labelProps}>
-          {label}
-        </Label>
-      )}
+      {label && <Label htmlFor={id}>{label}</Label>}
       <div className="mt-1 flex rounded-md shadow-sm">
         <ReactSelect
           theme={(theme) => ({
