@@ -40,27 +40,18 @@ export const applicationRouter = createProtectedRouter()
       title: z.string(),
       description: z.string().nullable(),
       domain: z.string(),
-      // brands: z.array(
-      //   z.object({
-      //     id: z.number(),
-      //     name: z.string(),
-      //   })
-      // ),
-      // countries: z.array(
-      //   z.object({
-      //     id: z.number(),
-      //     code: z.string(),
-      //   })
-      // ),
+      brands: z.array(z.object({ id: z.number() })),
+      countries: z.array(z.object({ id: z.number() })),
     }),
     async resolve({ ctx, input }) {
       const [hashedApiKey, apiKey] = generateUniqueAPIKey();
-      console.log("API", apiKey, hashedApiKey);
 
       return await ctx.prisma.application.create({
         data: {
           uid: short.uuid(),
-          userId: ctx.user.id,
+          user: {
+            connect: { id: ctx.user.id },
+          },
           project: {
             connect: {
               slug: input.projectSlug,
@@ -68,8 +59,12 @@ export const applicationRouter = createProtectedRouter()
           },
           title: input.title,
           description: input.description,
-          // brands: input.brands,
-          // countries: input.countries,
+          brands: {
+            connect: input.brands,
+          },
+          countries: {
+            connect: input.countries,
+          },
           domain: input.domain,
           paid: false,
           expires: new Date(

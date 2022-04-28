@@ -55,11 +55,14 @@ export default function ProjectAppsPage() {
           return (
             <li key={app.id}>
               <Link href={appUrl}>
-                <a className="block hover:bg-blue-200 bg-blue-100">
+                <a className="block hover:bg-slate-300 bg-slate-100">
                   <div className="px-4 py-4 sm:px-6">
                     <div className="flex items-center justify-between">
                       <p className="text-sm font-medium text-lime-600 truncate">
                         {app.title}
+                      </p>
+                      <p className="text-sm font-medium text-lime-600 truncate">
+                        {app.domain}
                       </p>
 
                       <div className="ml-2 flex-shrink-0 flex">
@@ -134,7 +137,7 @@ export default function ProjectAppsPage() {
 
       {/* Add application dialog */}
       <Dialog
-        title="Create new application"
+        header={null}
         open={addAppModal}
         onClose={() => setAddAppModal(false)}
       >
