@@ -156,6 +156,29 @@ function AppDetailStep(props) {
   const [countries, setCountries] = useState([]);
   const form = useForm();
 
+  const { data: organization, isLoading } = trpc.useQuery(
+    ["api.organization.get", { slug: "amrest" }],
+    {
+      select: (data) => {
+        return {
+          ...data,
+          brands: data?.brands.map((brand) => {
+            return {
+              id: brand.id,
+              label: brand.fullName,
+            };
+          }),
+          countries: data?.countries.map((country) => {
+            return {
+              id: country.id,
+              label: country.name,
+            };
+          }),
+        };
+      },
+    }
+  );
+
   const createApp = trpc.useMutation("api.application.add", {
     onSuccess() {
       showToast("Finished", "success");
@@ -178,17 +201,17 @@ function AppDetailStep(props) {
       <Form
         form={form}
         handleSubmit={(values) => {
-          const data = {
+          const payload = {
             ...values,
             projectSlug: props.projectSlug,
             brands: brands.map((brand) => {
-              return { id: brand.value };
+              return { id: brand };
             }),
             countries: countries.map((country) => {
-              return { id: country.value };
+              return { id: country };
             }),
           };
-          createApp.mutate(data);
+          createApp.mutate(payload);
         }}
         className="space-y-4"
       >
@@ -205,6 +228,24 @@ function AppDetailStep(props) {
             {...form.register("description", { required: true })}
             type="text"
           />
+          <SelectField
+            id="brands"
+            label="Brands"
+            isMulti={true}
+            // value={selectedLanguage || props.localeProp}
+            onChange={(v) => v && setBrands(v.map((k) => k.id))}
+            className="mt-1 block w-full rounded-sm capitalize shadow-sm  sm:text-sm"
+            options={organization?.brands}
+          />
+          <SelectField
+            id="countries"
+            label="Countries"
+            isMulti={true}
+            // value={selectedLanguage || props.localeProp}
+            onChange={(v) => v && setCountries(v.map((k) => k.id))}
+            className="mt-1 block w-full rounded-sm capitalize shadow-sm  sm:text-sm"
+            options={organization?.countries}
+          />
           <TextField
             label="Domain"
             placeholder="Type domain"
@@ -215,25 +256,6 @@ function AppDetailStep(props) {
                 https://
               </span>
             }
-          />
-
-          <SelectField
-            id="brands"
-            label="Brands"
-            isMulti={true}
-            // value={selectedLanguage || props.localeProp}
-            onChange={(v) => v && setBrands(v)}
-            className="mt-1 block w-full rounded-sm capitalize shadow-sm  sm:text-sm"
-            options={brandOptions}
-          />
-          <SelectField
-            id="countries"
-            label="Countries"
-            isMulti={true}
-            // value={selectedLanguage || props.localeProp}
-            onChange={(v) => v && setCountries(v)}
-            className="mt-1 block w-full rounded-sm capitalize shadow-sm  sm:text-sm"
-            options={countryOptions}
           />
           {errorMessage && (
             <p className="pt-3 text-sm text-red-700">
