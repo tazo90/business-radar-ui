@@ -217,6 +217,12 @@ export function SidebarDesktop() {
             </div>
           </div>
         </nav>
+        <div className="flex items-center mt-12 ml-6">
+          <img
+            src="https://download.logo.wine/logo/AmRest/AmRest-Logo.wine.png"
+            className="h-12 object-cover bg-gray-100 rounded-sm"
+          />
+        </div>
       </div>
     </div>
   );

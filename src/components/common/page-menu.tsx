@@ -16,7 +16,7 @@ export default function PageMenu({ menu }) {
   }
 
   return (
-    <aside className="py-6 px-2 sm:px-6 lg:p-2 lg:col-span-2 bg-gray-50">
+    <aside className="py-6 px-2 sm:px-6 lg:p-2 lg:col-span-2 bg-gray-100">
       <h1 className="px-2 pb-2 text-gray-600 font-semibold">Projects</h1>
       <nav className="space-y-1">
         {menu.map((item) => {
@@ -27,16 +27,14 @@ export default function PageMenu({ menu }) {
               <a
                 className={classNames(
                   isActive
-                    ? "bg-gray-200 text-indigo-700 hover:text-indigo-700 hover:bg-gray-200"
-                    : "text-gray-900 hover:text-gray-900 hover:bg-gray-50",
-                  "group rounded-md px-3 py-2 flex items-center text-sm font-medium"
+                    ? "bg-gray-300 text-gray-900"
+                    : "text-gray-600 hover:text-gray-700 hover:bg-gray-200",
+                  "group rounded-sm px-3 py-2 flex items-center text-sm font-medium"
                 )}
               >
                 <item.icon
                   className={classNames(
-                    isActive
-                      ? "text-indigo-500 group-hover:text-indigo-500"
-                      : "text-gray-400 group-hover:text-gray-500",
+                    isActive ? "text-gray-800" : "text-gray-500",
                     "flex-shrink-0 -ml-1 mr-3 h-5 w-5"
                   )}
                   aria-hidden="true"

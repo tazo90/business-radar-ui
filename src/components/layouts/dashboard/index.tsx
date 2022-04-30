@@ -17,7 +17,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <SidebarDesktop />
         {/* Main column */}
         <div
-          className="flex flex-col w-full bg-gray-50"
+          className="flex flex-col w-full bg-gray-100"
           style={{ minHeight: "calc(100vh - 48px)" }}
         >
           <main className="flex-1">{children}</main>
