@@ -5,8 +5,11 @@ import { HomeIcon } from "@heroicons/react/outline";
 import { classNames } from "@lib/classnames";
 import {
   CogIcon,
+  DocumentTextIcon,
   ShoppingCartIcon,
-  ViewGridAddIcon,
+  TerminalIcon,
+  UserGroupIcon,
+  ViewGridIcon,
 } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 
@@ -15,7 +18,22 @@ const navigation = [
   {
     name: "Projects",
     href: "/projects",
-    icon: ViewGridAddIcon,
+    icon: ViewGridIcon,
+  },
+  {
+    name: "Applications",
+    href: "/applications",
+    icon: TerminalIcon,
+  },
+  {
+    name: "Plan & billing",
+    href: "/billing",
+    icon: DocumentTextIcon,
+  },
+  {
+    name: "Members",
+    href: "/members",
+    icon: UserGroupIcon,
   },
   { name: "Store", href: "/store", icon: ShoppingCartIcon },
   { name: "Settings", href: "/settings", icon: CogIcon },
@@ -31,7 +49,7 @@ export function SidebarDesktop() {
   const { asPath: pathname } = useRouter();
 
   return (
-    <div className="hidden min-h-full lg:flex lg:flex-col lg:w-64 lg:inset-y-0 lg:border-r lg:border-gray-300 lg:pb-4 lg:bg-gray-100 z-50 shadow-2xl">
+    <div className="hidden min-h-full lg:flex lg:flex-col lg:w-64 lg:inset-y-0 lg:border-r lg:border-gray-300 lg:pb-4 lg:bg-[#24292f] z-50 shadow-2xl">
       {/* Sidebar component, swap this element with another sidebar if you like */}
       <div className="h-0 flex-1 flex flex-col overflow-y-auto">
         {/* User account dropdown */}
@@ -147,18 +165,18 @@ export function SidebarDesktop() {
                   href={item.href}
                   className={classNames(
                     isActive
-                      ? "bg-gray-300 text-gray-900"
-                      : "text-gray-700 hover:text-gray-900 hover:bg-gray-50",
-                    "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                      ? "bg-[#303740] text-gray-200"
+                      : "text-gray-400 hover:text-gray-300 hover:bg-[#303740]",
+                    "group flex items-center px-2 py-2 text-sm font-medium rounded-sm"
                   )}
                   aria-current={isActive ? "page" : undefined}
                 >
                   <item.icon
                     className={classNames(
                       isActive
-                        ? "text-gray-700"
-                        : "text-gray-500 group-hover:text-gray-500",
-                      "mr-3 flex-shrink-0 h-6 w-6"
+                        ? "text-gray-300"
+                        : "text-gray-500 group-hover:text-gray-300",
+                      "mr-3 flex-shrink-0 h-5 w-5"
                     )}
                     aria-hidden="true"
                   />
@@ -170,7 +188,7 @@ export function SidebarDesktop() {
           <div className="mt-8">
             {/* Secondary navigation */}
             <h3
-              className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider"
+              className="px-3 text-xs font-semibold text-gray-300 uppercase tracking-wider"
               id="desktop-teams-headline"
             >
               Applications
@@ -184,7 +202,7 @@ export function SidebarDesktop() {
                 <a
                   key={team.name}
                   href={team.href}
-                  className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50"
+                  className="group flex items-center px-3 py-2 text-sm font-medium text-gray-400 rounded-md hover:text-gray-900 hover:bg-gray-50"
                 >
                   <span
                     className={classNames(

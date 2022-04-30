@@ -37,7 +37,7 @@ export default function PageMenu({ menu }) {
                     isActive
                       ? "text-indigo-500 group-hover:text-indigo-500"
                       : "text-gray-400 group-hover:text-gray-500",
-                    "flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                    "flex-shrink-0 -ml-1 mr-3 h-5 w-5"
                   )}
                   aria-hidden="true"
                 />

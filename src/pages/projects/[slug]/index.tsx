@@ -3,7 +3,6 @@ import { trpc } from "@lib/trpc";
 import { useRouter } from "next/router";
 
 import {
-  CreditCardIcon,
   UserGroupIcon,
   ViewGridAddIcon,
   PencilAltIcon,
@@ -20,11 +19,6 @@ export const projectMenu = [
     name: "Applications",
     href: "/projects/:slug/apps",
     icon: ViewGridAddIcon,
-  },
-  {
-    name: "Plan & Billing",
-    href: "/projects/:slug/billing",
-    icon: CreditCardIcon,
   },
   {
     name: "Team",
