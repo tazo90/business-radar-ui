@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { subst } from "urlcat";
 
-export default function PageMenu({ menu }) {
+export default function PageMenu({ menu, header }) {
   const { query, ...router } = useRouter();
   const currentPage = router.pathname
     .split("/")
@@ -17,7 +17,7 @@ export default function PageMenu({ menu }) {
 
   return (
     <aside className="py-6 px-2 sm:px-6 lg:p-2 lg:col-span-2 bg-gray-100">
-      <h1 className="px-2 pb-2 text-gray-600 font-semibold">Projects</h1>
+      <h1 className="px-2 pb-2 text-gray-600 font-semibold">{header}</h1>
       <nav className="space-y-1">
         {menu.map((item) => {
           const page = item.href.split("/").slice(-1)[0].replace(":", "");

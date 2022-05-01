@@ -1,50 +1,25 @@
 import DashboardLayout from "@components/layouts/dashboard";
 
-import { trpc } from "@lib/trpc";
 import Link from "next/link";
 
-import {
-  CheckCircleIcon,
-  DotsHorizontalIcon,
-  LocationMarkerIcon,
-  ViewGridAddIcon,
-} from "@heroicons/react/solid";
+import { DotsHorizontalIcon, LocationMarkerIcon } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
 import { classNames } from "@lib/classnames";
-import { Fragment, useState } from "react";
-import router from "next/router";
-import showToast from "@lib/notification";
-import ProjectModalForm from "@components/projects/project-modal-form";
-import { Dialog } from "@components/ui/dialog";
-import icons from "@constants/icons";
-import { capitalize } from "@lib/strings";
+import { Fragment } from "react";
 
-const userAvatar =
-  "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
-const users = [...Array(3).fill(userAvatar)];
+const apps = [
+  {
+    id: "stores",
+    title: "Stores",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    integrations: 10,
+    img: '"https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";',
+  },
+];
 
 export default function AppsPage() {
-  const [addApplicationModal, setAddApplicationModal] = useState(false);
-
-  const utils = trpc.useContext();
-  const { isFetching, data: apps } = trpc.useQuery([
-    "api.application.all",
-    { organizationSlug: "amrest" },
-  ]);
-
-  // const deleteProject = trpc.useMutation("api.application.delete", {
-  //   async onSuccess() {
-  //     showToast("Project removed", "success");
-  //     await utils.invalidateQueries(["api.project.all"]);
-  //   },
-  // });
-
   const projectActions = [
-    {
-      name: "Edit",
-      href: "#",
-      onClick: (slug: string) => router.push(`/projects/${slug}`),
-    },
     {
       name: "Delete",
       href: "#",
@@ -56,16 +31,9 @@ export default function AppsPage() {
     <div className="mx-8">
       <div className="flex justify-between">
         <div className="py-4">
-          <h1 className="text-xl font-semibold text-gray-700">Applications</h1>
-        </div>
-        <div className="mt-4 p-2 flex sm:mt-0 sm:ml-0">
-          <button
-            // onClick={() => setAddProjectModal(true)}
-            type="button"
-            className="order-0 inline-flex items-center px-4 h-9 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-500 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
-          >
-            + Create application
-          </button>
+          <h1 className="text-xl font-semibold text-gray-700">
+            Your applications
+          </h1>
         </div>
       </div>
       <ul
@@ -78,17 +46,14 @@ export default function AppsPage() {
             className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
           >
             <div className="bg-white w-full flex items-center justify-between px-6 py-4 space-x-6 rounded-lg shadow-lg">
-              <Link href={`/apps/${app.uid}`}>
-                <a className="flex-1 truncate space-y-3">
+              <Link href={`/apps/${app.id}`}>
+                <a className="flex-1 space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center justify-between">
-                      <div className="flex py-1 px-2 text-gray-900 text-xs font-medium bg-yellow-400 rounded-md">
+                    <div className="flex items-center justify-center">
+                      <div className="flex p-2 text-gray-900 text-xs font-medium bg-yellow-400 rounded-md">
                         <LocationMarkerIcon className="h-4 w-4" />
-                        <span className="text-xs ml-1">
-                          {capitalize(app.type)}
-                        </span>
                       </div>
-                      <h3 className="ml-3 text-gray-900 text-md font-semibold truncate">
+                      <h3 className="ml-2 text-gray-900 text-md font-semibold truncate">
                         {app.title}
                       </h3>
                     </div>
@@ -118,7 +83,7 @@ export default function AppsPage() {
                                   onClick={(e) => {
                                     e.preventDefault();
 
-                                    item.onClick ? item.onClick(app.uid) : null;
+                                    item.onClick ? item.onClick(app.id) : null;
                                   }}
                                 >
                                   {item.name}
@@ -131,46 +96,20 @@ export default function AppsPage() {
                     </Menu>
                   </div>
 
-                  <div className="flex flex-col space-y-2">
-                    <div className="flex items-center justify-between">
-                      <p className="flex-shrink-0 inline-block px-2 py-0.5 text-white text-xs font-medium bg-green-500 rounded-md">
-                        Project: {app.project?.name}
+                  <div className="relative flex flex-col space-y-2">
+                    <div className="flex w-full">
+                      <img
+                        src="https://digital-geography.com/wp-content/uploads/2016/05/1-2.png"
+                        className="object-cover w-1/2 h-1/2"
+                      />
+                      <p className="ml-4 text-sm text-gray-700">
+                        {app.description}
                       </p>
-                      <p className="text-xs">Expires: 2022-12-03</p>
                     </div>
 
                     <div className="flex items-center space-x-2 pt-2">
-                      <p className="text-sm">Used by:</p>
-                      <p className="text-sm font-medium text-lime-600 truncate">
-                        {app.domain.replace("https://", "")}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <p className="text-sm">Brands:</p>
-                      <div className="flex flex-shrink-0 -space-x-1">
-                        {app?.brands.map((brand) => (
-                          <img
-                            key={brand.id}
-                            className="max-w-none h-6 w-6 rounded-full ring-2 ring-white"
-                            src={icons.amrest.brands[brand.name.toLowerCase()]}
-                            alt={brand.name}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="flex items-center space-x-2">
-                        <p className="text-sm">Countries: </p>
-                        {app.countries.map((country) => (
-                          <img
-                            key={country.id}
-                            className="max-w-none h-6 w-6 ring-2 ring-white"
-                            src={icons.flags[country.code.toLowerCase()]}
-                            alt={country.code}
-                          />
-                        ))}
-                      </div>
+                      <p className="text-sm font-semibold">Integrations: </p>
+                      <span className="text-sm">{app.integrations}</span>
                     </div>
                   </div>
                 </a>

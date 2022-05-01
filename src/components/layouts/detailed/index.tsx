@@ -5,6 +5,7 @@ type DetailedLayoutProps = {
   children: React.ReactNode;
   pageTitle?: string;
   pageMenu: any;
+  pageMenuHeader?: any;
   pageAction?: React.ReactNode;
   pageDescription?: string;
   fullScreen?: boolean;
@@ -15,7 +16,7 @@ export default function DetailedLayout(props: DetailedLayoutProps) {
     <div className="flex flex-col">
       <PageHeader />
       <div className="lg:grid lg:grid-cols-12">
-        <PageMenu menu={props.pageMenu} />
+        <PageMenu menu={props.pageMenu} header={props.pageMenuHeader} />
 
         <div
           className={`space-y-6 sm:px-6 lg:px-0 lg:col-span-${

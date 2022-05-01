@@ -1,8 +1,16 @@
 import DashboardLayout from "@components/layouts/dashboard";
 import DetailedLayout from "@components/layouts/detailed";
 import { PencilAltIcon, ViewGridIcon } from "@heroicons/react/outline";
-import { EyeIcon } from "@heroicons/react/solid";
+import {
+  CogIcon,
+  CubeIcon,
+  EyeIcon,
+  LocationMarkerIcon,
+  TerminalIcon,
+} from "@heroicons/react/solid";
+
 import { useRouter } from "next/router";
+import apps from "@components/apps";
 
 export const appMenu = [
   {
@@ -11,29 +19,49 @@ export const appMenu = [
     icon: PencilAltIcon,
   },
   {
-    name: "Preview",
-    href: "/apps/:id/preview",
+    name: "Application",
+    href: "/apps/:id/app",
+    icon: TerminalIcon,
+  },
+  {
+    name: "Manage",
+    href: "/apps/:id/manage",
+    icon: CogIcon,
+  },
+  {
+    name: "Embeedings",
+    href: "/apps/:id/embeedings",
     icon: EyeIcon,
+  },
+  {
+    name: "Themes",
+    href: "/apps/:id/themes",
+    icon: CubeIcon,
   },
 ];
 
+const MenuHeader = () => (
+  <div className="flex items-center">
+    <div className="flex p-2 text-gray-900 text-xs font-medium bg-yellow-400 rounded-md">
+      <LocationMarkerIcon className="h-4 w-4" />
+    </div>
+    <h3 className="ml-2 text-gray-900 text-md font-semibold truncate">
+      Stores
+    </h3>
+  </div>
+);
 export default function AppPage() {
-  const router = useRouter();
+  const { query } = useRouter();
+
+  const AppViewer = apps[query.id];
 
   return (
     <DetailedLayout
       pageMenu={appMenu}
-      pageTitle="App"
-      header={
-        <button
-          type="button"
-          className="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
-        >
-          Create application
-        </button>
-      }
+      pageMenuHeader={<MenuHeader />}
+      fullScreen={true}
     >
-      APP {router.query.id}
+      {AppViewer ? <AppViewer /> : <div>Ops...something goes wrong.</div>}
     </DetailedLayout>
   );
 }
