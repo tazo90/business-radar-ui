@@ -23,7 +23,7 @@ const userAvatar =
   "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
 const users = [...Array(3).fill(userAvatar)];
 
-export default function ApplicationsPage() {
+export default function AppsPage() {
   const [addApplicationModal, setAddApplicationModal] = useState(false);
 
   const utils = trpc.useContext();
@@ -78,11 +78,17 @@ export default function ApplicationsPage() {
             className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
           >
             <div className="bg-white w-full flex items-center justify-between px-6 py-4 space-x-6 rounded-lg shadow-lg">
-              <Link href={`/applications/${app.uid}`}>
+              <Link href={`/apps/${app.uid}`}>
                 <a className="flex-1 truncate space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-gray-900 text-md font-semibold truncate">
+                      <div className="flex py-1 px-2 text-gray-900 text-xs font-medium bg-yellow-400 rounded-md">
+                        <LocationMarkerIcon className="h-4 w-4" />
+                        <span className="text-xs ml-1">
+                          {capitalize(app.type)}
+                        </span>
+                      </div>
+                      <h3 className="ml-3 text-gray-900 text-md font-semibold truncate">
                         {app.title}
                       </h3>
                     </div>
@@ -127,15 +133,10 @@ export default function ApplicationsPage() {
 
                   <div className="flex flex-col space-y-2">
                     <div className="flex items-center justify-between">
-                      <div className="flex py-1 px-2 text-gray-900 text-xs font-medium bg-yellow-400 rounded-md">
-                        <LocationMarkerIcon className="h-4 w-4" />
-                        <span className="text-xs ml-1">
-                          {capitalize(app.type)}
-                        </span>
-                      </div>
-                      <p className="w-1/2 flex-shrink-0 inline-block px-2 py-0.5 text-white text-xs font-medium bg-green-500 rounded-md">
+                      <p className="flex-shrink-0 inline-block px-2 py-0.5 text-white text-xs font-medium bg-green-500 rounded-md">
                         Project: {app.project?.name}
                       </p>
+                      <p className="text-xs">Expires: 2022-12-03</p>
                     </div>
 
                     <div className="flex items-center space-x-2 pt-2">
@@ -192,4 +193,4 @@ export default function ApplicationsPage() {
   );
 }
 
-ApplicationsPage.Layout = DashboardLayout;
+AppsPage.Layout = DashboardLayout;

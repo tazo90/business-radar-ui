@@ -15,8 +15,6 @@ export const applicationRouter = createProtectedRouter()
     async resolve({ ctx, input }) {
       let query: any = {};
 
-      console.log("CTX", ctx.user);
-
       if (input.projectSlug) {
         query.where = {
           project: {
@@ -69,6 +67,31 @@ export const applicationRouter = createProtectedRouter()
           paid: true,
           token: true,
           domain: true,
+        },
+      });
+    },
+  })
+  .query("get", {
+    input: z.object({
+      uid: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      return await ctx.prisma.application.findUnique({
+        where: {
+          uid: input.uid,
+        },
+        select: {
+          uid: true,
+          title: true,
+          description: true,
+          status: true,
+          paid: true,
+          token: true,
+          domain: true,
+          brands: true,
+          countries: true,
+          type: true,
+          expires: true,
         },
       });
     },

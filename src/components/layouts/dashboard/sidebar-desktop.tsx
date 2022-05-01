@@ -22,7 +22,7 @@ const navigation = [
   },
   {
     name: "Applications",
-    href: "/applications",
+    href: "/apps",
     icon: TerminalIcon,
   },
   {

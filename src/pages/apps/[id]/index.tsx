@@ -22,7 +22,7 @@ export const appMenu = [
   },
 ];
 
-export default function ApplicationPage() {
+export default function AppPage() {
   const router = useRouter();
 
   return (
@@ -43,4 +43,4 @@ export default function ApplicationPage() {
   );
 }
 
-ApplicationPage.Layout = DashboardLayout;
+AppPage.Layout = DashboardLayout;
