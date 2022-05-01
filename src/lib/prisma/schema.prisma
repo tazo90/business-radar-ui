@@ -178,18 +178,18 @@ model Project {
   @@map(name: "project")
 }
 
+enum ApplicationType {
+  STORES     @map("stores")
+  JOBS       @map("jobs")
+  ECOMMERCE  @map("ecommerce")
+  TRAININGS  @map("trainings")
+}
+
 enum ApplicationStatus {
   ACTIVE  @map("active")
   DRAFT   @map("draft")
   CLOSED  @map("closed")
 }
-
-// enum ApplicationType {
-//   STORES      @map("stores")
-//   JOBS        @map("jobs")
-//   TRAININGS   @map("trainings")
-//   ECOMMERCE   @map("ecommerce")
-// }
 
 model Application {
   id          Int               @id @default(autoincrement())
@@ -205,6 +205,7 @@ model Application {
   createdAt   DateTime          @default(now())
   updatedAt   DateTime?
   status      ApplicationStatus @default(DRAFT)
+  type        ApplicationType
   paid        Boolean
   payment     Payment[]
   token       String            @unique

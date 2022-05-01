@@ -31,6 +31,15 @@ async function getUserFromSession({
       username: true,
       name: true,
       email: true,
+      teams: {
+        select: {
+          organization: {
+            select: {
+              slug: true,
+            },
+          },
+        },
+      },
     },
   });
 

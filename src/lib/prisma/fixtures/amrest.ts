@@ -1,4 +1,4 @@
-import { ApplicationStatus, UserPlan } from "@prisma/client";
+import { ApplicationStatus, ApplicationType, UserPlan } from "@prisma/client";
 
 const organization = {
   name: "AmRest",
@@ -146,38 +146,42 @@ const projects = [
 const apps = [
   {
     uid: "1",
-    title: "Stores KFC PL",
-    token: "abc",
+    title: "KFC PL",
+    token: "ctskfcpl",
     status: ApplicationStatus.DRAFT,
+    type: ApplicationType.JOBS,
     paid: false,
-    domain: "localhost",
+    domain: "https://cts.pl",
     project: "cts",
   },
   {
     uid: "2",
-    title: "Stores KFC PL",
-    token: "def",
+    title: "KFC PL",
+    token: "ecommercekfcpl",
     status: ApplicationStatus.DRAFT,
+    type: ApplicationType.ECOMMERCE,
     paid: false,
-    domain: "localhost",
+    domain: "https://kfc.pl",
     project: "ecommerce",
   },
   {
     uid: "3",
-    title: "Stores PH PL",
-    token: "ghi",
+    title: "PH PL",
+    token: "ecommercephpl",
     status: ApplicationStatus.DRAFT,
+    type: ApplicationType.ECOMMERCE,
     paid: false,
-    domain: "localhost",
+    domain: "http://pizzahut.pl",
     project: "ecommerce",
   },
   {
     uid: "4",
-    title: "Jobs All",
-    token: "jkl",
+    title: "AmRest Stores",
+    token: "amspacestores",
     status: ApplicationStatus.DRAFT,
+    type: ApplicationType.STORES,
     paid: false,
-    domain: "localhost",
+    domain: "https://amspace.amrest.eu",
     project: "amspace",
   },
 ];
