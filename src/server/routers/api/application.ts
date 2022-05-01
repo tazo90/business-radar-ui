@@ -9,27 +9,66 @@ export const applicationRouter = createProtectedRouter()
   //
   .query("all", {
     input: z.object({
-      projectSlug: z.string(),
+      projectSlug: z.string().optional(),
+      organizationSlug: z.string().optional(),
     }),
     async resolve({ ctx, input }) {
-      return await ctx.prisma.application.findMany({
-        where: {
+      let query: any = {};
+
+      console.log("CTX", ctx.user);
+
+      if (input.projectSlug) {
+        query.where = {
           project: {
             is: {
               slug: input.projectSlug,
             },
           },
-        },
+        };
+      }
+
+      if (input.organizationSlug) {
+        query.where = {
+          project: {
+            is: {
+              organization: {
+                is: {
+                  slug: input.organizationSlug,
+                },
+              },
+            },
+          },
+        };
+      }
+
+      return await ctx.prisma.application.findMany({
+        ...query,
         select: {
-          id: true,
+          uid: true,
           title: true,
           description: true,
+          type: true,
+          project: {
+            select: {
+              name: true,
+            },
+          },
+          brands: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          countries: {
+            select: {
+              id: true,
+              code: true,
+            },
+          },
           status: true,
           paid: true,
           token: true,
           domain: true,
-          brands: true,
-          countries: true,
         },
       });
     },
