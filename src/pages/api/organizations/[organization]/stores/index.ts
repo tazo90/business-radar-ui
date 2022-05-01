@@ -13,7 +13,7 @@ export default async function handler(
   //   return res.status(401).json({ message: "Not authenticated" });
   // }
 
-  res.status(401).json({ message: "Invalid api key" });
+  // res.status(401).json({ message: "Invalid api key" });
 
   if (req.query.apiKey) {
     const application = await prisma.application.findUnique({

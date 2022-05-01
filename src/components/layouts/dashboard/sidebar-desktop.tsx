@@ -35,7 +35,7 @@ const navigation = [
     href: "/members",
     icon: UserGroupIcon,
   },
-  { name: "Store", href: "/store", icon: ShoppingCartIcon },
+  { name: "Marketplace", href: "/marketplace", icon: ShoppingCartIcon },
   { name: "Settings", href: "/settings", icon: CogIcon },
 ];
 

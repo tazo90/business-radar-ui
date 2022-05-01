@@ -11,11 +11,6 @@ export const appMenu = [
     icon: PencilAltIcon,
   },
   {
-    name: "Integrations",
-    href: "/apps/:id/integrations",
-    icon: ViewGridIcon,
-  },
-  {
     name: "Preview",
     href: "/apps/:id/preview",
     icon: EyeIcon,

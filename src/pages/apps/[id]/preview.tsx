@@ -22,7 +22,7 @@ export default function AppPreviewPage() {
   const AppViewer = apps[app?.type.toLowerCase()];
 
   return (
-    <DetailedLayout pageMenu={appMenu}>
+    <DetailedLayout pageMenu={appMenu} fullScreen={true}>
       <AppViewer />
     </DetailedLayout>
   );
