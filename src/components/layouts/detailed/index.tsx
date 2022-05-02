@@ -16,8 +16,17 @@ export default function DetailedLayout(props: DetailedLayoutProps) {
   return (
     <div className="flex flex-col">
       <PageHeader />
-      <div className="lg:grid lg:grid-cols-12">
-        <PageMenu menu={props.pageMenu} header={props.pageMenuHeader} />
+      <div
+        className={classNames(
+          props.fullScreen ? "" : "py-6",
+          "lg:grid lg:grid-cols-12"
+        )}
+      >
+        <PageMenu
+          menu={props.pageMenu}
+          header={props.pageMenuHeader}
+          fullScreen={props.fullScreen}
+        />
 
         <div
           className={classNames(

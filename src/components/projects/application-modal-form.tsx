@@ -1,41 +1,11 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import Button from "@components/ui/button";
 import { DialogFooter } from "@components/ui/dialog";
 import { Form, TextField } from "@components/ui/form/fields";
 import SelectField from "@components/ui/form/select";
 import showToast from "@lib/notification";
 import { inferQueryOutput, trpc } from "@lib/trpc";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-
-export type TApplication = inferQueryOutput<"api.application.all">[number];
-
-type ApplicationModalFormProps = {
-  projectSlug: string;
-  onClose: () => void;
-};
-
-const brandOptions = [
-  {
-    value: 1,
-    label: "KFC",
-  },
-  {
-    value: 2,
-    label: "BK",
-  },
-];
-
-const countryOptions = [
-  {
-    value: 1,
-    label: "PL",
-  },
-  {
-    value: 2,
-    label: "DE",
-  },
-];
-
 import { ChevronRightIcon, XIcon } from "@heroicons/react/solid";
 import {
   CalendarIcon,
@@ -43,6 +13,13 @@ import {
   TerminalIcon,
 } from "@heroicons/react/outline";
 import { classNames } from "@lib/classnames";
+
+export type TApplication = inferQueryOutput<"api.application.all">[number];
+
+type ApplicationModalFormProps = {
+  projectSlug: string;
+  onClose: () => void;
+};
 
 const items = [
   {

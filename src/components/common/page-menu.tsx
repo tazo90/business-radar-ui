@@ -3,27 +3,50 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { subst } from "urlcat";
 
-export default function PageMenu({ menu, header }) {
-  const { query, ...router } = useRouter();
+type MenuItem = {
+  name: string;
+  href: string;
+  icon?: React.ReactNode;
+  disabled?: boolean;
+};
+
+type PageMenuProps = {
+  menu: MenuItem[];
+  header: React.ReactNode;
+  fullScreen?: boolean;
+};
+
+export default function PageMenu(props: PageMenuProps) {
+  const { query = {}, ...router } = useRouter();
   const currentPage = router.pathname
     .split("/")
     .slice(-1)[0]
     .replace("[", "")
     .replace("]", "");
 
-  if (Object.keys(query).length === 0) {
-    return null;
-  }
-
   return (
-    <aside className="py-6 px-2 sm:px-6 lg:p-2 lg:col-span-2 bg-gray-100">
-      <h1 className="px-2 pb-2 text-gray-600 font-semibold">{header}</h1>
+    <aside
+      className={classNames(
+        props.fullScreen ? "py-3" : "",
+        "px-2 lg:col-span-2 bg-gray-100"
+      )}
+    >
+      {props.header && (
+        <h1 className="px-2 pb-4 text-gray-600 font-semibold">
+          {props.header}
+        </h1>
+      )}
       <nav className="space-y-1">
-        {menu.map((item) => {
+        {props.menu.map((item) => {
           const page = item.href.split("/").slice(-1)[0].replace(":", "");
           const isActive = currentPage === page;
+          const link =
+            Object.keys(query).length === 0
+              ? item.href
+              : subst(item.href, query);
+
           return (
-            <Link key={item.name} href={subst(item.href, query)}>
+            <Link key={item.name} href={link}>
               <a
                 className={classNames(
                   isActive

@@ -26,11 +26,6 @@ const navigation = [
     icon: TerminalIcon,
   },
   {
-    name: "Plan & billing",
-    href: "/billing",
-    icon: DocumentTextIcon,
-  },
-  {
     name: "Members",
     href: "/members",
     icon: UserGroupIcon,
