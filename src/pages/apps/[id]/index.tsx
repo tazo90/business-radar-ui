@@ -24,19 +24,27 @@ export const appMenu = [
     icon: TerminalIcon,
   },
   {
-    name: "Customize",
-    href: "/apps/:id/manage",
-    icon: CogIcon,
-  },
-  {
     name: "Embeedings",
     href: "/apps/:id/embeedings",
     icon: EyeIcon,
   },
   {
+    name: "Components",
+    href: "/apps/:id/components",
+    icon: TerminalIcon,
+    disabled: true,
+  },
+  {
+    name: "Customize",
+    href: "/apps/:id/manage",
+    icon: CogIcon,
+    disabled: true,
+  },
+  {
     name: "Themes",
     href: "/apps/:id/themes",
     icon: CubeIcon,
+    disabled: true,
   },
 ];
 

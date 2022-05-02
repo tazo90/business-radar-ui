@@ -29,6 +29,7 @@ export default function PageMenu({ menu, header }) {
                   isActive
                     ? "bg-gray-300 text-gray-900"
                     : "text-gray-600 hover:text-gray-700 hover:bg-gray-200",
+                  item.disabled ? "opacity-50" : "",
                   "group rounded-sm px-3 py-2 flex items-center text-sm font-medium"
                 )}
               >
