@@ -18,7 +18,7 @@ export default function DetailedLayout(props: DetailedLayoutProps) {
       <PageHeader />
       <div
         className={classNames(
-          props.fullScreen ? "" : "py-6",
+          props.fullScreen ? "" : "pt-6 pb-20",
           "lg:grid lg:grid-cols-12"
         )}
       >
@@ -34,7 +34,7 @@ export default function DetailedLayout(props: DetailedLayoutProps) {
             "space-y-6 sm:px-6 lg:px-0"
           )}
         >
-          <div className="shadow sm:rounded-md sm:overflow-hidden">
+          <div className="sm:rounded-md sm:overflow-hidden">
             {props.pageTitle && (
               <div className="bg-white py-4 px-6 space-y-4 sm:py-4 sm:px-6">
                 <div className="flex justify-between">

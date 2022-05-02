@@ -24,8 +24,8 @@ export const appMenu = [
     icon: TerminalIcon,
   },
   {
-    name: "Embeedings",
-    href: "/apps/:id/embeedings",
+    name: "Integrations", //"Embeedings"?,
+    href: "/apps/:id/integrations",
     icon: EyeIcon,
   },
   {
