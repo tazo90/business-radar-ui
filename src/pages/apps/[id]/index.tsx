@@ -24,7 +24,7 @@ export const appMenu = [
     icon: TerminalIcon,
   },
   {
-    name: "Manage",
+    name: "Customize",
     href: "/apps/:id/manage",
     icon: CogIcon,
   },

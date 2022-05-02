@@ -1,5 +1,6 @@
 import PageHeader from "@components/common/page-header";
 import PageMenu from "@components/common/page-menu";
+import { classNames } from "@lib/classnames";
 
 type DetailedLayoutProps = {
   children: React.ReactNode;
@@ -19,9 +20,10 @@ export default function DetailedLayout(props: DetailedLayoutProps) {
         <PageMenu menu={props.pageMenu} header={props.pageMenuHeader} />
 
         <div
-          className={`space-y-6 sm:px-6 lg:px-0 lg:col-span-${
-            props.fullScreen ? "10" : "9"
-          }`}
+          className={classNames(
+            props.fullScreen ? "lg:col-span-10" : "lg:col-span-9",
+            "space-y-6 sm:px-6 lg:px-0"
+          )}
         >
           <div className="shadow sm:rounded-md sm:overflow-hidden">
             {props.pageTitle && (
