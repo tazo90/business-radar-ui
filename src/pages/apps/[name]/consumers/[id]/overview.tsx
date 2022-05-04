@@ -29,7 +29,7 @@ export const MenuHeader = () => (
       <LocationMarkerIcon className="h-4 w-4" />
     </div>
     <h3 className="ml-2 text-gray-900 text-md font-semibold truncate">
-      Stores / AmSpace
+      Stores - AmSpace
     </h3>
   </div>
 );

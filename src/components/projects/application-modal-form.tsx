@@ -6,13 +6,7 @@ import { Form, TextField } from "@components/ui/form/fields";
 import SelectField from "@components/ui/form/select";
 import showToast from "@lib/notification";
 import { inferQueryOutput, trpc } from "@lib/trpc";
-import { ChevronRightIcon, XIcon } from "@heroicons/react/solid";
-import {
-  CalendarIcon,
-  SpeakerphoneIcon,
-  TerminalIcon,
-} from "@heroicons/react/outline";
-import { classNames } from "@lib/classnames";
+import { XIcon } from "@heroicons/react/solid";
 
 export type TApplication = inferQueryOutput<"api.application.all">[number];
 
@@ -21,112 +15,7 @@ type ApplicationModalFormProps = {
   onClose: () => void;
 };
 
-const items = [
-  {
-    name: "Stores",
-    description: "Find your stores and easily manage them.",
-    href: "#",
-    iconColor: "bg-pink-500",
-    icon: SpeakerphoneIcon,
-  },
-  {
-    name: "Jobs",
-    description: "Manage job offers from your stores.",
-    href: "#",
-    iconColor: "bg-purple-500",
-    icon: TerminalIcon,
-  },
-  {
-    name: "ECommerce",
-    description: "Easily integrate ordering from your stores.",
-    href: "#",
-    iconColor: "bg-yellow-500",
-    icon: CalendarIcon,
-  },
-  {
-    name: "Trainings",
-    description: "Watch progress of teams.",
-    href: "#",
-    iconColor: "bg-slate-500",
-    icon: CalendarIcon,
-  },
-];
-
-function StepHeader(props) {
-  return (
-    <div className={props.className}>
-      <div className={`flex items-center justify-between`}>
-        <h2 className="text-lg font-medium text-gray-900">{props.title}</h2>
-        <button onClick={props.onClose}>
-          <XIcon className="h-5 w-5 text-gray-600" aria-hidden="true" />
-        </button>
-      </div>
-      <p className="mt-1 text-sm text-gray-500">{props.description}</p>
-    </div>
-  );
-}
-
-function AppListStep(props) {
-  return (
-    <div className="max-w-lg mx-auto py-4 px-5">
-      <StepHeader
-        title="Choose application"
-        description="Get started by selecting a template or start from an empty project."
-        onClose={props.onClose}
-      />
-      <ul
-        role="list"
-        className="mt-6 border-t border-b border-gray-200 divide-y divide-gray-200"
-      >
-        {items.map((item, itemIdx) => (
-          <li key={itemIdx} onClick={() => props.onSelectApp(item)}>
-            <div className="relative group py-4 flex items-start space-x-3">
-              <div className="flex-shrink-0">
-                <span
-                  className={classNames(
-                    item.iconColor,
-                    "inline-flex items-center justify-center h-10 w-10 rounded-lg"
-                  )}
-                >
-                  <item.icon
-                    className="h-6 w-6 text-white"
-                    aria-hidden="true"
-                  />
-                </span>
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="text-sm font-medium text-gray-900">
-                  <a href={item.href}>
-                    <span className="absolute inset-0" aria-hidden="true" />
-                    {item.name}
-                  </a>
-                </div>
-                <p className="text-sm text-gray-500">{item.description}</p>
-              </div>
-              <div className="flex-shrink-0 self-center">
-                <ChevronRightIcon
-                  className="h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                  aria-hidden="true"
-                />
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-6 flex">
-        <a
-          href="#"
-          className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-        >
-          Or find another application in store
-          <span aria-hidden="true"> &rarr;</span>
-        </a>
-      </div>
-    </div>
-  );
-}
-
-function AppDetailStep(props) {
+export default function ApplicationModalForm(props: ApplicationModalFormProps) {
   const utils = trpc.useContext();
   const [errorMessage, setErrorMessage] = useState("");
   const [brands, setBrands] = useState([]);
@@ -169,12 +58,15 @@ function AppDetailStep(props) {
 
   return (
     <>
-      <StepHeader
-        className="max-w-lg mx-auto py-4 px-5"
-        title={`${props.app.name} application details`}
-        description="Get started by selecting a template."
-        onClose={props.onClose}
-      />
+      <div className="max-w-lg mx-auto py-4 px-5">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-medium text-gray-900">Create consumer</h2>
+          <button onClick={props.onClose}>
+            <XIcon className="h-5 w-5 text-gray-600" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+
       <Form
         form={form}
         handleSubmit={(values) => {
@@ -257,25 +149,6 @@ function AppDetailStep(props) {
           </div>
         </DialogFooter>
       </Form>
-    </>
-  );
-}
-
-export default function ApplicationModalForm(props: ApplicationModalFormProps) {
-  const [app, setApp] = useState(null);
-  const [step, setStep] = useState(0);
-
-  function onSelectApp(app) {
-    setApp(app);
-    setStep(1);
-  }
-
-  return (
-    <>
-      {step === 0 && <AppListStep {...props} onSelectApp={onSelectApp} />}
-      {step === 1 && (
-        <AppDetailStep {...props} app={app} onChangeStep={setStep} />
-      )}
     </>
   );
 }

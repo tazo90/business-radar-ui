@@ -153,10 +153,10 @@ export default function ConsumersPage() {
         open={addAppModal}
         onClose={() => setAddAppModal(false)}
       >
-        {/* <ApplicationModalForm
-          projectSlug={projectSlug}
+        <ApplicationModalForm
+          name={query.name}
           onClose={() => setAddAppModal(false)}
-        /> */}
+        />
       </Dialog>
     </DetailedLayout>
   );
