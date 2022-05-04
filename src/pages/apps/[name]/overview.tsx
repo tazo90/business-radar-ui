@@ -13,34 +13,34 @@ import {
 export const appMenu = [
   {
     name: "Overview",
-    href: "/apps/:id",
+    href: "/apps/:name",
     icon: PencilAltIcon,
   },
   {
-    name: "Widget",
-    href: "/apps/:id/widget",
+    name: "Application",
+    href: "/apps/:name/app",
     icon: EyeIcon,
   },
   {
     name: "Consumers", //"Embeedings"?,
-    href: "/apps/:id/consumers",
+    href: "/apps/:name/consumers",
     icon: TerminalIcon,
   },
   {
     name: "Components",
-    href: "/apps/:id/components",
+    href: "/apps/:name/components",
     icon: CubeIcon,
     disabled: true,
   },
   {
     name: "Customize",
-    href: "/apps/:id/customize",
+    href: "/apps/:name/customize",
     icon: CogIcon,
     disabled: true,
   },
   {
     name: "Themes",
-    href: "/apps/:id/themes",
+    href: "/apps/:name/themes",
     icon: EyeIcon,
     disabled: true,
   },

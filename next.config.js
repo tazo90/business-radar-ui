@@ -35,8 +35,13 @@ module.exports = withBundleAnalyzer(withImages({
   async redirects() {
     return [
       {
-        source: "/apps/:id",
-        destination: "/apps/:id/overview",
+        source: "/apps/:name",
+        destination: "/apps/:name/overview",
+        permanent: true
+      },
+      {
+        source: "/apps/:name/consumers/:id",
+        destination: "/apps/:name/consumers/:id/overview",
         permanent: true
       },
       {

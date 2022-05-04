@@ -42,6 +42,7 @@ export const applicationRouter = createProtectedRouter()
       return await ctx.prisma.application.findMany({
         ...query,
         select: {
+          id: true,
           uid: true,
           title: true,
           description: true,

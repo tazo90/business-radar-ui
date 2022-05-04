@@ -3,6 +3,7 @@ import DetailedLayout from "@components/layouts/detailed";
 import { LocationMarkerIcon } from "@heroicons/react/solid";
 
 import { useRouter } from "next/router";
+import apps from "@components/apps";
 import { appMenu } from "./overview";
 
 const MenuHeader = () => (
@@ -15,14 +16,20 @@ const MenuHeader = () => (
     </h3>
   </div>
 );
-export default function ConsumersPage() {
+export default function AppPage() {
   const { query } = useRouter();
 
+  const AppViewer = apps[query.name];
+
   return (
-    <DetailedLayout pageMenu={appMenu} pageMenuHeader={<MenuHeader />}>
-      Consumers
+    <DetailedLayout
+      pageMenu={appMenu}
+      pageMenuHeader={<MenuHeader />}
+      fullScreen={true}
+    >
+      {AppViewer ? <AppViewer /> : <div>Ops...something goes wrong.</div>}
     </DetailedLayout>
   );
 }
 
-ConsumersPage.Layout = DashboardLayout;
+AppPage.Layout = DashboardLayout;
