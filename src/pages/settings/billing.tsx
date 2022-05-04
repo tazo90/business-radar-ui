@@ -3,16 +3,11 @@ import DetailedLayout from "@components/layouts/detailed";
 import { Form, TextField } from "@components/ui/form/fields";
 import SelectField from "@components/ui/form/select";
 import { RadioGroup, Switch } from "@headlessui/react";
-import {
-  CreditCardIcon,
-  KeyIcon,
-  UserCircleIcon,
-} from "@heroicons/react/solid";
 import { classNames } from "@lib/classnames";
 
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { appMenu } from "./profile";
 
 const plans = [
   {
@@ -43,24 +38,6 @@ const payments = [
     description: "Business Plan - Annual Billing",
     amount: "190.00 PLN",
     href: "#",
-  },
-];
-
-export const appMenu = [
-  {
-    name: "Profile",
-    href: "/settings/profile",
-    icon: UserCircleIcon,
-  },
-  {
-    name: "Security",
-    href: "/settings/security",
-    icon: KeyIcon,
-  },
-  {
-    name: "Billing", //"Embeedings"?,
-    href: "/settings/billing",
-    icon: CreditCardIcon,
   },
 ];
 

@@ -32,4 +32,13 @@ module.exports = withBundleAnalyzer(withImages({
       }
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/settings",
+        destination: "/settings/profile",
+        permanent: true
+      }
+    ]
+  }
 }));

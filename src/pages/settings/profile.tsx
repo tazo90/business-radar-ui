@@ -15,8 +15,8 @@ export const appMenu = [
     icon: UserCircleIcon,
   },
   {
-    name: "Security",
-    href: "/settings/security",
+    name: "Password",
+    href: "/settings/password",
     icon: KeyIcon,
   },
   {
@@ -26,10 +26,10 @@ export const appMenu = [
   },
 ];
 
-export default function SettingsPage() {
+export default function ProfilePage() {
   const { query } = useRouter();
 
-  return <DetailedLayout pageMenu={appMenu}>test</DetailedLayout>;
+  return <DetailedLayout pageMenu={appMenu}>Profile</DetailedLayout>;
 }
 
-SettingsPage.Layout = DashboardLayout;
+ProfilePage.Layout = DashboardLayout;
