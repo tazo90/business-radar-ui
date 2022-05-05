@@ -1,7 +1,7 @@
-import StoresPage from "./stores";
-import JobsPage from "./jobs";
+import StoresApp from "./stores";
+import JobsApp from "./jobs";
 
 export default {
-  stores: StoresPage,
-  jobs: JobsPage,
+  stores: StoresApp,
+  jobs: JobsApp,
 };

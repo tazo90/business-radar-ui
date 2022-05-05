@@ -25,7 +25,7 @@ const Search = dynamic(() =>
   )
 );
 
-export default function StoresPage({ apiKey }) {
+export default function StoresApp({ apiKey }) {
   const dispatch = useDispatch();
 
   const { stores, selectedStore, filters } = useSelector(
@@ -218,4 +218,4 @@ export default function StoresPage({ apiKey }) {
   );
 }
 
-StoresPage.Layout = DashboardLayout;
+StoresApp.Layout = DashboardLayout;

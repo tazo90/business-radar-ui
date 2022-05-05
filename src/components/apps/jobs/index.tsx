@@ -26,7 +26,7 @@ const Search = dynamic(() =>
   )
 );
 
-export default function JobsPage() {
+export default function JobsApp() {
   const dispatch = useDispatch();
 
   const { stores, selectedStore, filters } = useSelector(
@@ -213,4 +213,4 @@ export default function JobsPage() {
   );
 }
 
-JobsPage.Layout = DashboardLayout;
+JobsApp.Layout = DashboardLayout;
