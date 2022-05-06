@@ -1,8 +1,10 @@
+//@ts-nocheck
 import { PrismaClient, Prisma, MembershipRole, UserPlan } from "@prisma/client";
 
 import { hashPassword } from "../auth";
 import data from "./fixtures/amrest";
 import { generateUniqueAPIKey } from "../api-keys";
+import { omit } from "../lodash";
 
 require("dotenv");
 
@@ -123,46 +125,49 @@ async function createCountries(
   });
 }
 
-async function createProjectsAndApps(
+async function createProjects(
   organization: any,
   projectOwner: any,
-  appOwner: any,
-  projects: any,
-  apps: any
+  projects: any
 ) {
   projects.map(async (project: any) => {
-    const projectApps = apps.filter((app: any) => app.project === project.slug);
-
-    const proj = await prisma.project.create({
+    await prisma.project.create({
       data: {
         ...project,
         organization: { connect: { id: organization.id } },
         owner: { connect: { id: projectOwner.id } },
-      },
-    });
-
-    console.log(`\t👤 Created project '${proj.name}'`);
-
-    // Create apps
-    projectApps?.map(async (app: any) => {
-      const { project, ...appData } = app;
-
-      await createApp(organization, appOwner, proj, appData);
-    });
+      }
+    })
   });
 }
 
-async function createApp(
-  organization: any,
-  owner: any,
-  project: any,
-  app: any
+async function createAppsAndConsumers(
+  appOwner: any,
+  apps: any
 ) {
+  apps.map(async (app: any) => {
+    // const projectApps = projects.filter((project: any) => app.project === project.slug);
+
+    const appObj = await prisma.application.create({
+      data: {
+        ...omit(app, 'consumers'),
+        owner: { connect: { id: appOwner.id } },
+      },
+    });
+
+    console.log(`\t👤 Created app '${app.name}'`);
+
+    // Create consumers
+    app?.consumers.map(async (consumer: any) => await createConsumer(appObj, consumer));
+  });
+}
+
+async function createConsumer(app: any, consumer: any) {
   const [hashedApiKey, apiKey] = generateUniqueAPIKey();
 
   const brands = await prisma.brand.findMany({
     where: {
-      organizationId: organization.id,
+      name: { in: consumer.brands }
     },
     select: {
       id: true,
@@ -170,33 +175,34 @@ async function createApp(
   });
   const countries = await prisma.country.findMany({
     where: {
-      organizationId: organization.id,
+      code: { in: consumer.countries }
     },
     select: {
       id: true,
     },
   });
 
-  const application = await prisma.application.create({
+  const consumerObj = await prisma.applicationConsumer.create({
     data: {
-      ...app,
-      project: { connect: { id: project.id } },
-      user: { connect: { id: owner.id } },
+      ...consumer,
+      application: { connect: { id: app.id }},
+      project: { connect: { slug: consumer.project } },
+      user: { connect: { id: app.ownerId } },
       expires: new Date(
         "Tue Sep 21 2022 16:16:50 GMT-0400 (Eastern Daylight Time)"
       ),
       token: hashedApiKey,
       brands: {
-        connect: [{ id: brands[0].id }, { id: brands[1].id }], // KFC & PH
+        connect: brands.map((brand) => ({id: brand.id}))
       },
       countries: {
-        connect: [{ id: countries[0].id }, { id: countries[1].id }], // PL & CZ
+        connect: countries.map((country) => ({id: country.id}))
       },
     },
   });
 
   console.log(
-    `\t👤 Created app '${application.title}' in project '${project.slug}`
+    `\t👤 Created consumer '${consumerObj.title}' in app ${app.name}`
   );
 }
 
@@ -230,13 +236,16 @@ async function main() {
     // Create countries
     await createCountries(org, data.countries);
     // Create projects
-    await createProjectsAndApps(
-      org,
-      proUser,
-      freeUser,
-      data.projects,
-      data.apps
-    );
+    await createProjects(org, proUser, data.projects);
+    // Create apps and consumers
+    await createAppsAndConsumers(proUser, data.apps)
+    // await createProjectsAndApps(
+    //   org,
+    //   proUser,
+    //   freeUser,
+    //   data.projects,
+    //   data.apps
+    // );
   }
 }
 
