@@ -9,6 +9,8 @@ import {
   LocationMarkerIcon,
   TerminalIcon,
 } from "@heroicons/react/solid";
+import { capitalize } from "@lib/strings";
+import { useRouter } from "next/router";
 
 export const appMenu = [
   {
@@ -46,13 +48,17 @@ export const appMenu = [
   },
 ];
 
-const MenuHeader = () => (
+type MenuHeaderProps = {
+  appName?: string;
+}
+
+const MenuHeader = (props: MenuHeaderProps) => (
   <div className="flex items-center">
     <div className="flex p-2 text-gray-900 text-xs font-medium bg-yellow-400 rounded-md">
       <LocationMarkerIcon className="h-4 w-4" />
     </div>
     <h3 className="ml-2 text-gray-900 text-md font-semibold truncate">
-      Stores
+      {props.appName && capitalize(props.appName)}
     </h3>
   </div>
 );
@@ -145,8 +151,15 @@ function Consumers() {
 }
 
 export default function AppPage() {
+  const { query } = useRouter();
+
   return (
-    <DetailedLayout pageMenu={appMenu} pageMenuHeader={<MenuHeader />}>
+    <DetailedLayout 
+      pageMenu={appMenu} 
+      pageMenuHeader={
+        <MenuHeader appName={query.name} />
+      }
+    >
       <Consumers />
     </DetailedLayout>
   );

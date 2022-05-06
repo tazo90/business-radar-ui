@@ -1,29 +1,32 @@
-import DashboardLayout from "@components/layouts/dashboard";
 
-import Link from "next/link";
-
-import { DotsHorizontalIcon, LocationMarkerIcon } from "@heroicons/react/solid";
-import { Menu, Transition } from "@headlessui/react";
-import { classNames } from "@lib/classnames";
 import { Fragment } from "react";
+import Link from "next/link";
+import { Menu, Transition } from "@headlessui/react";
+import { DotsHorizontalIcon, LocationMarkerIcon } from "@heroicons/react/solid";
 
-const apps = [
-  {
-    id: "stores",
-    title: "Stores",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    integrations: 10,
-    img: '"https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";',
-  },
-];
+import DashboardLayout from "@components/layouts/dashboard";
+import apps from "@components/apps";
+import { classNames } from "@lib/classnames";
+import { trpc } from "@lib/trpc";
+import { capitalize } from "@lib/strings";
+import showToast from "@lib/notification";
 
 export default function AppsPage() {
+  const { data } = trpc.useQuery(['api.application.all', {}]);
+  const utils = trpc.useContext();
+
+  const deleteApp = trpc.useMutation("api.application.delete", {
+    async onSuccess() {
+      showToast("Uninstalled app", "success");
+      await utils.invalidateQueries(["api.application.all"]);
+    },
+  });
+
   const projectActions = [
     {
-      name: "Delete",
+      name: "Uninstall",
       href: "#",
-      // onClick: (slug: string) => deleteProject.mutate({ slug }),
+      onClick: (id: number) => deleteApp.mutate({ id }),
     },
   ];
 
@@ -40,13 +43,13 @@ export default function AppsPage() {
         role="list"
         className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
-        {apps?.map((app) => (
+        {data?.map((app) => (
           <li
             key={app.id}
             className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
           >
             <div className="bg-white w-full flex items-center justify-between px-6 py-4 space-x-6 rounded-lg shadow-lg">
-              <Link href={`/apps/${app.id}`}>
+              <Link href={`/apps/${app.type.toLowerCase()}`}>
                 <a className="flex-1 space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center justify-center">
@@ -54,7 +57,7 @@ export default function AppsPage() {
                         <LocationMarkerIcon className="h-4 w-4" />
                       </div>
                       <h3 className="ml-2 text-gray-900 text-md font-semibold truncate">
-                        {app.title}
+                        {capitalize(app.type)}
                       </h3>
                     </div>
                     <Menu as="div" className="flex-shrink-0 relative ml-5">
@@ -103,13 +106,13 @@ export default function AppsPage() {
                         className="object-cover w-1/2 h-1/2"
                       />
                       <p className="ml-4 text-sm text-gray-700">
-                        {app.description}
+                        {apps[app.type.toLowerCase()].description}
                       </p>
                     </div>
 
                     <div className="flex items-center space-x-2 pt-2">
-                      <p className="text-sm font-semibold">Integrations: </p>
-                      <span className="text-sm">{app.integrations}</span>
+                      <p className="text-sm font-semibold">Consumers: </p>
+                      <span className="text-sm">{app._count.consumers}</span>
                     </div>
                   </div>
                 </a>
@@ -119,15 +122,6 @@ export default function AppsPage() {
           </li>
         ))}
       </ul>
-
-      {/* Add project dialog */}
-      {/* <Dialog
-        title="Create new project"
-        open={addProjectModal}
-        onClose={() => setAddProjectModal(false)}
-      >
-        <ProjectModalForm onClose={() => setAddProjectModal(false)} />
-      </Dialog> */}
     </div>
   );
 }
