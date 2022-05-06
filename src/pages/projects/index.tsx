@@ -128,7 +128,7 @@ export default function ProjectsPage() {
                     <div className="flex items-center text-gray-500">
                       <ViewGridAddIcon className="h-5 w-5" />
                       <span className="mx-1.5 font-semibold text-gray-600">
-                        {project._count.applications}
+                        {/* {project._count.consumers} */}
                       </span>
                       Apps
                     </div>

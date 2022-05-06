@@ -29,7 +29,6 @@ export const applicationRouter = createProtectedRouter()
         ...query,
         select: {
           id: true,
-          name: true,
           ownerId: true,
           type: true,
           paid: true,
