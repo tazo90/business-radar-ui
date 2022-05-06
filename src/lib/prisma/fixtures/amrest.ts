@@ -113,18 +113,18 @@ const countries = [
 
 const users = [
   {
-    email: "tazo90@gmail.com",
+    email: "tazo@gmail.com",
     password: "pass",
     username: "tazo90",
     name: "ala",
-    plan: UserPlan.FREE,
+    plan: UserPlan.PRO,
   },
   {
-    email: "dieselo@o2.pl",
-    password: "diesel",
-    username: "teampro",
+    email: "dieselo@gmail.pl",
+    password: "pass",
+    username: "dieselo",
     name: "Team Pro Example",
-    plan: UserPlan.PRO,
+    plan: UserPlan.FREE,
   },
 ];
 
@@ -145,9 +145,8 @@ const projects = [
 
 const apps = [
   {
-    name: "Stores",
-    paid: false,
     type: ApplicationType.STORES,
+    paid: false,
     consumers: [
       {
         uid: "1",
@@ -162,9 +161,8 @@ const apps = [
     ]
   },
   {
-    name: "Jobs",
-    paid: false,
     type: ApplicationType.JOBS,
+    paid: false,
     consumers: [
       {
         uid: "2",
@@ -180,9 +178,8 @@ const apps = [
     ]
   },
   {
-    name: "ECommerce",
-    paid: false,
     type: ApplicationType.ECOMMERCE,
+    paid: false,
     consumers: [
       {
         uid: "3",

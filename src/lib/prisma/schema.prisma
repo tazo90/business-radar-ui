@@ -188,7 +188,6 @@ enum ApplicationType {
 
 model Application {
   id        Int                   @id @default(autoincrement())
-  name      String
   owner     User                  @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId   Int
   createdAt DateTime              @default(now())

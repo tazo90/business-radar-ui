@@ -146,8 +146,6 @@ async function createAppsAndConsumers(
   apps: any
 ) {
   apps.map(async (app: any) => {
-    // const projectApps = projects.filter((project: any) => app.project === project.slug);
-
     const appObj = await prisma.application.create({
       data: {
         ...omit(app, 'consumers'),
@@ -210,23 +208,23 @@ async function main() {
   await dropTables();
 
   // Create users
-  const freeUser = await createUser({
+  const proUser = await createUser({
     user: data.users[0],
   });
 
-  const proUser = await createUser({
+  const freeUser = await createUser({
     user: data.users[1],
   });
 
   // Create organization and members
   const org = await createOrganizationAndUsers(data.organization, [
     {
-      id: freeUser.id,
-      username: freeUser.name || "Unknown",
-    },
-    {
       id: proUser.id,
       username: proUser.name || "Unknown",
+    },
+    {
+      id: freeUser.id,
+      username: freeUser.name || "Unknown",
     },
   ]);
 
@@ -239,13 +237,6 @@ async function main() {
     await createProjects(org, proUser, data.projects);
     // Create apps and consumers
     await createAppsAndConsumers(proUser, data.apps)
-    // await createProjectsAndApps(
-    //   org,
-    //   proUser,
-    //   freeUser,
-    //   data.projects,
-    //   data.apps
-    // );
   }
 }
 
