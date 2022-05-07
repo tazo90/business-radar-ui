@@ -192,7 +192,7 @@ async function createConsumer(app: any, consumer: any) {
         "Tue Sep 21 2022 16:16:50 GMT-0400 (Eastern Daylight Time)"
       ),
       // TODO: not secure, store hashedApiKey instead raw token in database
-      token: apiKey,
+      apiKey: apiKey,
       brands: {
         connect: brands.map((brand) => ({id: brand.id}))
       },

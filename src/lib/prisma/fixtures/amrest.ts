@@ -151,7 +151,6 @@ const apps = [
       {
         uid: "1",
         title: "AmRest Stores",
-        token: "amspacestores",
         status: ApplicationConsumerStatus.DRAFT,
         domain: "https://amspace.amrest.eu",
         project: "amspace",
@@ -167,7 +166,6 @@ const apps = [
       {
         uid: "2",
         title: "KFC PL",
-        token: "ctskfcpl",
         status: ApplicationConsumerStatus.DRAFT,
         domain: "https://cts.pl",
         project: "cts",
@@ -184,7 +182,6 @@ const apps = [
       {
         uid: "3",
         title: "KFC PL",
-        token: "ecommercekfcpl",
         status: ApplicationConsumerStatus.DRAFT,
         domain: "https://kfc.pl",
         project: "ecommerce",
@@ -194,7 +191,6 @@ const apps = [
       {
         uid: "4",
         title: "PH PL",
-        token: "ecommercephpl",
         status: ApplicationConsumerStatus.DRAFT,
         domain: "http://pizzahut.pl",
         project: "ecommerce",

@@ -225,7 +225,7 @@ model ApplicationConsumer {
   updatedAt   DateTime?
   status      ApplicationConsumerStatus @default(DRAFT)
 
-  token      String      @unique
+  apiKey     String      @unique
   expires    DateTime
   domain     String
   components Component[]

@@ -18,7 +18,7 @@ export default async function handler(
   if (req.query.apiKey) {
     const application = await prisma.application.findUnique({
       where: {
-        token: req.query.apiKey,
+        apiKey: req.query.apiKey,
       },
       select: {
         id: true,

@@ -44,7 +44,7 @@ export const consumerRouter = createProtectedRouter()
             },
           },
           status: true,
-          token: true,
+          apiKey: true,
           domain: true,
         },
       });
@@ -64,7 +64,7 @@ export const consumerRouter = createProtectedRouter()
           title: true,
           description: true,
           status: true,
-          token: true,
+          apiKey: true,
           domain: true,
           brands: true,
           countries: true,
@@ -108,7 +108,7 @@ export const consumerRouter = createProtectedRouter()
             "Tue Sep 21 2022 16:16:50 GMT-0400 (Eastern Daylight Time)"
           ),
           // TODO: store hashedApiKey in db
-          token: apiKey,
+          apiKey: apiKey,
         },
       });
     },
