@@ -7,13 +7,20 @@ import { useBrandsQuery } from "@api/organization/get-all-brands";
 import { Filter } from "@components/common/filter";
 import { setFilters } from "@slices/store.slice";
 
-export function BrandFilter() {
+type BrandFilterProps = {
+  apiKey?: string;
+}
+
+export function BrandFilter(props: BrandFilterProps) {
   const dispatch = useDispatch();
   const { filters } = useSelector((state: any) => state.store);
 
   const [isFilterOpen, setFilterOpen] = useState(false);
 
-  const { data, isLoading, error }: any = useBrandsQuery({ org: "amrest" });
+  const { data, isLoading }: any = useBrandsQuery({ 
+    org: "amrest", 
+    apiKey: props.apiKey 
+  });
 
   function getIcon(itemId) {
     return icons.amrest.brands[itemId];

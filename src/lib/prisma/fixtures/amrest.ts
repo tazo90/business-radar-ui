@@ -46,67 +46,67 @@ const brands = [
 
 const countries = [
   {
-    code: "pl",
+    code: "PL",
     name: "Poland",
   },
   {
-    code: "cz",
+    code: "CZ",
     name: "Czech Republic",
   },
   {
-    code: "hu",
+    code: "HU",
     name: "Hungary",
   },
   {
-    code: "sk",
+    code: "SK",
     name: "Slovak Republic",
   },
   {
-    code: "bg",
+    code: "BG",
     name: "Bulgaria",
   },
   {
-    code: "de",
+    code: "DE",
     name: "Germany",
   },
   {
-    code: "es",
+    code: "ES",
     name: "Spain",
   },
   {
-    code: "ro",
+    code: "RO",
     name: "Romania",
   },
   {
-    code: "ru",
+    code: "RU",
     name: "Russia",
   },
   {
-    code: "rs",
+    code: "RS",
     name: "Serbia",
   },
   {
-    code: "cn",
+    code: "CN",
     name: "China",
   },
   {
-    code: "fr",
+    code: "FR",
     name: "France",
   },
   {
-    code: "hr",
+    code: "HR",
     name: "Croatia",
   },
   {
-    code: "at",
+    code: "AT",
     name: "Austria",
   },
   {
-    code: "pt",
+    code: "PT",
     name: "Portugal",
   },
   {
-    code: "si",
+    code: "SI",
     name: "Slovenia",
   },
 ];
@@ -154,8 +154,8 @@ const apps = [
         status: ApplicationConsumerStatus.DRAFT,
         domain: "https://amspace.amrest.eu",
         project: "amspace",
-        brands: ["kfc", "ph", "bk", "sbx"],
-        countries: ["pl", "cz", "hu"]
+        brands: ["KFC", "PH", "BK", "SBX"],
+        countries: ["PL", "CZ", "HU"]
       },
     ]
   },
@@ -169,8 +169,8 @@ const apps = [
         status: ApplicationConsumerStatus.DRAFT,
         domain: "https://cts.pl",
         project: "cts",
-        brands: ["kfc"],
-        countries: ["pl"],
+        brands: ["KFC"],
+        countries: ["PL"],
       },
      
     ]
@@ -185,8 +185,8 @@ const apps = [
         status: ApplicationConsumerStatus.DRAFT,
         domain: "https://kfc.pl",
         project: "ecommerce",
-        brands: ["kfc"],
-        countries: ["pl"]
+        brands: ["KFC"],
+        countries: ["PL"]
       },
       {
         uid: "4",
@@ -194,8 +194,8 @@ const apps = [
         status: ApplicationConsumerStatus.DRAFT,
         domain: "http://pizzahut.pl",
         project: "ecommerce",
-        brands: ["ph"],
-        countries: ["pl"]
+        brands: ["PH"],
+        countries: ["PL"]
       },
     ]
   },

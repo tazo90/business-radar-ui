@@ -60,7 +60,6 @@ export default function StoresApp(props: StoresAppProps) {
       if (err.response?.status === 401) {
         setIsAuthorized(false)
       }
-      console.log("CCC ERROR", err.response?.status)
     },
     retry: 0
   });
@@ -143,6 +142,7 @@ export default function StoresApp(props: StoresAppProps) {
   }
 
   if (isAuthorized === null) {
+    // Add skeleton here
     return <div>Loading app</div>;
   }
 
@@ -192,7 +192,7 @@ export default function StoresApp(props: StoresAppProps) {
           </div>
           <div className="flex overflow-x-auto items-center py-2">
             <div className="mr-2 md:ml-2">
-              <BrandFilter />
+              <BrandFilter apiKey={props.apiKey} />
             </div>
             <div className="mr-2">
               <CountryFilter />

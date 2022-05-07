@@ -8,12 +8,9 @@ export default async function handler(
 ) {
   // GET /api/organizations/:organization/brands
   if (req.method === "GET") {
-    const brands = await prisma.brand.findMany({
-      where: {
-        organization: {
-          slug: req.query.organization,
-        },
-      },
+    const { apiKey, organization } = req.query;
+
+    const query = {
       orderBy: {
         id: "asc",
       },
@@ -22,6 +19,29 @@ export default async function handler(
         name: true,
         fullName: true,
       },
+    }
+
+    if (apiKey) {
+      const consumer = await prisma.applicationConsumer.findUnique({
+        where: { apiKey },
+        select: {
+          id: true,
+          brands: query,
+        },
+      });
+
+      if (consumer) {
+        return res.status(200).json({ brands: consumer.brands });
+      }
+    }
+
+    const brands = await prisma.brand.findMany({
+      where: {
+        organization: {
+          slug: organization,
+        },
+      },
+      ...query
     });
 
     return res.status(200).json({ brands });
