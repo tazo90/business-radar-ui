@@ -62,7 +62,7 @@ export default function ConsumersPage() {
     >
       <ul role="list" className="divide-y divide-gray-200 ">
         {data?.map((app) => {
-          const appUrl = `/apps/${query.name}/consumers/${app.id}`;
+          const appUrl = `/apps/${query.name}/consumers/${app.uid}`;
 
           return (
             <li key={app.id}>

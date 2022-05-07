@@ -1,5 +1,5 @@
-//@ts-nocheck
 import { PrismaClient, Prisma, MembershipRole, UserPlan } from "@prisma/client";
+import short from "short-uuid";
 
 import { hashPassword } from "../auth";
 import data from "./fixtures/amrest";
@@ -8,6 +8,7 @@ import { omit } from "../lodash";
 
 require("dotenv");
 
+const translator = short();
 const prisma = new PrismaClient();
 
 async function dropTables() {
@@ -153,7 +154,7 @@ async function createAppsAndConsumers(
       },
     });
 
-    console.log(`\t👤 Created app '${app.name}'`);
+    console.log(`\t👤 Created app '${app.type}'`);
 
     // Create consumers
     app?.consumers.map(async (consumer: any) => await createConsumer(appObj, consumer));
@@ -183,13 +184,15 @@ async function createConsumer(app: any, consumer: any) {
   const consumerObj = await prisma.applicationConsumer.create({
     data: {
       ...consumer,
+      uid: translator.new(),
       application: { connect: { id: app.id }},
       project: { connect: { slug: consumer.project } },
       user: { connect: { id: app.ownerId } },
       expires: new Date(
         "Tue Sep 21 2022 16:16:50 GMT-0400 (Eastern Daylight Time)"
       ),
-      token: hashedApiKey,
+      // TODO: not secure, store hashedApiKey instead raw token in database
+      token: apiKey,
       brands: {
         connect: brands.map((brand) => ({id: brand.id}))
       },
@@ -200,7 +203,7 @@ async function createConsumer(app: any, consumer: any) {
   });
 
   console.log(
-    `\t👤 Created consumer '${consumerObj.title}' in app ${app.name}`
+    `\t👤 Created consumer '${consumerObj.title}' in app ${app.type}`
   );
 }
 
