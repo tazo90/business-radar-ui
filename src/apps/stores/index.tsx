@@ -191,15 +191,9 @@ export default function StoresApp(props: StoresAppProps) {
             <div className="hidden md:block lg:hidden bg-gray-300 h-3/5 w-0.5 ml-2" />
           </div>
           <div className="flex overflow-x-auto items-center py-2">
-            <div className="mr-2 md:ml-2">
-              <BrandFilter apiKey={props.apiKey} />
-            </div>
-            <div className="mr-2">
-              <CountryFilter apiKey={props.apiKey} />
-            </div>
-            <div className="mr-2">
-              <MoreFilter />
-            </div>
+            <BrandFilter apiKey={props.apiKey} />
+            <CountryFilter apiKey={props.apiKey} />
+            <MoreFilter />
           </div>
         </nav>
       </section>

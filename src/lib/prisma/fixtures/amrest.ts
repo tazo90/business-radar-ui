@@ -157,6 +157,15 @@ const apps = [
         brands: ["KFC", "PH", "BK", "SBX"],
         countries: ["PL", "CZ", "HU"]
       },
+      {
+        uid: "1",
+        title: "AmRest Stores KFC PL",
+        status: ApplicationConsumerStatus.DRAFT,
+        domain: "https://amspace.amrest.eu",
+        project: "amspace",
+        brands: ["KFC"],
+        countries: ["PL"]
+      },
     ]
   },
   {

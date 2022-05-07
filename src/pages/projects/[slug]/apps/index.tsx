@@ -109,11 +109,11 @@ export default function ProjectAppsPage() {
                       </div>
                       <p className="ml-4 flex items-center text-sm text-gray-500">
                         <span className="font-semibold mr-2">API Key:</span>
-                        <span className="underline mr-2">{app.token}</span>
+                        <span className="underline mr-2">{app.apiKey}</span>
                         <button
                           onClick={(e) => {
                             e.preventDefault();
-                            navigator.clipboard.writeText(app.token);
+                            navigator.clipboard.writeText(app.apiKey);
                           }}
                         >
                           <ClipboardCopyIcon className="h-5 w-5" />

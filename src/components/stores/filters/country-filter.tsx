@@ -40,8 +40,12 @@ export function CountryFilter(props: CountryFilterProps) {
     setFilterOpen(false);
   }
 
+  if (data && Object.keys(data).length === 1) {
+    return null;
+  }
+
   return (
-    <>
+    <div className="mr-2">
       <button
         className="border border-gray-300 h-10 rounded-lg text-gray-600 bg-white hover:bg-gray-100 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
         type="button"
@@ -68,6 +72,6 @@ export function CountryFilter(props: CountryFilterProps) {
         onSubmit={submit}
         onClose={() => setFilterOpen(false)}
       />
-    </>
+    </div>
   );
 }

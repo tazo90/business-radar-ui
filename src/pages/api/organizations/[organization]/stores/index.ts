@@ -15,13 +15,25 @@ export default async function handler(
 
   // res.status(401).json({ message: "Invalid api key" });
 
+  let consumer = null;
+
   if (req.query.apiKey) {
-    const consumer = await prisma.applicationConsumer.findUnique({
+    consumer = await prisma.applicationConsumer.findUnique({
       where: {
         apiKey: req.query.apiKey,
       },
       select: {
         id: true,
+        brands: {
+          select: {
+            id: true
+          }
+        },
+        countries: {
+          select: {
+            id: true
+          }
+        }
       },
     });
 
@@ -32,12 +44,26 @@ export default async function handler(
 
   // GET /api/organizations/:organization/stores
   if (req.method === "GET") {
-    const stores = await prisma.store.findMany({
-      where: {
-        organization: {
-          slug: req.query.organization,
-        },
+
+    let query: any = {
+      organization: {
+        slug: req.query.organization,
       },
+    };
+
+    if (consumer) {
+      const brandIds = consumer.brands.map((b) => b.id);
+      const countryIds = consumer.countries.map((c) => c.id);
+
+      query = {
+        ...query,
+        brandId: { in: brandIds },
+        countryId: { in: countryIds },
+      };
+    }
+
+    const stores = await prisma.store.findMany({
+      where: query,
       select: {
         id: true,
         brand: {

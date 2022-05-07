@@ -20,9 +20,9 @@ export async function fetchBrands({ queryKey }: any) {
   return brands;
 }
 
-export const useBrandsQuery = (params: any) => {
+export const useBrandsQuery = (query: any) => {
   return useQuery<{ brands: any }, Error>(
-    [API_ENDPOINTS.ORGANIZATIONS.BRANDS, params],
+    [API_ENDPOINTS.ORGANIZATIONS.BRANDS, query],
     fetchBrands
   );
 };

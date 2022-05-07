@@ -7,7 +7,7 @@ export function MoreFilter() {
   const [isFilterOpen, setFilterOpen] = useState(false);
 
   return (
-    <>
+    <div className="mr-2 ml-2">
       <button
         className="border border-gray-300 h-10 rounded-lg text-gray-600 bg-white hover:bg-gray-100 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
         type="button"
@@ -31,6 +31,6 @@ export function MoreFilter() {
         onSubmit={() => {}}
         onClose={() => setFilterOpen(false)}
       />
-    </>
+    </div>
   );
 }
