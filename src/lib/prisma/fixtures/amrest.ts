@@ -1,4 +1,4 @@
-import { ApplicationStatus, ApplicationType, UserPlan } from "@prisma/client";
+import { ApplicationConsumerStatus, ApplicationType, UserPlan } from "@prisma/client";
 
 const organization = {
   name: "AmRest",
@@ -113,18 +113,18 @@ const countries = [
 
 const users = [
   {
-    email: "tazo90@gmail.com",
+    email: "tazo@gmail.com",
     password: "pass",
     username: "tazo90",
     name: "ala",
-    plan: UserPlan.FREE,
+    plan: UserPlan.PRO,
   },
   {
-    email: "dieselo@o2.pl",
-    password: "diesel",
-    username: "teampro",
+    email: "dieselo@gmail.pl",
+    password: "pass",
+    username: "dieselo",
     name: "Team Pro Example",
-    plan: UserPlan.PRO,
+    plan: UserPlan.FREE,
   },
 ];
 
@@ -145,46 +145,65 @@ const projects = [
 
 const apps = [
   {
-    uid: "1",
-    title: "KFC PL",
-    token: "ctskfcpl",
-    status: ApplicationStatus.DRAFT,
-    type: ApplicationType.JOBS,
-    paid: false,
-    domain: "https://cts.pl",
-    project: "cts",
-  },
-  {
-    uid: "2",
-    title: "KFC PL",
-    token: "ecommercekfcpl",
-    status: ApplicationStatus.DRAFT,
-    type: ApplicationType.ECOMMERCE,
-    paid: false,
-    domain: "https://kfc.pl",
-    project: "ecommerce",
-  },
-  {
-    uid: "3",
-    title: "PH PL",
-    token: "ecommercephpl",
-    status: ApplicationStatus.DRAFT,
-    type: ApplicationType.ECOMMERCE,
-    paid: false,
-    domain: "http://pizzahut.pl",
-    project: "ecommerce",
-  },
-  {
-    uid: "4",
-    title: "AmRest Stores",
-    token: "amspacestores",
-    status: ApplicationStatus.DRAFT,
     type: ApplicationType.STORES,
     paid: false,
-    domain: "https://amspace.amrest.eu",
-    project: "amspace",
+    consumers: [
+      {
+        uid: "1",
+        title: "AmRest Stores",
+        token: "amspacestores",
+        status: ApplicationConsumerStatus.DRAFT,
+        domain: "https://amspace.amrest.eu",
+        project: "amspace",
+        brands: ["kfc", "ph", "bk", "sbx"],
+        countries: ["pl", "cz", "hu"]
+      },
+    ]
   },
-];
+  {
+    type: ApplicationType.JOBS,
+    paid: false,
+    consumers: [
+      {
+        uid: "2",
+        title: "KFC PL",
+        token: "ctskfcpl",
+        status: ApplicationConsumerStatus.DRAFT,
+        domain: "https://cts.pl",
+        project: "cts",
+        brands: ["kfc"],
+        countries: ["pl"],
+      },
+     
+    ]
+  },
+  {
+    type: ApplicationType.ECOMMERCE,
+    paid: false,
+    consumers: [
+      {
+        uid: "3",
+        title: "KFC PL",
+        token: "ecommercekfcpl",
+        status: ApplicationConsumerStatus.DRAFT,
+        domain: "https://kfc.pl",
+        project: "ecommerce",
+        brands: ["kfc"],
+        countries: ["pl"]
+      },
+      {
+        uid: "4",
+        title: "PH PL",
+        token: "ecommercephpl",
+        status: ApplicationConsumerStatus.DRAFT,
+        domain: "http://pizzahut.pl",
+        project: "ecommerce",
+        brands: ["ph"],
+        countries: ["pl"]
+      },
+    ]
+  },
+]
 
 export default {
   organization,

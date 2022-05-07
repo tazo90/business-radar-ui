@@ -33,21 +33,22 @@ model Credential {
 }
 
 model User {
-  id                 Int              @id @default(autoincrement())
-  username           String?          @unique
+  id                 Int                   @id @default(autoincrement())
+  username           String?               @unique
   name               String?
-  email              String           @unique
+  email              String                @unique
   emailVerified      DateTime?
   password           String?
   avatar             String?
-  createdDate        DateTime         @default(now()) @map(name: "created")
+  createdDate        DateTime              @default(now()) @map(name: "created")
   credentials        Credential[]
   teams              Membership[] // organizations
   applications       Application[]
-  identityProvider   IdentityProvider @default(STORE_EYE)
+  consumers          ApplicationConsumer[]
+  identityProvider   IdentityProvider      @default(STORE_EYE)
   identityProviderId String?
-  plan               UserPlan         @default(TRIAL)
-  verified           Boolean?         @default(false)
+  plan               UserPlan              @default(TRIAL)
+  verified           Boolean?              @default(false)
   projects           Project[]
 
   @@map(name: "users")
@@ -78,9 +79,9 @@ model Country {
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId Int
 
-  applications Application[]
-  job          Job[]
-  store        Store[]
+  consumers ApplicationConsumer[]
+  job       Job[]
+  store     Store[]
 
   @@unique([name, code])
   @@map(name: "country")
@@ -93,9 +94,9 @@ model Brand {
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId Int
 
-  applications Application[]
-  job          Job[]
-  store        Store[]
+  consumers ApplicationConsumer[]
+  job       Job[]
+  store     Store[]
 
   @@unique([name, organizationId])
   @@map(name: "brand")
@@ -164,16 +165,16 @@ model Payment {
 }
 
 model Project {
-  id             Int           @id @default(autoincrement())
-  name           String        @unique
-  slug           String?       @unique
-  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  id             Int                   @id @default(autoincrement())
+  name           String                @unique
+  slug           String?               @unique
+  organization   Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId Int
-  owner          User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  owner          User                  @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId        Int
-  createdAt      DateTime      @default(now())
+  createdAt      DateTime              @default(now())
   updatedAt      DateTime?
-  applications   Application[]
+  consumers      ApplicationConsumer[]
 
   @@map(name: "project")
 }
@@ -185,49 +186,65 @@ enum ApplicationType {
   TRAININGS  @map("trainings")
 }
 
-enum ApplicationStatus {
+model Application {
+  id        Int                   @id @default(autoincrement())
+  owner     User                  @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId   Int
+  createdAt DateTime              @default(now())
+  consumers ApplicationConsumer[]
+  paid      Boolean
+  payment   Payment[]
+  type      ApplicationType
+
+  @@map(name: "application")
+}
+
+enum ApplicationConsumerStatus {
   ACTIVE  @map("active")
   DRAFT   @map("draft")
   CLOSED  @map("closed")
 }
 
-model Application {
-  id          Int               @id @default(autoincrement())
-  uid         String            @unique
-  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      Int
-  project     Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  projectId   Int
+model ApplicationConsumer {
+  id     Int    @id @default(autoincrement())
+  uid    String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  applicationId Int
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId Int
+
   title       String
   description String?
   brands      Brand[]
   countries   Country[]
-  createdAt   DateTime          @default(now())
+  createdAt   DateTime                  @default(now())
   updatedAt   DateTime?
-  status      ApplicationStatus @default(DRAFT)
-  type        ApplicationType
-  paid        Boolean
-  payment     Payment[]
-  token       String            @unique
-  expires     DateTime
-  domain      String
-  components  Component[]
+  status      ApplicationConsumerStatus @default(DRAFT)
+
+  token      String      @unique
+  expires    DateTime
+  domain     String
+  components Component[]
 
   // TODO: Allow to define colors per application
-  @@map(name: "application")
+  @@map(name: "application_consumer")
 }
 
 model Component {
-  id            Int         @id @default(autoincrement())
-  name          String
-  slug          String
-  description   String?
-  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
-  applicationId Int
-  clientId      String?
-  secretId      String?
-  tokenUrl      String?
-  dataUrl       String?
+  id          Int                 @id @default(autoincrement())
+  name        String
+  slug        String
+  description String?
+  consumer    ApplicationConsumer @relation(fields: [consumerId], references: [id], onDelete: Cascade)
+  consumerId  Int
+  clientId    String?
+  secretId    String?
+  tokenUrl    String?
+  dataUrl     String?
 
   @@map(name: "component")
 }

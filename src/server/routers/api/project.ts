@@ -20,11 +20,11 @@ export const projectRouter = createProtectedRouter()
               username: true,
             },
           },
-          _count: {
-            select: {
-              applications: true,
-            },
-          },
+          // _count: {
+          //   select: {
+          //     consumers: true,
+          //   },
+          // },
         },
       });
     },
@@ -43,19 +43,6 @@ export const projectRouter = createProtectedRouter()
           slug: true,
           name: true,
           owner: true,
-          applications: {
-            select: {
-              id: true,
-              title: true,
-              description: true,
-              status: true,
-              paid: true,
-              token: true,
-              domain: true,
-              brands: true,
-              countries: true,
-            },
-          },
         },
       });
     },

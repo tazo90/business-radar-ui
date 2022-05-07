@@ -7,7 +7,7 @@ import apps from "@components/apps";
 export default function ConsumerApp() {
   const { query } = useRouter();
 
-  const AppViewer = apps[query.name];
+  const AppViewer = apps[query.name].app;
 
   return (
     <DetailedLayout

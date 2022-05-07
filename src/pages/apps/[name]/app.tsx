@@ -19,7 +19,7 @@ const MenuHeader = () => (
 export default function AppPage() {
   const { query } = useRouter();
 
-  const AppViewer = apps[query.name];
+  const AppViewer = apps[query.name].app;
 
   return (
     <DetailedLayout

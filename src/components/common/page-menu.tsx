@@ -38,7 +38,6 @@ export default function PageMenu(props: PageMenuProps) {
       )}
       <nav className="space-y-1">
         {props.menu.map((item) => {
-          console.log("ITEM", item.href, query);
           const page = item.href.split("/").slice(-1)[0].replace(":", "");
           const isActive = currentPage === page;
           const link =
