@@ -20,9 +20,9 @@ export async function fetchCountries({ queryKey }: any) {
   return countries;
 }
 
-export const useCountriesQuery = (options: any) => {
+export const useCountriesQuery = (params: any) => {
   return useQuery<{ countries: any }, Error>(
-    [API_ENDPOINTS.ORGANIZATIONS.COUNTRIES, options],
+    [API_ENDPOINTS.ORGANIZATIONS.COUNTRIES, params],
     fetchCountries
   );
 };

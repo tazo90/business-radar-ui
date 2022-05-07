@@ -7,13 +7,20 @@ import { Filter } from "@components/common/filter";
 import countries from "@constants/countries";
 import { setFilters } from "@slices/store.slice";
 
-export function CountryFilter() {
+type CountryFilterProps = {
+  apiKey?: string;
+}
+
+export function CountryFilter(props: CountryFilterProps) {
   const dispatch = useDispatch();
   const { filters } = useSelector((state: any) => state.store);
 
   const [isFilterOpen, setFilterOpen] = useState(false);
 
-  const { data, isLoading, error }: any = useCountriesQuery({ org: "amrest" });
+  const { data, isLoading }: any = useCountriesQuery({ 
+    org: "amrest",
+    apiKey: props.apiKey
+  });
 
   function getIcon(itemId: string) {
     const filtered = countries.filter((country) => country.value === itemId);

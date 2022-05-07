@@ -195,7 +195,7 @@ export default function StoresApp(props: StoresAppProps) {
               <BrandFilter apiKey={props.apiKey} />
             </div>
             <div className="mr-2">
-              <CountryFilter />
+              <CountryFilter apiKey={props.apiKey} />
             </div>
             <div className="mr-2">
               <MoreFilter />
