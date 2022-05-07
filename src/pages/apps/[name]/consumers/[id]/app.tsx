@@ -1,11 +1,17 @@
+import { useRouter } from "next/router";
+
 import DashboardLayout from "@components/layouts/dashboard";
 import DetailedLayout from "@components/layouts/detailed";
-import { useRouter } from "next/router";
 import { appMenu, MenuHeader } from "./overview";
-import apps from "@components/apps";
+import apps from "@apps/index";
+import { useEffect } from "react";
 
 export default function ConsumerApp() {
-  const { query } = useRouter();
+  const { query, isReady } = useRouter();
+
+  if (!isReady) {
+    return null;
+  }
 
   const AppViewer = apps[query.name].app;
 

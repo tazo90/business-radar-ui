@@ -3,7 +3,7 @@ import DetailedLayout from "@components/layouts/detailed";
 import { LocationMarkerIcon } from "@heroicons/react/solid";
 
 import { useRouter } from "next/router";
-import apps from "@components/apps";
+import apps from "@apps/index";
 import { appMenu } from "./overview";
 
 const MenuHeader = () => (
@@ -17,7 +17,11 @@ const MenuHeader = () => (
   </div>
 );
 export default function AppPage() {
-  const { query } = useRouter();
+  const { query, isReady } = useRouter();
+
+  if (!isReady) {
+    return null;
+  }
 
   const AppViewer = apps[query.name].app;
 

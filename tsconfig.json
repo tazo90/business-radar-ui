@@ -15,33 +15,17 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "paths": {
-      "@api/*": [
-        "api/*"
-      ],
-      "@assets/*": [
-        "assets/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@constants/*": [
-        "constants/*"
-      ],
-      "@containers/*": [
-        "containers/*"
-      ],
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@slices/*": [
-        "slices/*"
-      ],
-      "@styles/*": [
-        "styles/*"
-      ],
-      "@server/*": [
-        "server/*"
-      ],
+      "@apps": ["apps"], // use it to avoid `import apps from '@apps/index'
+      "@apps/*": ["apps/*"],
+      "@api/*": ["api/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@constants/*": ["constants/*"],
+      "@containers/*": ["containers/*"],
+      "@lib/*": ["lib/*"],
+      "@slices/*": ["slices/*"],
+      "@styles/*": ["styles/*"],
+      "@server/*": ["server/*"],
     },
     "incremental": true
   },

@@ -5,7 +5,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { DotsHorizontalIcon, LocationMarkerIcon } from "@heroicons/react/solid";
 
 import DashboardLayout from "@components/layouts/dashboard";
-import apps from "@components/apps";
+import apps from "apps/index";
 import { classNames } from "@lib/classnames";
 import { trpc } from "@lib/trpc";
 import { capitalize } from "@lib/strings";

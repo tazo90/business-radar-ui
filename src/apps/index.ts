@@ -1,8 +1,9 @@
-import StoresApp from "./stores";
-import JobsApp from "./jobs";
 import { ApplicationType } from "@prisma/client";
 
-export default {
+import StoresApp from "./stores";
+import JobsApp from "./jobs";
+
+const apps = {
   stores: {
     app: StoresApp,
     type: ApplicationType.STORES,
@@ -18,4 +19,6 @@ export default {
     type: ApplicationType.ECOMMERCE,
     description: 'Ecommerce locator'
   }
-};
+}
+
+export default apps;
