@@ -27,13 +27,15 @@ const MenuHeader = () => (
   </div>
 );
 export default function ConsumersPage() {
-  const { query } = useRouter();
+  const { query, isReady } = useRouter();
   const utils = trpc.useContext();
   const [addAppModal, setAddAppModal] = useState(false);
 
-  const { data: apps, isLoading } = trpc.useQuery(
-    ["api.application.all", { organizationSlug: "amrest" }],
+  const { data } = trpc.useQuery(
+    ["api.consumer.all", { appType: query.name?.toUpperCase()}],
     {
+      // first render has status `undefined`
+      enabled: isReady,
       refetchOnWindowFocus: false,
       onError: (e) => {
         console.log("ERROR", e);
@@ -59,7 +61,7 @@ export default function ConsumersPage() {
       }
     >
       <ul role="list" className="divide-y divide-gray-200 ">
-        {apps?.map((app) => {
+        {data?.map((app) => {
           const appUrl = `/apps/${query.name}/consumers/${app.id}`;
 
           return (
