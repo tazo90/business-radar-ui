@@ -14,9 +14,10 @@ export async function fetchStores({ queryKey }: any) {
   return toGeojson({ data: data.stores });
 }
 
-export const useStoresQuery = (options: any) => {
+export const useStoresQuery = (query: any, options?: any) => {
   return useQuery<{ stores: any }, Error>(
-    [API_ENDPOINTS.ORGANIZATIONS.STORES, options],
-    fetchStores
+    [API_ENDPOINTS.ORGANIZATIONS.STORES, query],
+    fetchStores,
+    options
   );
 };

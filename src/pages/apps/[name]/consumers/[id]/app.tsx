@@ -4,12 +4,19 @@ import DashboardLayout from "@components/layouts/dashboard";
 import DetailedLayout from "@components/layouts/detailed";
 import { appMenu, MenuHeader } from "./overview";
 import apps from "@apps/index";
-import { useEffect } from "react";
+import { trpc } from "@lib/trpc";
 
 export default function ConsumerApp() {
   const { query, isReady } = useRouter();
 
-  if (!isReady) {
+  const { data } = trpc.useQuery(
+    ['api.consumer.get', { uid: query.id }], 
+    {
+      enabled: isReady
+    }
+  );
+
+  if (!isReady || !data) {
     return null;
   }
 
@@ -21,7 +28,10 @@ export default function ConsumerApp() {
       pageMenuHeader={<MenuHeader />}
       fullScreen={true}
     >
-      {AppViewer ? <AppViewer /> : <div>Ops...something goes wrong.</div>}
+      {AppViewer
+        ? <AppViewer apiKey={data.apiKey} />
+        : <div>Ops...something goes wrong.</div>
+      }
     </DetailedLayout>
   );
 }

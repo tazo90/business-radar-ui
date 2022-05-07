@@ -25,7 +25,11 @@ const Search = dynamic(() =>
   )
 );
 
-export default function StoresApp({ apiKey }) {
+type StoresAppProps = {
+  apiKey?: string;
+}
+
+export default function StoresApp(props: StoresAppProps) {
   const dispatch = useDispatch();
 
   const { stores, selectedStore, filters } = useSelector(
@@ -37,6 +41,7 @@ export default function StoresApp({ apiKey }) {
   const [isOpenAutocomplete, setOpenAutocoplete] = useState(false);
   const [isMapVisible, setMapVisible] = useState(false);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (selectedStore) {
@@ -44,12 +49,22 @@ export default function StoresApp({ apiKey }) {
     }
   }, [selectedStore]);
 
-  const { data, isLoading, error }: any = useStoresQuery({
+  const { data, isLoading }: any = useStoresQuery({
     org: "amrest",
-    apiKey,
+    apiKey: props.apiKey
+  }, {
+    onSuccess() {
+      setIsAuthorized(true);
+    },
+    onError(err: any) {
+      if (err.response?.status === 401) {
+        setIsAuthorized(false)
+      }
+      console.log("CCC ERROR", err.response?.status)
+    },
+    retry: 0
   });
-
-  console.log("ERROR", data);
+  
 
   useEffect(() => {
     if (data) {
@@ -125,6 +140,14 @@ export default function StoresApp({ apiKey }) {
   function onAddressClick(address) {
     dispatch(setUserLocation(address));
     setOpenAutocoplete(false);
+  }
+
+  if (isAuthorized === null) {
+    return <div>Loading app</div>;
+  }
+
+  if (isAuthorized === false) {
+    return <div>Access denied</div>
   }
 
   return (

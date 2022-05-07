@@ -16,7 +16,7 @@ export default async function handler(
   // res.status(401).json({ message: "Invalid api key" });
 
   if (req.query.apiKey) {
-    const application = await prisma.application.findUnique({
+    const consumer = await prisma.applicationConsumer.findUnique({
       where: {
         apiKey: req.query.apiKey,
       },
@@ -25,7 +25,7 @@ export default async function handler(
       },
     });
 
-    if (!application) {
+    if (!consumer) {
       res.status(401).json({ message: "Invalid api key" });
     }
   }
