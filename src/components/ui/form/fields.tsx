@@ -1,5 +1,5 @@
 import { useId } from "@radix-ui/react-id";
-import { forwardRef, ReactElement, ReactNode, Ref } from "react";
+import { forwardRef, ReactElement, ReactNode, Ref, useRef } from "react";
 import {
   FieldValues,
   FormProvider,
@@ -34,6 +34,20 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   );
 });
 
+export function Text(props: JSX.IntrinsicElements["span"]) {
+  return (
+    <span
+      {...props}
+      className={classNames(
+        "block text-sm font-normal text-gray-700 pt-1",
+        props.className
+      )}
+    >
+      {props.children}
+    </span>
+  );
+}
+
 export function Label(props: JSX.IntrinsicElements["label"]) {
   return (
     <label
@@ -60,6 +74,7 @@ type InputFieldProps = {
   label?: ReactNode;
   wrapperClassName?: string;
   addOnLeading?: ReactNode;
+  editing?: boolean;
 } & React.ComponentProps<typeof Input> & {
     labelProps?: React.ComponentProps<typeof Label>;
   };
@@ -68,6 +83,8 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   function InputField(props, ref) {
     const id = useId();
     const methods = useFormContext();
+    const fieldRef = useRef(null);
+    const fieldValue = fieldRef?.current?.value;
     const {
       label = props.name,
       labelProps,
@@ -77,8 +94,11 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       className,
       addOnLeading,
       wrapperClassName,
+      editing,
+      disabled,
       ...passThrough
     } = props;
+
     return (
       <div className={wrapperClassName}>
         {!!props.name && (
@@ -95,21 +115,36 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
               className={classNames(
                 className,
                 "mt-0",
-                props.addOnLeading && "rounded-l-none"
+                addOnLeading && "rounded-l-none",
+                !editing && "hidden",
+                disabled && "bg-gray-200"
               )}
               {...passThrough}
-              ref={ref}
+              ref={(e) => {
+                ref(e);
+                fieldRef.current = e;
+              }}
             />
           </div>
         ) : (
           <Input
             id={id}
             placeholder={placeholder}
-            className={className}
+            className={classNames(
+              className,
+              !editing && "hidden",
+              disabled && "bg-gray-200"
+            )}
             {...passThrough}
-            ref={ref}
+            ref={(e) => {
+              ref(e);
+              fieldRef.current = e;
+            }}
           />
         )}
+
+        {!editing && <Text>{fieldValue}</Text>}
+
         {methods?.formState?.errors[props.name] && (
           <Alert
             className="mt-1"
