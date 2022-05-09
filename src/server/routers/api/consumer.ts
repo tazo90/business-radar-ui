@@ -18,7 +18,7 @@ export const consumerRouter = createProtectedRouter()
       return await ctx.prisma.applicationConsumer.findMany({
         where: {
           application: {
-            is: { type: input.appType }
+            is: { type: input.appType },
           },
         },
         select: {
@@ -110,6 +110,21 @@ export const consumerRouter = createProtectedRouter()
           // TODO: store hashedApiKey in db
           apiKey: apiKey,
         },
+      });
+    },
+  })
+  .mutation("edit", {
+    input: z.object({
+      uid: z.string(),
+      title: z.string(),
+      description: z.string().optional().nullish(),
+      domain: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const { uid, ...data } = input;
+      await ctx.prisma.applicationConsumer.update({
+        where: { uid },
+        data,
       });
     },
   });

@@ -10,6 +10,7 @@ import {
   LocationMarkerIcon,
   PencilIcon,
 } from "@heroicons/react/solid";
+import showToast from "@lib/notification";
 import { trpc } from "@lib/trpc";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -58,6 +59,7 @@ type ConsumerFormProps = {
 
 function ConsumerForm(props: ConsumerFormProps) {
   const { defaultValues, editing, setEditing } = props;
+  const utils = trpc.useContext();
   const form = useForm({
     defaultValues: props.defaultValues,
   });
@@ -71,7 +73,13 @@ function ConsumerForm(props: ConsumerFormProps) {
   return (
     <Form
       form={form}
-      handleSubmit={(values) => console.log("SUBMIT", values)}
+      handleSubmit={async (values) => {
+        await utils.client.mutation("api.consumer.edit", values);
+        await utils.invalidateQueries(["api.consumer.get"]);
+        setEditing(false);
+        // TODO: why toaster not showing???
+        showToast("Saved", "success");
+      }}
       className="space-y-6"
     >
       <Card>
@@ -99,7 +107,7 @@ function ConsumerForm(props: ConsumerFormProps) {
           <TextField
             label="Description"
             editing={editing}
-            {...form.register("description", { required: true })}
+            {...form.register("description")}
             type="text"
             wrapperClassName="col-span-4 sm:col-span-2"
           />
@@ -137,7 +145,12 @@ function ConsumerForm(props: ConsumerFormProps) {
         {editing && (
           <Card.Footer>
             <>
-              <Button color="secondary" className="mr-2">
+              <Button
+                type="submit"
+                loading={form.formState.isSubmitting}
+                color="secondary"
+                className="mr-2"
+              >
                 Save
               </Button>
               <Button onClick={() => setEditing(false)}>Cancel</Button>
