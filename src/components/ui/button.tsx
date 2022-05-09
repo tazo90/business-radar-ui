@@ -5,7 +5,7 @@ import React, { forwardRef } from "react";
 type SVGComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 
 export type ButtonBaseProps = {
-  color?: "main" | "primary" | "secondary" | "minimal" | "warn";
+  color?: "primary" | "secondary" | "warn";
   size?: "base" | "sm" | "lg" | "fab" | "icon";
   loading?: boolean;
   disabled?: boolean;
@@ -49,11 +49,11 @@ export const Button = forwardRef<
       ref: forwardedRef,
       className: classNames(
         // base styles independent what type of button it is
-        "inline-flex items-center",
+        "inline-flex items-center shadow-sm",
         // different styles depending on size
-        size === "sm" && "px-3 py-2 text-sm leading-4 font-medium rounded-sm",
-        size === "base" && "px-3 py-2 text-sm font-medium rounded-sm",
-        size === "lg" && "px-4 py-2 text-base font-medium rounded-sm",
+        size === "base" && "px-3 py-1 text-xs leading-4 font-medium rounded-md",
+        size === "sm" && "px-3 py-2 text-sm leading-4 font-medium rounded-md",
+        size === "lg" && "px-4 py-2 text-base font-medium rounded-md",
         size === "icon" &&
           "group p-2 border rounded-sm border-transparent text-neutral-400 hover:border-gray-200 transition",
         // turn button into a floating action button (fab)
@@ -62,26 +62,18 @@ export const Button = forwardRef<
           "justify-center bottom-20 right-8 rounded-full p-4 w-14 h-14",
 
         // different styles depending on color
-        color === "main" &&
-          (disabled
-            ? "text-white bg-gray-400"
-            : "border border-transparent text-white bg-indigo-600 hover:bg-indigo-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-neutral-900"),
         color === "primary" &&
           (disabled
-            ? "border border-transparent bg-gray-400 text-white"
-            : "border border-transparent dark:text-darkmodebrandcontrast text-brandcontrast bg-brand dark:bg-darkmodebrand hover:bg-opacity-90 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-neutral-900"),
+            ? "text-white bg-gray-400"
+            : "bg-gray-100 border border-gray-300 text-gray-900 hover:bg-gray-200 focus:outline-none"),
         color === "secondary" &&
           (disabled
-            ? "border border-gray-200 text-gray-400 bg-white"
-            : "border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 hover:text-gray-900 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-neutral-900 dark:bg-transparent dark:text-white dark:border-gray-800 dark:hover:bg-gray-800"),
-        color === "minimal" &&
-          (disabled
-            ? "text-gray-400 bg-transparent"
-            : "text-gray-700 bg-transparent hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:bg-gray-100 focus:ring-neutral-500"),
+            ? "border border-transparent bg-gray-400 text-white"
+            : "bg-green-600 border border-gray-300 text-white hover:bg-green-700/90 focus:outline-none"),
         color === "warn" &&
           (disabled
-            ? "text-gray-400 bg-transparent"
-            : "text-gray-700 bg-transparent hover:text-red-700 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:bg-red-50 focus:ring-red-500"),
+            ? "border border-transparent bg-gray-400 text-white"
+            : "bg-red-500 border border-red-700 text-white hover:bg-red-700/80 focus:outline-none"),
         // set not-allowed cursor if disabled
         loading ? "cursor-wait" : disabled ? "cursor-not-allowed" : "",
         props.className
