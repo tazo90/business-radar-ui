@@ -10,6 +10,7 @@ import {
   LocationMarkerIcon,
   PencilIcon,
 } from "@heroicons/react/solid";
+import { trpc } from "@lib/trpc";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
