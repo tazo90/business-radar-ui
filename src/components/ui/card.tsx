@@ -3,15 +3,17 @@ import { classNames } from "@lib/classnames";
 type CardHeaderProps = {
   title: string;
   subtitle?: string;
+  action?: any; //React.ReactNode;
 };
 
 function Header(props: CardHeaderProps) {
   return (
-    <div className="bg-white p-6">
+    <div className="flex justify-between bg-white p-6">
       <h2 className="text-lg leading-6 font-medium text-gray-900">
         {props.title}
       </h2>
       <p className="mt-1 text-sm text-gray-500">{props.subtitle}</p>
+      {props.action}
     </div>
   );
 }
@@ -58,7 +60,7 @@ type CardProps = {
 
 export default function Card(props: CardProps) {
   return (
-    <div className="shadow sm:rounded-md sm:overflow-hidden">
+    <div className="shadow sm:rounded-md sm:overflow-hidden border border-t-0">
       {props.children}
     </div>
   );
