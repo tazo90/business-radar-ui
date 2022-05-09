@@ -8,7 +8,6 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/solid";
 
-import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 export const appMenu = [
@@ -74,8 +73,6 @@ function ProfileForm() {
 }
 
 export default function ProfilePage() {
-  const { query } = useRouter();
-
   return (
     <DetailedLayout pageMenu={appMenu}>
       <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
