@@ -13,6 +13,8 @@ import showToast from "@lib/notification";
 
 import { Alert } from "../alert";
 import { classNames } from "@lib/classnames";
+import SkeletonLoader from "./skeleton-loader";
+import { isEmpty } from "@lib/lodash";
 
 type InputProps = Omit<JSX.IntrinsicElements["input"], "name"> & {
   name: string;
@@ -143,7 +145,11 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           />
         )}
 
-        {!editing && <Text>{fieldValue}</Text>}
+        {isEmpty(fieldValue) ? (
+          <SkeletonLoader />
+        ) : (
+          !editing && <Text>{fieldValue}</Text>
+        )}
 
         {methods?.formState?.errors[props.name] && (
           <Alert

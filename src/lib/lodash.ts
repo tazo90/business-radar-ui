@@ -14,3 +14,7 @@ export function omit(obj: any, ...props: any) {
   });
   return result;
 }
+
+export function isEmpty(value: any) {
+  return ["", undefined, null].includes(value);
+}
