@@ -77,8 +77,7 @@ function ConsumerForm(props: ConsumerFormProps) {
         await utils.client.mutation("api.consumer.edit", values);
         await utils.invalidateQueries(["api.consumer.get"]);
         setEditing(false);
-        // TODO: why toaster not showing???
-        showToast("Saved", "success");
+        showToast("Consumer updated", "success");
       }}
       className="space-y-6"
     >

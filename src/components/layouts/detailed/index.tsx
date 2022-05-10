@@ -1,6 +1,7 @@
 import PageHeader from "@components/common/page-header";
 import PageMenu from "@components/common/page-menu";
 import { classNames } from "@lib/classnames";
+import { Toaster } from "react-hot-toast";
 
 type DetailedLayoutProps = {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ type DetailedLayoutProps = {
 export default function DetailedLayout(props: DetailedLayoutProps) {
   return (
     <div className="flex flex-col">
+      <Toaster position="bottom-right" />
       <PageHeader />
       <div
         className={classNames(
