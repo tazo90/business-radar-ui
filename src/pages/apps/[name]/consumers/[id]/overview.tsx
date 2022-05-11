@@ -16,6 +16,8 @@ import { trpc } from "@lib/trpc";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import SelectField from "@components/ui/form/select";
+import { ApplicationConsumerStatus } from "@prisma/client";
 
 export const appMenu = [
   {
@@ -49,7 +51,19 @@ export const MenuHeader = () => (
 
 type FormValues = {
   title: string;
+  description: string;
   domain: string;
+  status: ApplicationConsumerStatus;
+  brands: {
+    id: number;
+    label: string;
+  }[];
+  countries: {
+    id: number;
+    label: string;
+  }[];
+  expires: string;
+  apiKey: string;
 };
 
 type ConsumerFormProps = {
@@ -60,8 +74,14 @@ type ConsumerFormProps = {
 
 function ConsumerForm(props: ConsumerFormProps) {
   const { defaultValues, editing, setEditing } = props;
+
+  const [selectedBrands, setSelectedBrands] = useState(null);
+  const [selectedCountries, setSelectedCountries] = useState(null);
+
   const utils = trpc.useContext();
   const form = useForm({
+    // @TODO: how to set null automatically for defaultValues
+    // instead of empty string?
     defaultValues: {
       title: null,
       description: null,
@@ -72,8 +92,16 @@ function ConsumerForm(props: ConsumerFormProps) {
     },
   });
 
+  const { data: organization, isLoading } = trpc.useQuery([
+    "api.organization.get",
+    { slug: "amrest" },
+  ]);
+
   useEffect(() => {
     if (defaultValues) {
+      setSelectedBrands(defaultValues.brands);
+      setSelectedCountries(defaultValues.countries);
+
       form.reset({
         ...defaultValues,
         expires: dayjs(defaultValues.expires).format("DD-MM-YYYY HH:MM"),
@@ -157,19 +185,46 @@ function ConsumerForm(props: ConsumerFormProps) {
             wrapperClassName="col-span-4 sm:col-span-2"
             defaultValue={defaultValues?.apiKey}
           />
+          <SelectField
+            id="brands"
+            label="Brands"
+            isMulti={true}
+            placeholder="Select brands"
+            getOptionValue={(option) => option.id}
+            getOptionLabel={(option) => option.fullName}
+            value={selectedBrands}
+            onChange={(opts) => opts && setSelectedBrands(opts)}
+            wrapperClassName="col-span-4 sm:col-span-2"
+            className="mt-1 block w-full rounded-sm capitalize shadow-sm sm:text-sm"
+            options={organization?.brands}
+          />
+          <SelectField
+            id="countries"
+            label="Countries"
+            isMulti={true}
+            placeholder="Select countries"
+            getOptionValue={(option) => option.id}
+            getOptionLabel={(option) => option.name}
+            value={selectedCountries}
+            onChange={(opts) => opts && setSelectedCountries(opts)}
+            wrapperClassName="col-span-4 sm:col-span-2"
+            className="mt-1 block w-full rounded-sm capitalize shadow-sm  sm:text-sm"
+            options={organization?.countries}
+          />
         </Card.Content>
         {editing && (
           <Card.Footer>
             <>
+              <Button className="mr-2" onClick={() => setEditing(false)}>
+                Cancel
+              </Button>
               <Button
                 type="submit"
                 loading={form.formState.isSubmitting}
                 color="secondary"
-                className="mr-2"
               >
                 Save
               </Button>
-              <Button onClick={() => setEditing(false)}>Cancel</Button>
             </>
           </Card.Footer>
         )}

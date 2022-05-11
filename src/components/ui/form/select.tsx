@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactSelect, {
   components,
   GroupBase,
@@ -46,11 +46,19 @@ function SelectField<
   ...props
 }: SelectProps<Option, IsMulti, Group>) {
   const id = useId();
+  const [_document, setDocument] = useState(null);
+
+  useEffect(() => {
+    setDocument(document);
+  }, []);
+
   return (
     <div className={wrapperClassName}>
       {label && <Label htmlFor={id}>{label}</Label>}
       <div className="mt-1 flex rounded-md shadow-sm">
         <ReactSelect
+          menuPortalTarget={_document?.body}
+          menuPosition="fixed"
           theme={(theme) => ({
             ...theme,
             borderRadius: 2,
@@ -70,7 +78,12 @@ function SelectField<
                 backgroundColor: state.isSelected ? "" : "var(--brand-color)",
                 color: "var(--brand-text-color)",
               },
+              "&:hover": {
+                background: "#ddd",
+              },
             }),
+            menuPortal: (provided) => ({ ...provided, zIndex: 9999 }),
+            menu: (provided) => ({ ...provided, zIndex: 9999 }),
           }}
           components={{
             ...components,

@@ -66,8 +66,18 @@ export const consumerRouter = createProtectedRouter()
           status: true,
           apiKey: true,
           domain: true,
-          brands: true,
-          countries: true,
+          brands: {
+            select: {
+              id: true,
+              fullName: true,
+            },
+          },
+          countries: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
           expires: true,
         },
       });
