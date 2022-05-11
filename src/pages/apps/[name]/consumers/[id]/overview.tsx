@@ -3,6 +3,7 @@ import DetailedLayout from "@components/layouts/detailed";
 import Button from "@components/ui/button";
 import Card from "@components/ui/card";
 import { Form, TextField } from "@components/ui/form/fields";
+import dayjs from "dayjs";
 import { PencilAltIcon } from "@heroicons/react/outline";
 import {
   CubeIcon,
@@ -61,12 +62,22 @@ function ConsumerForm(props: ConsumerFormProps) {
   const { defaultValues, editing, setEditing } = props;
   const utils = trpc.useContext();
   const form = useForm({
-    defaultValues: props.defaultValues,
+    defaultValues: {
+      title: null,
+      description: null,
+      status: null,
+      domain: null,
+      expires: null,
+      apiKey: null,
+    },
   });
 
   useEffect(() => {
     if (defaultValues) {
-      form.reset(defaultValues);
+      form.reset({
+        ...defaultValues,
+        expires: dayjs(defaultValues.expires).format("DD-MM-YYYY HH:MM"),
+      });
     }
   }, [defaultValues]);
 
@@ -102,6 +113,7 @@ function ConsumerForm(props: ConsumerFormProps) {
             {...form.register("title", { required: true })}
             type="text"
             wrapperClassName="col-span-4 sm:col-span-2"
+            defaultValue={defaultValues?.title}
           />
           <TextField
             label="Description"
@@ -109,6 +121,7 @@ function ConsumerForm(props: ConsumerFormProps) {
             {...form.register("description")}
             type="text"
             wrapperClassName="col-span-4 sm:col-span-2"
+            defaultValue={defaultValues?.description}
           />
           <TextField
             label="Status"
@@ -116,6 +129,7 @@ function ConsumerForm(props: ConsumerFormProps) {
             {...form.register("status", { required: true })}
             type="text"
             wrapperClassName="col-span-4 sm:col-span-2"
+            defaultValue={defaultValues?.status}
           />
           <TextField
             label="Domain"
@@ -123,6 +137,7 @@ function ConsumerForm(props: ConsumerFormProps) {
             {...form.register("domain", { required: true })}
             type="text"
             wrapperClassName="col-span-4 sm:col-span-2"
+            defaultValue={defaultValues?.domain}
           />
           <TextField
             label="Expires"
@@ -131,6 +146,7 @@ function ConsumerForm(props: ConsumerFormProps) {
             type="text"
             disabled={true}
             wrapperClassName="col-span-4 sm:col-span-2"
+            defaultValue={defaultValues?.expires}
           />
           <TextField
             label="API Key"
@@ -139,6 +155,7 @@ function ConsumerForm(props: ConsumerFormProps) {
             type="text"
             disabled={true}
             wrapperClassName="col-span-4 sm:col-span-2"
+            defaultValue={defaultValues?.apiKey}
           />
         </Card.Content>
         {editing && (
@@ -163,7 +180,7 @@ function ConsumerForm(props: ConsumerFormProps) {
 
 export default function ConsumerPage() {
   const { query, isReady } = useRouter();
-  const [editing, setEditing] = useState<boolean | null>(null);
+  const [editing, setEditing] = useState<boolean | null>(false);
 
   const { data } = trpc.useQuery(["api.consumer.get", { uid: query.id }], {
     enabled: isReady,

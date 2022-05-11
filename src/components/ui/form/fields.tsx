@@ -1,5 +1,5 @@
 import { useId } from "@radix-ui/react-id";
-import { forwardRef, ReactElement, ReactNode, Ref, useRef } from "react";
+import { forwardRef, ReactElement, ReactNode, Ref } from "react";
 import {
   FieldValues,
   FormProvider,
@@ -85,8 +85,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   function InputField(props, ref) {
     const id = useId();
     const methods = useFormContext();
-    const fieldRef = useRef(null);
-    const fieldValue = fieldRef?.current?.value;
     const {
       label = props.name,
       labelProps,
@@ -96,10 +94,24 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
       className,
       addOnLeading,
       wrapperClassName,
-      editing,
+      editing = null,
       disabled,
       ...passThrough
     } = props;
+
+    const value = methods.getValues()[props.name];
+
+    const showSkeletonOrText = () => {
+      if (editing === false) {
+        if (value === null) {
+          return <SkeletonLoader />;
+        }
+
+        return <Text>{value}</Text>;
+      } else {
+        return null;
+      }
+    };
 
     return (
       <div className={wrapperClassName}>
@@ -118,14 +130,11 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
                 className,
                 "mt-0",
                 addOnLeading && "rounded-l-none",
-                !editing && "hidden",
+                editing === false && "hidden",
                 disabled && "bg-gray-200"
               )}
               {...passThrough}
-              ref={(e) => {
-                ref(e);
-                fieldRef.current = e;
-              }}
+              ref={ref}
             />
           </div>
         ) : (
@@ -134,22 +143,15 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             placeholder={placeholder}
             className={classNames(
               className,
-              !editing && "hidden",
+              editing === false && "hidden",
               disabled && "bg-gray-200"
             )}
             {...passThrough}
-            ref={(e) => {
-              ref(e);
-              fieldRef.current = e;
-            }}
+            ref={ref}
           />
         )}
 
-        {isEmpty(fieldValue) ? (
-          <SkeletonLoader />
-        ) : (
-          !editing && <Text>{fieldValue}</Text>
-        )}
+        {showSkeletonOrText()}
 
         {methods?.formState?.errors[props.name] && (
           <Alert
