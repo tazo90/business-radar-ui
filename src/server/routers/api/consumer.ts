@@ -69,6 +69,7 @@ export const consumerRouter = createProtectedRouter()
           brands: {
             select: {
               id: true,
+              name: true,
               fullName: true,
             },
           },
@@ -76,6 +77,7 @@ export const consumerRouter = createProtectedRouter()
             select: {
               id: true,
               name: true,
+              code: true,
             },
           },
           expires: true,

@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import SelectField from "@components/ui/form/select";
 import { ApplicationConsumerStatus } from "@prisma/client";
+import ResourcesInfo from "@components/common/resources-info";
 
 export const appMenu = [
   {
@@ -185,32 +186,53 @@ function ConsumerForm(props: ConsumerFormProps) {
             wrapperClassName="col-span-4 sm:col-span-2"
             defaultValue={defaultValues?.apiKey}
           />
-          <SelectField
-            id="brands"
-            label="Brands"
-            isMulti={true}
-            placeholder="Select brands"
-            getOptionValue={(option) => option.id}
-            getOptionLabel={(option) => option.fullName}
-            value={selectedBrands}
-            onChange={(opts) => opts && setSelectedBrands(opts)}
-            wrapperClassName="col-span-4 sm:col-span-2"
-            className="mt-1 block w-full rounded-sm capitalize shadow-sm sm:text-sm"
-            options={organization?.brands}
-          />
-          <SelectField
-            id="countries"
-            label="Countries"
-            isMulti={true}
-            placeholder="Select countries"
-            getOptionValue={(option) => option.id}
-            getOptionLabel={(option) => option.name}
-            value={selectedCountries}
-            onChange={(opts) => opts && setSelectedCountries(opts)}
-            wrapperClassName="col-span-4 sm:col-span-2"
-            className="mt-1 block w-full rounded-sm capitalize shadow-sm  sm:text-sm"
-            options={organization?.countries}
-          />
+          {editing ? (
+            <SelectField
+              id="brands"
+              label="Brands"
+              isMulti={true}
+              placeholder="Select brands"
+              getOptionValue={(option) => option.id}
+              getOptionLabel={(option) => option.fullName}
+              value={selectedBrands}
+              onChange={(opts) => opts && setSelectedBrands(opts)}
+              wrapperClassName="col-span-4 sm:col-span-2"
+              className="mt-1 block w-full rounded-sm capitalize shadow-sm sm:text-sm"
+              options={organization?.brands}
+            />
+          ) : (
+            <ResourcesInfo
+              organization="amrest"
+              type="brands"
+              nameField="fullName"
+              iconField="name"
+              title="Brands"
+              items={selectedBrands}
+            />
+          )}
+          {editing ? (
+            <SelectField
+              id="countries"
+              label="Countries"
+              isMulti={true}
+              placeholder="Select countries"
+              getOptionValue={(option) => option.id}
+              getOptionLabel={(option) => option.name}
+              value={selectedCountries}
+              onChange={(opts) => opts && setSelectedCountries(opts)}
+              wrapperClassName="col-span-4 sm:col-span-2"
+              className="mt-1 block w-full rounded-sm capitalize shadow-sm  sm:text-sm"
+              options={organization?.countries}
+            />
+          ) : (
+            <ResourcesInfo
+              type="flags"
+              nameField="name"
+              iconField="code"
+              title="Countries"
+              items={selectedCountries}
+            />
+          )}
         </Card.Content>
         {editing && (
           <Card.Footer>
@@ -233,6 +255,25 @@ function ConsumerForm(props: ConsumerFormProps) {
   );
 }
 
+function EmbedCode() {
+  return (
+    <Card>
+      <Card.Header
+        title="Embed Code"
+        action={
+          <>
+            <PencilIcon
+              className="cursor-pointer w-5 h-5"
+              onClick={() => setEditing(true)}
+            />
+          </>
+        }
+      />
+      <Card.Content>test</Card.Content>
+    </Card>
+  );
+}
+
 export default function ConsumerPage() {
   const { query, isReady } = useRouter();
   const [editing, setEditing] = useState<boolean | null>(false);
@@ -249,6 +290,7 @@ export default function ConsumerPage() {
           setEditing={setEditing}
           editing={editing}
         />
+        <EmbedCode />
       </div>
     </DetailedLayout>
   );

@@ -32,7 +32,7 @@ export default function ConsumersPage() {
   const [addAppModal, setAddAppModal] = useState(false);
 
   const { data } = trpc.useQuery(
-    ["api.consumer.all", { appType: query.name?.toUpperCase()}],
+    ["api.consumer.all", { appType: query.name?.toUpperCase() }],
     {
       // first render has status `undefined`
       enabled: isReady,
@@ -87,7 +87,7 @@ export default function ConsumersPage() {
                       </div>
                     </div>
                     <div className="mt-2 sm:flex sm:justify-between">
-                      <div className="sm:flex">
+                      <div className="flex flex-col">
                         <div className="flex items-center text-sm text-gray-500">
                           <p className="pr-2">Brands</p>
                           <div className="flex items-center space-x-2">
