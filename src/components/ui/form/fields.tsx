@@ -14,7 +14,6 @@ import showToast from "@lib/notification";
 import { Alert } from "../alert";
 import { classNames } from "@lib/classnames";
 import SkeletonLoader from "./skeleton-loader";
-import { isEmpty } from "@lib/lodash";
 
 type InputProps = Omit<JSX.IntrinsicElements["input"], "name"> & {
   name: string;
@@ -101,18 +100,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     const value = methods.getValues()[props.name];
 
-    const showSkeletonOrText = () => {
-      if (editing === false) {
-        if (value === null) {
-          return <SkeletonLoader />;
-        }
-
-        return <Text>{value}</Text>;
-      } else {
-        return null;
-      }
-    };
-
     return (
       <div className={wrapperClassName}>
         {!!props.name && (
@@ -151,7 +138,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           />
         )}
 
-        {showSkeletonOrText()}
+        <SkeletonOrText editing={editing} value={value} />
 
         {methods?.formState?.errors[props.name] && (
           <Alert
@@ -327,4 +314,20 @@ export function InputGroupBox(props: JSX.IntrinsicElements["div"]) {
       {props.children}
     </div>
   );
+}
+
+export function SkeletonOrText(props: {
+  editing: boolean | null;
+  value: string;
+}) {
+  const { editing, value } = props;
+  if (editing === false) {
+    if (value === null) {
+      return <SkeletonLoader />;
+    }
+
+    return <Text>{value}</Text>;
+  } else {
+    return null;
+  }
 }

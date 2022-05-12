@@ -4,7 +4,7 @@ import short from "short-uuid";
 import { createProtectedRouter } from "@server/create-router";
 import { TRPCError } from "@trpc/server";
 import { generateUniqueAPIKey } from "@lib/api-keys";
-import { ApplicationType } from "@prisma/client";
+import { ApplicationConsumerStatus, ApplicationType } from "@prisma/client";
 
 const translator = short();
 
@@ -131,6 +131,7 @@ export const consumerRouter = createProtectedRouter()
       title: z.string(),
       description: z.string().optional().nullish(),
       domain: z.string(),
+      status: z.nativeEnum(ApplicationConsumerStatus),
     }),
     async resolve({ ctx, input }) {
       const { uid, ...data } = input;

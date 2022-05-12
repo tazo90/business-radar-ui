@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactSelect, {
   components,
   GroupBase,
@@ -6,8 +6,9 @@ import ReactSelect, {
   InputProps,
 } from "react-select";
 import { classNames } from "@lib/classnames";
-import { Label } from "./fields";
+import { Label, SkeletonOrText } from "./fields";
 import { useId } from "@radix-ui/react-id";
+import { Controller, useFormContext } from "react-hook-form";
 
 export type SelectProps<
   Option,
@@ -35,67 +36,132 @@ export const InputComponent = <
   );
 };
 
-function SelectField<
+function SelectInput<
   Option,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>
 >({
-  className,
   label,
+  editing = true,
+  className,
   wrapperClassName,
+  value,
   ...props
 }: SelectProps<Option, IsMulti, Group>) {
   const id = useId();
   const [_document, setDocument] = useState(null);
+  const methods = useFormContext();
+  const selectedValue = methods.getValues(props.name);
 
   useEffect(() => {
     setDocument(document);
   }, []);
 
+  if (selectedValue === null) {
+    return null;
+  }
+
   return (
     <div className={wrapperClassName}>
       {label && <Label htmlFor={id}>{label}</Label>}
-      <div className="mt-1 flex rounded-md shadow-sm">
-        <ReactSelect
-          menuPortalTarget={_document?.body}
-          menuPosition="fixed"
-          theme={(theme) => ({
-            ...theme,
-            borderRadius: 2,
-            colors: {
-              ...theme.colors,
-              primary: "var(--brand-color)",
+      <div className="mt-1 flex rounded-md">
+        {editing && (
+          <ReactSelect
+            menuPortalTarget={_document?.body}
+            menuPosition="fixed"
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 2,
+              colors: {
+                ...theme.colors,
+                primary: "var(--brand-color)",
 
-              primary50: "rgba(209 , 213, 219, var(--tw-bg-opacity))",
-              primary25: "rgba(244, 245, 246, var(--tw-bg-opacity))",
-            },
-          })}
-          styles={{
-            option: (provided, state) => ({
-              ...provided,
-              color: state.isSelected ? "var(--brand-text-color)" : "black",
-              ":active": {
-                backgroundColor: state.isSelected ? "" : "var(--brand-color)",
-                color: "var(--brand-text-color)",
+                primary50: "rgba(209 , 213, 219, var(--tw-bg-opacity))",
+                primary25: "rgba(244, 245, 246, var(--tw-bg-opacity))",
               },
-              "&:hover": {
-                background: "#ddd",
-              },
-            }),
-            menuPortal: (provided) => ({ ...provided, zIndex: 9999 }),
-            menu: (provided) => ({ ...provided, zIndex: 9999 }),
-          }}
-          components={{
-            ...components,
-            IndicatorSeparator: () => null,
-            Input: InputComponent,
-          }}
-          className={classNames("text-sm shadow-sm", className)}
-          {...props}
-        />
+            })}
+            styles={{
+              option: (provided, state) => ({
+                ...provided,
+                color: state.isSelected ? "var(--brand-text-color)" : "black",
+                ":active": {
+                  backgroundColor: state.isSelected ? "" : "var(--brand-color)",
+                  color: "var(--brand-text-color)",
+                },
+                "&:hover": {
+                  background: "#ddd",
+                },
+              }),
+              menuPortal: (provided) => ({ ...provided, zIndex: 9999 }),
+              menu: (provided) => ({ ...provided, zIndex: 9999 }),
+            }}
+            components={{
+              ...components,
+              IndicatorSeparator: () => null,
+              Input: InputComponent,
+            }}
+            className={classNames("text-sm shadow-sm", className)}
+            defaultValue={selectedValue}
+            {...props}
+          />
+        )}
+
+        <SkeletonOrText editing={editing} value={selectedValue?.value} />
       </div>
     </div>
   );
 }
 
-export default SelectField;
+// interface SelectInputProps {
+//   control: any;
+//   rules?: any;
+//   name: string;
+//   options: object[];
+//   [key: string]: unknown;
+// }
+
+export default function SelectField({
+  control,
+  options,
+  name,
+  rules,
+  getOptionLabel,
+  getOptionValue,
+  isMulti,
+  isClearable,
+  isLoading,
+  className,
+  wrapperClassName,
+  placeholder,
+  editing,
+  label,
+  onChange,
+  defaultValue,
+  ...rest
+}) {
+  return (
+    <Controller
+      control={control}
+      name={name}
+      rules={rules}
+      {...rest}
+      render={({ field }) => (
+        <SelectInput
+          {...field}
+          label={label}
+          editing={editing}
+          className={className}
+          placeholder={placeholder}
+          wrapperClassName={wrapperClassName}
+          getOptionLabel={getOptionLabel}
+          getOptionValue={getOptionValue}
+          isMulti={isMulti}
+          isClearable={isClearable}
+          isLoading={isLoading}
+          options={options}
+          onChange={(option) => option && field.onChange(option.value)}
+        />
+      )}
+    />
+  );
+}
