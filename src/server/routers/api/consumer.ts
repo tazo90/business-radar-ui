@@ -130,10 +130,13 @@ export const consumerRouter = createProtectedRouter()
       uid: z.string(),
       title: z.string(),
       description: z.string().optional().nullish(),
+      brands: z.array(z.object({ id: z.number() })),
+      countries: z.array(z.object({ id: z.number() })),
       domain: z.string(),
       status: z.nativeEnum(ApplicationConsumerStatus),
     }),
     async resolve({ ctx, input }) {
+      console.log("INPUT", input);
       const { uid, ...data } = input;
       await ctx.prisma.applicationConsumer.update({
         where: { uid },

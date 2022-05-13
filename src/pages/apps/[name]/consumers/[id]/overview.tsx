@@ -82,11 +82,6 @@ const APP_CONSUMER_STATUSES = Object.keys(ApplicationConsumerStatus).map(
 
 function ConsumerForm(props: ConsumerFormProps) {
   const { defaultValues, editing, setEditing } = props;
-
-  const [selectedBrands, setSelectedBrands] = useState(null);
-  const [selectedCountries, setSelectedCountries] = useState(null);
-  const [selectedStatus, setSelectedStatus] = useState(null);
-
   const utils = trpc.useContext();
   const form = useForm({
     // @TODO: how to set null automatically for defaultValues
@@ -108,15 +103,9 @@ function ConsumerForm(props: ConsumerFormProps) {
 
   useEffect(() => {
     if (defaultValues) {
-      setSelectedBrands(defaultValues.brands);
-      setSelectedCountries(defaultValues.countries);
-
       form.reset({
         ...defaultValues,
         expires: dayjs(defaultValues.expires).format("DD-MM-YYYY HH:MM"),
-        status: APP_CONSUMER_STATUSES.filter(
-          (option) => option.value === defaultValues?.status
-        )[0],
       });
     }
   }, [defaultValues]);
@@ -125,6 +114,7 @@ function ConsumerForm(props: ConsumerFormProps) {
     <Form
       form={form}
       handleSubmit={async (values) => {
+        console.log("SAVE", values);
         await utils.client.mutation("api.consumer.edit", values);
         await utils.invalidateQueries(["api.consumer.get"]);
         setEditing(false);
@@ -163,45 +153,12 @@ function ConsumerForm(props: ConsumerFormProps) {
             wrapperClassName="col-span-4 sm:col-span-2"
             defaultValue={defaultValues?.description}
           />
-          {/* <Controller
-            name="status"
-            control={form.control}
-            render={({ field }) => (
-              <SelectField
-                id="status"
-                name={field.name}
-                label="Status"
-                placeholder="Select status"
-                editing={editing}
-                // getOptionValue={(option) => option.id}
-                // getOptionLabel={(option) => option.fullName}
-                // value={selectedStatus}
-                onChange={(option) => option && field.onChange(option.value)}
-                wrapperClassName="col-span-4 sm:col-span-2"
-                className="mt-1 block w-full rounded-sm capitalize shadow-sm sm:text-sm"
-                options={Object.keys(ApplicationConsumerStatus).map((k) => ({
-                  value: k,
-                  label: k,
-                }))}
-              />
-            )}
-          /> */}
-
           <SelectField
             name="status"
             label="Status"
             control={form.control}
             placeholder="Select status"
             editing={editing}
-            // getOptionValue={(option) => option.id}
-            // getOptionLabel={(option) => option.fullName}
-            // value={selectedStatus}
-            // onChange={(option) => {
-            //   option && field.onChange(option.value);
-            //   console.log("CHANGE", option);
-            // }}
-            // onChange={(option) => console.log("CHANGE", option)}
-            // defaultValue={defaultValues?.status}
             wrapperClassName="col-span-4 sm:col-span-2"
             className="mt-1 block w-full rounded-sm capitalize shadow-sm sm:text-sm"
             options={Object.keys(ApplicationConsumerStatus).map((k) => ({
@@ -209,7 +166,6 @@ function ConsumerForm(props: ConsumerFormProps) {
               label: k,
             }))}
           />
-
           <TextField
             label="Domain"
             editing={editing}
@@ -236,62 +192,51 @@ function ConsumerForm(props: ConsumerFormProps) {
             wrapperClassName="col-span-4 sm:col-span-2"
             defaultValue={defaultValues?.apiKey}
           />
-          {/* {editing ? (
-            <Controller
-              name="brands"
-              control={form.control}
-              render={({ field }) => (
-                <SelectField
-                  id="brands"
-                  name={field.name}
-                  label="Brands"
-                  isMulti={true}
-                  editing={editing}
-                  placeholder="Select brands"
-                  getOptionValue={(option) => option.id}
-                  getOptionLabel={(option) => option.fullName}
-                  value={selectedBrands}
-                  onChange={(opts) => opts && field.onChange(opts)}
-                  wrapperClassName="col-span-4 sm:col-span-2"
-                  className="mt-1 block w-full rounded-sm capitalize shadow-sm sm:text-sm"
-                  options={organization?.brands}
-                />
-              )}
-            />
-          ) : (
-            <ResourcesInfo
-              organization="amrest"
-              type="brands"
-              nameField="fullName"
-              iconField="name"
-              title="Brands"
-              items={selectedBrands}
-            />
-          )} */}
-
-          {/* {editing ? (
-            <SelectField
-              id="countries"
-              label="Countries"
-              isMulti={true}
-              placeholder="Select countries"
-              getOptionValue={(option) => option.id}
-              getOptionLabel={(option) => option.name}
-              value={selectedCountries}
-              onChange={(opts) => opts && setSelectedCountries(opts)}
-              wrapperClassName="col-span-4 sm:col-span-2"
-              className="mt-1 block w-full rounded-sm capitalize shadow-sm  sm:text-sm"
-              options={organization?.countries}
-            />
-          ) : (
-            <ResourcesInfo
-              type="flags"
-              nameField="name"
-              iconField="code"
-              title="Countries"
-              items={selectedCountries}
-            />
-          )} */}
+          <SelectField
+            name="brands"
+            label="Brands"
+            control={form.control}
+            placeholder="Select brands"
+            isMulti={true}
+            editing={editing}
+            getOptionValue={(option) => option.id}
+            getOptionLabel={(option) => option.fullName}
+            // onChange={(opts) => opts && field.onChange(opts)}
+            wrapperClassName="col-span-4 sm:col-span-2"
+            className="mt-1 block w-full rounded-sm capitalize shadow-sm sm:text-sm"
+            options={organization?.brands}
+            renderValue={(items) => (
+              <ResourcesInfo
+                organization="amrest"
+                type="brands"
+                nameField="fullName"
+                iconField="name"
+                items={items}
+              />
+            )}
+          />
+          <SelectField
+            name="countries"
+            label="Countries"
+            control={form.control}
+            placeholder="Select countries"
+            isMulti={true}
+            editing={editing}
+            getOptionValue={(option) => option.id}
+            getOptionLabel={(option) => option.name}
+            // onChange={(opts) => opts && field.onChange(opts)}
+            wrapperClassName="col-span-4 sm:col-span-2"
+            className="mt-1 block w-full rounded-sm capitalize shadow-sm sm:text-sm"
+            options={organization?.countries}
+            renderValue={(items) => (
+              <ResourcesInfo
+                type="flags"
+                nameField="name"
+                iconField="code"
+                items={items}
+              />
+            )}
+          />
         </Card.Content>
         {editing && (
           <Card.Footer>

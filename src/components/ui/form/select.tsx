@@ -46,6 +46,8 @@ function SelectInput<
   className,
   wrapperClassName,
   value,
+  renderValue,
+  isMulti,
   ...props
 }: SelectProps<Option, IsMulti, Group>) {
   const id = useId();
@@ -65,7 +67,7 @@ function SelectInput<
     <div className={wrapperClassName}>
       {label && <Label htmlFor={id}>{label}</Label>}
       <div className="mt-1 flex rounded-md">
-        {editing && (
+        {editing ? (
           <ReactSelect
             menuPortalTarget={_document?.body}
             menuPosition="fixed"
@@ -101,12 +103,28 @@ function SelectInput<
               Input: InputComponent,
             }}
             className={classNames("text-sm shadow-sm", className)}
-            defaultValue={selectedValue}
+            defaultValue={
+              isMulti
+                ? selectedValue
+                : props.options?.filter(
+                    (option) => option.value === selectedValue
+                  )[0]
+            }
+            isMulti={isMulti}
             {...props}
           />
+        ) : (
+          renderValue && renderValue(selectedValue)
         )}
 
-        <SkeletonOrText editing={editing} value={selectedValue?.value} />
+        <SkeletonOrText
+          editing={editing}
+          value={
+            Object(selectedValue) === selectedValue
+              ? selectedValue?.value
+              : selectedValue
+          }
+        />
       </div>
     </div>
   );
@@ -137,6 +155,7 @@ export default function SelectField({
   label,
   onChange,
   defaultValue,
+  renderValue,
   ...rest
 }) {
   return (
@@ -159,7 +178,10 @@ export default function SelectField({
           isClearable={isClearable}
           isLoading={isLoading}
           options={options}
-          onChange={(option) => option && field.onChange(option.value)}
+          onChange={(option) => {
+            option && field.onChange(isMulti ? option : option.value);
+          }}
+          renderValue={renderValue}
         />
       )}
     />
