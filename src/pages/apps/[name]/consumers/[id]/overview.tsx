@@ -114,7 +114,6 @@ function ConsumerForm(props: ConsumerFormProps) {
     <Form
       form={form}
       handleSubmit={async (values) => {
-        console.log("SAVE", values);
         await utils.client.mutation("api.consumer.edit", values);
         await utils.invalidateQueries(["api.consumer.get"]);
         setEditing(false);
@@ -201,7 +200,6 @@ function ConsumerForm(props: ConsumerFormProps) {
             editing={editing}
             getOptionValue={(option) => option.id}
             getOptionLabel={(option) => option.fullName}
-            // onChange={(opts) => opts && field.onChange(opts)}
             wrapperClassName="col-span-4 sm:col-span-2"
             className="mt-1 block w-full rounded-sm capitalize shadow-sm sm:text-sm"
             options={organization?.brands}
@@ -224,7 +222,6 @@ function ConsumerForm(props: ConsumerFormProps) {
             editing={editing}
             getOptionValue={(option) => option.id}
             getOptionLabel={(option) => option.name}
-            // onChange={(opts) => opts && field.onChange(opts)}
             wrapperClassName="col-span-4 sm:col-span-2"
             className="mt-1 block w-full rounded-sm capitalize shadow-sm sm:text-sm"
             options={organization?.countries}

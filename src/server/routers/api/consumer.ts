@@ -2,7 +2,6 @@ import { z } from "zod";
 import short from "short-uuid";
 
 import { createProtectedRouter } from "@server/create-router";
-import { TRPCError } from "@trpc/server";
 import { generateUniqueAPIKey } from "@lib/api-keys";
 import { ApplicationConsumerStatus, ApplicationType } from "@prisma/client";
 
@@ -136,11 +135,20 @@ export const consumerRouter = createProtectedRouter()
       status: z.nativeEnum(ApplicationConsumerStatus),
     }),
     async resolve({ ctx, input }) {
-      console.log("INPUT", input);
-      const { uid, ...data } = input;
+      const { uid } = input;
       await ctx.prisma.applicationConsumer.update({
         where: { uid },
-        data,
+        data: {
+          title: input.title,
+          description: input.description,
+          brands: {
+            connect: input.brands.map((b) => ({ id: b.id })),
+          },
+          countries: {
+            connect: input.countries.map((c) => ({ id: c.id })),
+          },
+          domain: input.domain,
+        },
       });
     },
   });
