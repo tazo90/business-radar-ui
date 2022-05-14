@@ -6,13 +6,14 @@ import { Form, TextField } from "@components/ui/form/fields";
 import dayjs from "dayjs";
 import { PencilAltIcon } from "@heroicons/react/outline";
 import {
+  ClipboardCopyIcon,
   CubeIcon,
   EyeIcon,
   LocationMarkerIcon,
   PencilIcon,
 } from "@heroicons/react/solid";
 import showToast from "@lib/notification";
-import { trpc } from "@lib/trpc";
+import { inferQueryOutput, trpc } from "@lib/trpc";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -39,16 +40,22 @@ export const appMenu = [
   },
 ];
 
-export const MenuHeader = () => (
+export const MenuHeader = (props: { title: string }) => (
   <div className="flex items-center">
     <div className="flex p-2 text-gray-900 text-xs font-medium bg-yellow-400 rounded-md">
       <LocationMarkerIcon className="h-4 w-4" />
     </div>
-    <h3 className="ml-2 text-gray-900 text-md font-semibold truncate">
-      Stores - AmSpace
-    </h3>
+    {/* <h3 className="ml-2 text-gray-900 text-md font-semibold truncate">
+      Stores - {props.title}
+    </h3> */}
+    <div className="flex flex-col pl-3 leading-none">
+      <span>Stores</span>
+      <span className="text-xs">{props.title}</span>
+    </div>
   </div>
 );
+
+type Consumer = inferQueryOutput<"api.consumer.get">;
 
 type FormValues = {
   title: string;
@@ -72,13 +79,6 @@ type ConsumerFormProps = {
   editing: boolean;
   setEditing: () => void;
 };
-
-const APP_CONSUMER_STATUSES = Object.keys(ApplicationConsumerStatus).map(
-  (k) => ({
-    value: k,
-    label: k,
-  })
-);
 
 function ConsumerForm(props: ConsumerFormProps) {
   const { defaultValues, editing, setEditing } = props;
@@ -256,21 +256,45 @@ function ConsumerForm(props: ConsumerFormProps) {
   );
 }
 
-function EmbedCode() {
+function EmbedCode(props: Consumer) {
+  const locationOrigin =
+    typeof window !== "undefined" && window.location.origin
+      ? window.location.origin
+      : "";
+
+  const appType = props.appType?.toLowerCase();
+
+  const widgetCode = `<div id="${appType}" 
+  click-disabled="true" 
+  api-key="${props.apiKey}" 
+/>
+
+<script async defer src="${locationOrigin}/static/widgets/vendor.js"></script>
+<script async defer src="${locationOrigin}/static/widgets/${appType}.js"></script>`;
+
   return (
     <Card>
       <Card.Header
         title="Embed Code"
         action={
           <>
-            <PencilIcon
-              className="cursor-pointer w-5 h-5"
-              onClick={() => setEditing(true)}
+            <ClipboardCopyIcon
+              className="cursor-pointer w-5 h-5 text-gray-700"
+              onClick={(e) => {
+                e.preventDefault();
+                navigator.clipboard.writeText(widgetCode);
+              }}
             />
           </>
         }
       />
-      <Card.Content>test</Card.Content>
+      <Card.Content as="div">
+        <div className="flex w-full bg-slate-100 rounded-md text-sm p-4">
+          <pre>
+            <code>{widgetCode}</code>
+          </pre>
+        </div>
+      </Card.Content>
     </Card>
   );
 }
@@ -284,14 +308,17 @@ export default function ConsumerPage() {
   });
 
   return (
-    <DetailedLayout pageMenu={appMenu} pageMenuHeader={<MenuHeader />}>
+    <DetailedLayout
+      pageMenu={appMenu}
+      pageMenuHeader={<MenuHeader title={data?.title} />}
+    >
       <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
         <ConsumerForm
           defaultValues={data}
           setEditing={setEditing}
           editing={editing}
         />
-        <EmbedCode />
+        <EmbedCode appType={data?.application?.type} apiKey={data?.apiKey} />
       </div>
     </DetailedLayout>
   );

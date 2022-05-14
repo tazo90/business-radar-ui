@@ -79,6 +79,11 @@ export const consumerRouter = createProtectedRouter()
               code: true,
             },
           },
+          application: {
+            select: {
+              type: true,
+            },
+          },
           expires: true,
         },
       });
