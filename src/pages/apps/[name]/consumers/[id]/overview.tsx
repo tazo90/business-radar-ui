@@ -264,7 +264,8 @@ function EmbedCode(props: Consumer) {
 
   const appType = props.appType?.toLowerCase();
 
-  const widgetCode = `<div id="${appType}" 
+  const widgetCode = `<div
+  id="${appType}" 
   click-disabled="true" 
   api-key="${props.apiKey}" 
 />
