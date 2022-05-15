@@ -141,16 +141,21 @@ export const consumerRouter = createProtectedRouter()
     }),
     async resolve({ ctx, input }) {
       const { uid } = input;
+      const brandIds = input.brands.map(({ id }) => ({ id }));
+      const countryIds = input.countries.map(({ id }) => ({ id }));
+
       await ctx.prisma.applicationConsumer.update({
         where: { uid },
         data: {
           title: input.title,
           description: input.description,
           brands: {
-            connect: input.brands.map((b) => ({ id: b.id })),
+            deleteMany: { NOT: brandIds },
+            connect: brandIds,
           },
           countries: {
-            connect: input.countries.map((c) => ({ id: c.id })),
+            deleteMany: { NOT: countryIds },
+            connect: countryIds,
           },
           domain: input.domain,
         },
