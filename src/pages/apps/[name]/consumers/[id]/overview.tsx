@@ -93,6 +93,8 @@ function ConsumerForm(props: ConsumerFormProps) {
       domain: null,
       expires: null,
       apiKey: null,
+      brands: null,
+      countries: null,
     },
   });
 
