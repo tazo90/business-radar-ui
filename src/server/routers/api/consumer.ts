@@ -161,4 +161,18 @@ export const consumerRouter = createProtectedRouter()
         },
       });
     },
+  })
+  .mutation("delete", {
+    input: z.object({
+      uid: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const { uid } = input;
+      await ctx.prisma.applicationConsumer.delete({
+        where: { uid },
+      });
+      return {
+        uid,
+      };
+    },
   });

@@ -90,9 +90,7 @@ export const Button = forwardRef<
         <StartIcon
           className={classNames(
             "inline",
-            size === "icon"
-              ? "h-5 w-5 "
-              : "-ml-1 h-5 w-5 ltr:mr-2 rtl:ml-2 rtl:ml-2 rtl:-mr-1"
+            size === "icon" ? "h-5 w-5 " : "h-5 w-5 mr-1 -ml-1"
           )}
         />
       )}
