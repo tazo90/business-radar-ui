@@ -153,7 +153,7 @@ export default function ConsumersPage() {
       </ul>
 
       {/* Add consumer dialog */}
-      <Dialog open={addAppModal} onClose={() => setAddAppModal(false)}>
+      <Dialog open={addAppModal} onOpenChange={setAddAppModal}>
         {/* @TODO: change applicationmodalform onto AddConsumerModalForm */}
         <ApplicationModalForm
           name={query.name}

@@ -1,33 +1,42 @@
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import { Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/solid";
 
-type DialogHeaderProps = {
-  title: React.ReactNode;
-  onClose: () => void;
+import { useControllableState } from "@lib/hooks/useControllableState";
+import { createContext } from "@lib/create-context";
+import Button from "../button";
+
+const DIALOG_NAME = "Dialog";
+
+type DialogContextValue = {
+  triggerRef: React.RefObject<HTMLButtonElement>;
+  title?: string;
+  open: boolean;
+  onOpenChange(open: boolean): void;
 };
 
-export function DialogHeader(props: DialogHeaderProps) {
+const [DialogProvider, useDialogContext] =
+  createContext<DialogContextValue>(DIALOG_NAME);
+
+export function DialogHeader(props: { title: string }) {
+  const { title, onOpenChange } = useDialogContext("DialogTrigger");
+
   return (
     <div className="flex justify-between border-b py-3 px-6">
       <h3
         className="text-lg leading-6 font-medium text-gray-600"
         id="modal-title"
       >
-        {props.title}
+        {props.title || title}
       </h3>
-      <button onClick={props.onClose}>
+      <button onClick={() => onOpenChange(false)}>
         <XIcon className="h-5 w-5 text-gray-600" aria-hidden="true" />
       </button>
     </div>
   );
 }
 
-type DialogFooterProps = {
-  children: React.ReactNode;
-};
-
-export function DialogFooter(props: DialogFooterProps) {
+export function DialogFooter(props: { children: React.ReactNode }) {
   return (
     <div className="bg-gray-100 py-2 px-5 border-t border-gray-300">
       <div className="flex items-center justify-end">
@@ -37,12 +46,8 @@ export function DialogFooter(props: DialogFooterProps) {
   );
 }
 
-type DialogContentProps = {
-  children: React.ReactNode;
-};
-
-export function DialogContent(props: DialogContentProps) {
-  const { title, onClose, children } = props;
+export function DialogContent(props: { children: React.ReactNode }) {
+  const { title } = useDialogContext("DialogTrigger");
 
   return (
     <Transition.Child
@@ -58,10 +63,8 @@ export function DialogContent(props: DialogContentProps) {
         <div className="bg-white">
           <div className="sm:flex sm:items-start">
             <div className="text-left w-full">
-              {title && (
-                <Dialog.Header title={title} onClose={() => onClose()} />
-              )}
-              {children}
+              {title && <Dialog.Header title={title} />}
+              {props.children}
             </div>
           </div>
         </div>
@@ -72,14 +75,23 @@ export function DialogContent(props: DialogContentProps) {
 
 type DialogProps = {
   title?: string;
-  open: boolean;
+  open?: boolean;
   children: React.ReactNode;
-  onClose: () => void;
+  header?: React.ReactNode;
+  onClose?: () => void;
 };
 
 export function Dialog(props: DialogProps) {
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const { children, title, open: openProp, onOpenChange } = props;
+
+  const [open = false, setOpen] = useControllableState({
+    prop: openProp,
+    onChange: onOpenChange,
+  });
+
   return (
-    <Transition.Root show={props.open} as={Fragment}>
+    <Transition.Root show={open} as={Fragment}>
       <div
         className="fixed z-50 inset-0 overflow-y-auto"
         aria-labelledby="modal-base"
@@ -99,7 +111,7 @@ export function Dialog(props: DialogProps) {
             <div
               className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
               aria-hidden="true"
-              onClick={() => props.onClose()}
+              onClick={() => onOpenChange(false)}
             />
           </Transition.Child>
 
@@ -110,13 +122,61 @@ export function Dialog(props: DialogProps) {
           >
             &#8203;
           </span>
-          {props.children}
+          <DialogProvider
+            title={title}
+            open={open}
+            onOpenChange={setOpen}
+            triggerRef={triggerRef}
+          >
+            {children}
+          </DialogProvider>
         </div>
       </div>
     </Transition.Root>
   );
 }
 
+function DialogTrigger(props) {
+  const { onOpenChange } = useDialogContext("DialogTrigger");
+
+  if (props.children) {
+    return React.cloneElement(props.children, {
+      onClick: () => onOpenChange(true),
+    });
+  }
+
+  return (
+    <Button color="primary" onClick={() => onOpenChange(true)}>
+      Open
+    </Button>
+  );
+}
+
+function DialogClose(props) {
+  const { onOpenChange } = useDialogContext("DialogClose");
+
+  function onClick(e) {
+    if (props.children.props.type !== "submit") {
+      e.preventDefault();
+      onOpenChange(false);
+    }
+  }
+
+  if (props.children) {
+    return React.cloneElement(props.children, {
+      onClick: (e) => onClick(e),
+    });
+  }
+
+  return (
+    <Button color="primary" onClick={(e) => onClick(e)}>
+      Open
+    </Button>
+  );
+}
+
 Dialog.Content = DialogContent;
 Dialog.Header = DialogHeader;
 Dialog.Footer = DialogFooter;
+Dialog.Close = DialogClose;
+Dialog.Trigger = DialogTrigger;
