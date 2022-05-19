@@ -5,7 +5,7 @@ import React, { forwardRef } from "react";
 type SVGComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 
 export type ButtonBaseProps = {
-  color?: "primary" | "secondary" | "warn";
+  color?: "primary" | "secondary" | "warn" | "add";
   size?: "base" | "sm" | "lg" | "fab" | "icon";
   loading?: boolean;
   disabled?: boolean;
@@ -74,6 +74,10 @@ export const Button = forwardRef<
           (disabled
             ? "border border-transparent bg-gray-400 text-white"
             : "bg-red-500 border border-red-700 text-white hover:bg-red-700/80 focus:outline-none"),
+        color === "add" &&
+          (disabled
+            ? "border border-transparent bg-gray-400 text-white"
+            : "bg-purple-500 border border-purple-700 text-white hover:bg-purple-700/80 focus:outline-none"),
         // set not-allowed cursor if disabled
         loading ? "cursor-wait" : disabled ? "cursor-not-allowed" : "",
         props.className

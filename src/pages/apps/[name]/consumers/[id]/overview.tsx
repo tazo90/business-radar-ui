@@ -329,11 +329,7 @@ function DangerZone(props: { onDelete: any }) {
           <ConfirmDialog
             variety="danger"
             title="Delete consumer"
-            confirmBtn={
-              <Button color="warn" data-testid="delete-account-confirm">
-                Confirm delete consumer
-              </Button>
-            }
+            confirmBtn={<Button color="warn">Confirm delete consumer</Button>}
             onConfirm={onDelete}
           >
             Are you sure you want to remove consumer?

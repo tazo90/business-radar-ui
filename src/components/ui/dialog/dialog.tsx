@@ -1,10 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/solid";
 
 import Button from "../button";
 import { useControllableState } from "@lib/hooks/useControllableState";
 import { createContext } from "@lib/create-context";
+import { useId } from "@radix-ui/react-id";
 
 const DIALOG_NAME = "Dialog";
 
@@ -94,8 +95,6 @@ export function DialogContent(props) {
               <div className="bg-white">
                 <div className="sm:flex sm:items-start">
                   <div className="text-left w-full">
-                    {/* {header} */}
-                    {}
                     {title && <Dialog.Header />}
                     {props.children}
                   </div>
@@ -118,12 +117,6 @@ type DialogProps = {
 };
 
 export function Dialog(props: DialogProps) {
-  const {
-    header = (
-      <DialogHeader title={props.title} onClose={() => props.onClose()} />
-    ),
-  } = props;
-
   const triggerRef = React.useRef<HTMLButtonElement>(null);
   const { children, title, open: openProp, onOpenChange } = props;
 
@@ -163,19 +156,22 @@ function DialogTrigger(props) {
 function DialogClose(props) {
   const { onOpenChange } = useDialogContext("DialogClose");
 
-  function onClick() {
-    onOpenChange(false);
-    props.onClick && props.onClick();
+  function onClick(e) {
+    if (props.children.props.type !== "submit") {
+      e.preventDefault();
+      onOpenChange(false);
+    }
   }
 
   if (props.children) {
     return React.cloneElement(props.children, {
-      onClick: () => onClick(),
+      onClick: (e) => onClick(e),
+      className: "ml-2",
     });
   }
 
   return (
-    <Button color="primary" onClick={() => onClick()}>
+    <Button color="primary" onClick={(e) => onClick(e)}>
       Open
     </Button>
   );

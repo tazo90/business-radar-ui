@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "@components/ui/button";
-import { DialogFooter } from "@components/ui/dialog";
+import { Dialog } from "@components/ui/dialog";
 import { Form, TextField } from "@components/ui/form/fields";
 import SelectField from "@components/ui/form/select";
 import showToast from "@lib/notification";
 import { inferQueryOutput, trpc } from "@lib/trpc";
-import { XIcon } from "@heroicons/react/solid";
 
 export type TApplication = inferQueryOutput<"api.application.all">[number];
 
@@ -57,16 +56,8 @@ export default function ApplicationModalForm(props: ApplicationModalFormProps) {
   });
 
   return (
-    <>
-      <div className="max-w-lg mx-auto py-4 px-5">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-medium text-gray-900">Create consumer</h2>
-          <button onClick={props.onClose}>
-            <XIcon className="h-5 w-5 text-gray-600" aria-hidden="true" />
-          </button>
-        </div>
-      </div>
-
+    <Dialog.Content>
+      <Dialog.Header title="Create consumer" />
       <Form
         form={form}
         handleSubmit={(values) => {
@@ -133,22 +124,25 @@ export default function ApplicationModalForm(props: ApplicationModalFormProps) {
             </p>
           )}
         </div>
-        <DialogFooter>
+        <Dialog.Footer>
           <div className="flex justify-between">
-            <Button
-              type="button"
-              color="secondary"
-              onClick={() => props.onChangeStep(0)}
-              tabIndex={-1}
-            >
-              Back
-            </Button>
-            <Button type="submit" loading={form.formState.isSubmitting}>
-              Create
-            </Button>
+            <Dialog.Close>
+              <Button color="primary" tabIndex={-1}>
+                Cancel
+              </Button>
+            </Dialog.Close>
+            <Dialog.Close>
+              <Button
+                color="secondary"
+                type="submit"
+                loading={form.formState.isSubmitting}
+              >
+                Create
+              </Button>
+            </Dialog.Close>
           </div>
-        </DialogFooter>
+        </Dialog.Footer>
       </Form>
-    </>
+    </Dialog.Content>
   );
 }
