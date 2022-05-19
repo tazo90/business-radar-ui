@@ -57,7 +57,7 @@ export function ConfirmDialog(props: PropsWithChildren<ConfirmDialogProps>) {
           {confirmBtn || <Button color="primary">{confirmBtnText}</Button>}
         </Dialog.Close>
         <Dialog.Close>
-          <Button color="secondary">{cancelBtnText}</Button>
+          <Button color="primary">{cancelBtnText}</Button>
         </Dialog.Close>
       </div>
     </Dialog.Content>

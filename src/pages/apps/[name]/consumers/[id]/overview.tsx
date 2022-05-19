@@ -307,21 +307,21 @@ function EmbedCode(props: Consumer) {
 
 function DangerZone(props: { onDelete: any }) {
   const { onDelete } = props;
+  const [open, setOpen] = useState(false);
 
   return (
     <Card>
       <Card.Header title="Danger zone" />
       <Card.Content>
-        <Dialog>
-          <Dialog.Trigger>
-            <Button
-              color="warn"
-              StartIcon={TrashIcon}
-              className="border-2 border-red-700 text-white"
-            >
-              Delete consumer
-            </Button>
-          </Dialog.Trigger>
+        <Button
+          color="warn"
+          StartIcon={TrashIcon}
+          className="border-2 border-red-700 text-white"
+          onClick={() => setOpen(true)}
+        >
+          Delete consumer
+        </Button>
+        <Dialog open={open} onOpenChange={setOpen}>
           <ConfirmDialog
             variety="danger"
             title="Delete consumer"
