@@ -7,6 +7,7 @@ import {
   CheckCircleIcon,
   ClipboardCopyIcon,
   LocationMarkerIcon,
+  PlusIcon,
 } from "@heroicons/react/solid";
 import { trpc } from "@lib/trpc";
 import Link from "next/link";
@@ -15,6 +16,7 @@ import icons from "@constants/icons";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { appMenu } from "../overview";
+import Button from "@components/ui/button";
 
 const MenuHeader = () => (
   <div className="flex items-center">
@@ -51,13 +53,14 @@ export default function ConsumersPage() {
       pageTitle="Consumers"
       pageDescription="List of consumers that registered application of their website."
       pageAction={
-        <button
+        <Button
           onClick={() => setAddAppModal(true)}
-          type="button"
-          className="order-0 h-10 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
+          StartIcon={PlusIcon}
+          color="add"
+          className="h-8"
         >
           Create consumer
-        </button>
+        </Button>
       }
     >
       <ul role="list" className="divide-y divide-gray-200 ">
@@ -149,12 +152,9 @@ export default function ConsumersPage() {
         })}
       </ul>
 
-      {/* Add application dialog */}
-      <Dialog
-        header={null}
-        open={addAppModal}
-        onClose={() => setAddAppModal(false)}
-      >
+      {/* Add consumer dialog */}
+      <Dialog open={addAppModal} onClose={() => setAddAppModal(false)}>
+        {/* @TODO: change applicationmodalform onto AddConsumerModalForm */}
         <ApplicationModalForm
           name={query.name}
           onClose={() => setAddAppModal(false)}

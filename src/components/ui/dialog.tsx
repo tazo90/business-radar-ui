@@ -31,27 +31,53 @@ export function DialogFooter(props: DialogFooterProps) {
   return (
     <div className="bg-gray-100 py-2 px-5 border-t border-gray-300">
       <div className="flex items-center justify-end">
-        <div className="flex">{props.children}</div>
+        <div className="flex space-x-3">{props.children}</div>
       </div>
     </div>
   );
 }
 
+type DialogContentProps = {
+  children: React.ReactNode;
+};
+
+export function DialogContent(props: DialogContentProps) {
+  const { title, onClose, children } = props;
+
+  return (
+    <Transition.Child
+      as={Fragment}
+      enter="ease-out duration-300"
+      enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+      enterTo="opacity-100 translate-y-0 sm:scale-100"
+      leave="ease-in duration-200"
+      leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+      leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+    >
+      <div className="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-screen md:my-8 md:align-middle md:max-w-lg md:w-full">
+        <div className="bg-white">
+          <div className="sm:flex sm:items-start">
+            <div className="text-left w-full">
+              {title && (
+                <Dialog.Header title={title} onClose={() => onClose()} />
+              )}
+              {children}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Transition.Child>
+  );
+}
+
 type DialogProps = {
-  title: string;
+  title?: string;
   open: boolean;
   children: React.ReactNode;
-  header?: React.ReactNode;
   onClose: () => void;
 };
 
 export function Dialog(props: DialogProps) {
-  const {
-    header = (
-      <DialogHeader title={props.title} onClose={() => props.onClose()} />
-    ),
-  } = props;
-
   return (
     <Transition.Root show={props.open} as={Fragment}>
       <div
@@ -84,28 +110,13 @@ export function Dialog(props: DialogProps) {
           >
             &#8203;
           </span>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            enterTo="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          >
-            <div className="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-screen md:my-8 md:align-middle md:max-w-lg md:w-full">
-              <div className="bg-white">
-                <div className="sm:flex sm:items-start">
-                  <div className="text-left w-full">
-                    {header}
-                    {props.children}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Transition.Child>
+          {props.children}
         </div>
       </div>
     </Transition.Root>
   );
 }
+
+Dialog.Content = DialogContent;
+Dialog.Header = DialogHeader;
+Dialog.Footer = DialogFooter;
