@@ -6,11 +6,14 @@ import { Form, TextField } from "@components/ui/form/fields";
 import dayjs from "dayjs";
 import { PencilAltIcon } from "@heroicons/react/outline";
 import {
+  CheckIcon,
   ClipboardCopyIcon,
   CubeIcon,
+  ExclamationIcon,
   EyeIcon,
   LocationMarkerIcon,
   PencilIcon,
+  TrashIcon,
 } from "@heroicons/react/solid";
 import showToast from "@lib/notification";
 import { inferQueryOutput, trpc } from "@lib/trpc";
@@ -20,6 +23,10 @@ import { useForm } from "react-hook-form";
 import SelectField from "@components/ui/form/select";
 import { ApplicationConsumerStatus } from "@prisma/client";
 import ResourcesInfo from "@components/common/resources-info";
+import { ConfirmDialog } from "@components/ui/dialog/confirm-dialog";
+import { Dialog2, Dialog2Trigger } from "@components/ui/dialog/dialog2";
+import { Dialog } from "@components/ui/dialog";
+import ProjectModalForm from "@components/projects/project-modal-form";
 
 export const appMenu = [
   {
@@ -302,12 +309,59 @@ function EmbedCode(props: Consumer) {
   );
 }
 
+function DangerZone(props: { onDelete: any }) {
+  const { onDelete } = props;
+
+  return (
+    <Card>
+      <Card.Header title="Danger zone" />
+      <Card.Content>
+        <Dialog>
+          <Dialog.Trigger>
+            <Button
+              color="warn"
+              StartIcon={TrashIcon}
+              className="border-2 border-red-700 text-white"
+            >
+              Delete consumer
+            </Button>
+          </Dialog.Trigger>
+          <ConfirmDialog
+            variety="danger"
+            title="Delete consumer"
+            confirmBtn={
+              <Button color="warn" data-testid="delete-account-confirm">
+                Confirm delete consumer
+              </Button>
+            }
+            onConfirm={onDelete}
+          >
+            Are you sure you want to remove consumer?
+          </ConfirmDialog>
+        </Dialog>
+      </Card.Content>
+    </Card>
+  );
+}
+
 export default function ConsumerPage() {
-  const { query, isReady } = useRouter();
+  const { query, isReady, push } = useRouter();
+  const utils = trpc.useContext();
   const [editing, setEditing] = useState<boolean | null>(false);
 
   const { data } = trpc.useQuery(["api.consumer.get", { uid: query.id }], {
     enabled: isReady,
+  });
+
+  const deleteConsumer = trpc.useMutation("api.consumer.delete", {
+    async onSuccess() {
+      await utils.invalidateQueries(["api.consumer.all"]);
+      push("/apps/stores/consumers/");
+      showToast("Consumer removed", "success");
+    },
+    async onError(err) {
+      showToast(err.message, "error");
+    },
   });
 
   return (
@@ -322,6 +376,7 @@ export default function ConsumerPage() {
           editing={editing}
         />
         <EmbedCode appType={data?.application?.type} apiKey={data?.apiKey} />
+        <DangerZone onDelete={() => deleteConsumer.mutate({ uid: query.id })} />
       </div>
     </DetailedLayout>
   );
