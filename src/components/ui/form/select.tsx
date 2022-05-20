@@ -59,10 +59,6 @@ function SelectInput<
     setDocument(document);
   }, []);
 
-  if (selectedValue === null) {
-    return null;
-  }
-
   return (
     <div className={wrapperClassName}>
       {label && <Label htmlFor={id}>{label}</Label>}
@@ -179,7 +175,18 @@ export default function SelectField({
           isLoading={isLoading}
           options={options}
           onChange={(option) => {
-            option && field.onChange(isMulti ? option : option.value);
+            if (!option) {
+              return null;
+            }
+
+            let value = option.value;
+            if (isMulti) {
+              value = option;
+            } else if (getOptionValue) {
+              value = getOptionValue(option);
+            }
+
+            field.onChange(value);
           }}
           renderValue={renderValue}
         />
