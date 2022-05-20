@@ -101,7 +101,7 @@ function ConsumerForm(props: ConsumerFormProps) {
     },
   });
 
-  const { data: organization, isLoading } = trpc.useQuery([
+  const { data: organization } = trpc.useQuery([
     "api.organization.get",
     { slug: "amrest" },
   ]);

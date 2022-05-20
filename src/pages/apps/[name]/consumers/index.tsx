@@ -1,6 +1,6 @@
 import DashboardLayout from "@components/layouts/dashboard";
 import DetailedLayout from "@components/layouts/detailed";
-import ApplicationModalForm from "@components/projects/application-modal-form";
+import ApplicationModalForm from "@components/consumers/consumer-add-modal";
 import { Dialog } from "@components/ui/dialog";
 import {
   CalendarIcon,
@@ -17,6 +17,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { appMenu } from "../overview";
 import Button from "@components/ui/button";
+import ConsumerCreateModal from "@components/consumers/consumer-add-modal";
+import ConsumerAddModal from "@components/consumers/consumer-add-modal";
 
 const MenuHeader = () => (
   <div className="flex items-center">
@@ -71,62 +73,60 @@ export default function ConsumersPage() {
             <li key={app.id}>
               <Link href={appUrl}>
                 <a className="block hover:bg-gray-50 bg-white">
-                  <div className="px-4 py-4 sm:px-6">
-                    <div className="flex items-center justify-between">
-                      <p className="flex items-center text-sm w-1/4 font-medium text-lime-600 truncate uppercase">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-1 sm:px-6">
+                    <div className="flex flex-col justify-center">
+                      <p className="text-sm w-1/4 font-medium text-lime-600 truncate uppercase">
                         {app.domain
                           .replace("https://", "")
                           .replace("http://", "")}
-                        <span className="italic text-xs text-gray-500 ml-3">
-                          {app.title}
-                        </span>
                       </p>
-
-                      <div className="ml-2 flex-shrink-0 flex">
-                        <p className="px-4 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                          PAID
-                          <CheckCircleIcon className="ml-2 h-5 w-5 text-green-600" />
-                        </p>
-                      </div>
+                      <p className="italic text-xs text-gray-500">
+                        {app.title}
+                      </p>
                     </div>
-                    <div className="mt-2 sm:flex sm:justify-between">
-                      <div className="flex flex-col">
-                        <div className="flex items-center text-sm text-gray-500">
-                          <p className="pr-2">Brands</p>
-                          <div className="flex items-center space-x-2">
-                            <div className="flex flex-shrink-0 -space-x-1">
-                              {app?.brands.map((brand) => (
-                                <img
-                                  key={brand.id}
-                                  className="max-w-none h-6 w-6 rounded-full ring-2 ring-white"
-                                  src={
-                                    icons.amrest.brands[
-                                      brand.name.toLowerCase()
-                                    ]
-                                  }
-                                  alt={brand.name}
-                                />
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
-                          <p className="pr-2">Countries</p>
-                          <div className="flex items-center">
-                            {app.countries.map((country) => (
+
+                    <div className="flex flex-col">
+                      <div className="flex items-center text-sm text-gray-500">
+                        <p className="pr-3">Brands</p>
+                        <div className="flex items-center space-x-2 ml-4">
+                          <div className="flex flex-shrink-0 -space-x-1">
+                            {app?.brands.map((brand) => (
                               <img
-                                key={country.id}
-                                className="max-w-none h-6 w-6 ring-2 ring-white"
-                                src={icons.flags[country.code.toLowerCase()]}
-                                alt={country.code}
+                                key={brand.id}
+                                className="max-w-none h-6 w-6 rounded-full ring-2 ring-white"
+                                src={
+                                  icons.amrest.brands[brand.name.toLowerCase()]
+                                }
+                                alt={brand.name}
                               />
                             ))}
                           </div>
                         </div>
                       </div>
-                      <p className="ml-4 flex items-center text-sm text-gray-500">
-                        <span className="font-semibold mr-2">API Key:</span>
-                        <span className="underline mr-2">{app.apiKey}</span>
+                      <div className="flex items-center text-sm text-gray-500 sm:mt-0">
+                        <p className="pr-3">Countries</p>
+                        <div className="flex items-center space-x-1">
+                          {app.countries.map((country) => (
+                            <img
+                              key={country.id}
+                              className="max-w-none h-6 w-6 ring-2 ring-white"
+                              src={icons.flags[country.code.toLowerCase()]}
+                              alt={country.code}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col justify-center sm:items-end">
+                      <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                        <CalendarIcon
+                          className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
+                        <p>Expires on 2022-02-01</p>
+                      </div>
+                      <p className="flex text-sm text-gray-500 space-x-2">
                         <button
                           onClick={(e) => {
                             e.preventDefault();
@@ -135,14 +135,9 @@ export default function ConsumersPage() {
                         >
                           <ClipboardCopyIcon className="h-5 w-5" />
                         </button>
+                        <span className="font-semibold">API Key:</span>
+                        <span className="underline">{app.apiKey}</span>
                       </p>
-                      <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
-                        <CalendarIcon
-                          className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-                          aria-hidden="true"
-                        />
-                        <p>Expires on 2022-02-01</p>
-                      </div>
                     </div>
                   </div>
                 </a>
@@ -152,11 +147,10 @@ export default function ConsumersPage() {
         })}
       </ul>
 
-      {/* Add consumer dialog */}
+      {/* Consumer add modal */}
       <Dialog open={addAppModal} onOpenChange={setAddAppModal}>
-        {/* @TODO: change applicationmodalform onto AddConsumerModalForm */}
-        <ApplicationModalForm
-          name={query.name}
+        <ConsumerAddModal
+          application={query.name?.toUpperCase()}
           onClose={() => setAddAppModal(false)}
         />
       </Dialog>
