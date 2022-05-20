@@ -42,8 +42,6 @@ export default function ConsumerAddModal(props: ConsumerAddModalProps) {
     },
   });
 
-  console.log("PROPS", props);
-
   return (
     <Dialog.Content>
       <Dialog.Header title="Create consumer" onClose={props.onClose} />

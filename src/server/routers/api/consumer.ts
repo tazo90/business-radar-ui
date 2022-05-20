@@ -91,16 +91,22 @@ export const consumerRouter = createProtectedRouter()
   })
   .mutation("add", {
     input: z.object({
-      application: z.string(),
+      application: z.nativeEnum(ApplicationType),
       title: z.string(),
       description: z.string().nullable(),
       domain: z.string(),
       brands: z.array(z.object({ id: z.number() })),
       countries: z.array(z.object({ id: z.number() })),
-      projectId: z.number(),
+      project: z.number(),
     }),
     async resolve({ ctx, input }) {
       const [hashedApiKey, apiKey] = generateUniqueAPIKey();
+
+      const app = await ctx.prisma.application.findFirst({
+        where: {
+          type: input.application,
+        },
+      });
 
       return await ctx.prisma.applicationConsumer.create({
         data: {
@@ -109,7 +115,10 @@ export const consumerRouter = createProtectedRouter()
             connect: { id: ctx.user.id },
           },
           project: {
-            connect: { id: input.projectId },
+            connect: { id: input.project },
+          },
+          application: {
+            connect: { id: app?.id },
           },
           title: input.title,
           description: input.description,
@@ -147,7 +156,7 @@ export const consumerRouter = createProtectedRouter()
       await ctx.prisma.applicationConsumer.update({
         where: { uid },
         data: {
-          title: input.title,
+          ...input,
           description: input.description,
           brands: {
             deleteMany: { NOT: brandIds },
@@ -157,7 +166,6 @@ export const consumerRouter = createProtectedRouter()
             deleteMany: { NOT: countryIds },
             connect: countryIds,
           },
-          domain: input.domain,
         },
       });
     },
