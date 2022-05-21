@@ -12,7 +12,7 @@ import {
 import DetailedLayout from "@components/layouts/detailed";
 import { projectMenu } from "..";
 import { useState } from "react";
-import ApplicationModalForm from "@components/projects/application-modal-form";
+import ApplicationModalForm from "@components/consumers/consumer-add-modal";
 import { Dialog } from "@components/ui/dialog";
 
 export default function ProjectAppsPage() {
@@ -136,7 +136,7 @@ export default function ProjectAppsPage() {
       </ul>
 
       {/* Add application dialog */}
-      <Dialog
+      {/* <Dialog
         header={null}
         open={addAppModal}
         onClose={() => setAddAppModal(false)}
@@ -145,7 +145,7 @@ export default function ProjectAppsPage() {
           projectSlug={projectSlug}
           onClose={() => setAddAppModal(false)}
         />
-      </Dialog>
+      </Dialog> */}
     </DetailedLayout>
   );
 }

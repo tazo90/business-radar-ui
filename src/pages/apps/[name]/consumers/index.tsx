@@ -1,23 +1,20 @@
-import DashboardLayout from "@components/layouts/dashboard";
-import DetailedLayout from "@components/layouts/detailed";
-import ApplicationModalForm from "@components/consumers/consumer-add-modal";
-import { Dialog } from "@components/ui/dialog";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import Link from "next/link";
 import {
   CalendarIcon,
-  CheckCircleIcon,
   ClipboardCopyIcon,
   LocationMarkerIcon,
   PlusIcon,
 } from "@heroicons/react/solid";
-import { trpc } from "@lib/trpc";
-import Link from "next/link";
-import icons from "@constants/icons";
 
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { Dialog } from "@components/ui/dialog";
+import DashboardLayout from "@components/layouts/dashboard";
+import DetailedLayout from "@components/layouts/detailed";
+import { trpc } from "@lib/trpc";
+import icons from "@constants/icons";
 import { appMenu } from "../overview";
 import Button from "@components/ui/button";
-import ConsumerCreateModal from "@components/consumers/consumer-add-modal";
 import ConsumerAddModal from "@components/consumers/consumer-add-modal";
 
 const MenuHeader = () => (
@@ -33,7 +30,7 @@ const MenuHeader = () => (
 export default function ConsumersPage() {
   const { query, isReady } = useRouter();
   const utils = trpc.useContext();
-  const [addAppModal, setAddAppModal] = useState(false);
+  const [customerAddModal, setCustomerAddModal] = useState(false);
 
   const { data } = trpc.useQuery(
     ["api.consumer.all", { appType: query.name?.toUpperCase() }],
@@ -56,7 +53,7 @@ export default function ConsumersPage() {
       pageDescription="List of consumers that registered application of their website."
       pageAction={
         <Button
-          onClick={() => setAddAppModal(true)}
+          onClick={() => setCustomerAddModal(true)}
           StartIcon={PlusIcon}
           color="add"
           className="h-8"
@@ -148,10 +145,10 @@ export default function ConsumersPage() {
       </ul>
 
       {/* Consumer add modal */}
-      <Dialog open={addAppModal} onOpenChange={setAddAppModal}>
+      <Dialog open={customerAddModal} onOpenChange={setCustomerAddModal}>
         <ConsumerAddModal
           application={query.name?.toUpperCase()}
-          onClose={() => setAddAppModal(false)}
+          onClose={() => setCustomerAddModal(false)}
         />
       </Dialog>
     </DetailedLayout>

@@ -120,7 +120,7 @@ export default function ConsumerAddModal(props: ConsumerAddModalProps) {
           )}
         </div>
         <Dialog.Footer>
-          <Button type="button" color="primary" onClick={() => props.onClose()}>
+          <Button type="button" color="primary" onClick={props.onClose}>
             Cancel
           </Button>
           <Button
