@@ -48,9 +48,6 @@ export const MenuHeader = (props: { title: string }) => (
     <div className="flex p-2 text-gray-900 text-xs font-medium bg-yellow-400 rounded-md">
       <LocationMarkerIcon className="h-4 w-4" />
     </div>
-    {/* <h3 className="ml-2 text-gray-900 text-md font-semibold truncate">
-      Stores - {props.title}
-    </h3> */}
     <div className="flex flex-col pl-3 leading-none">
       <span>Stores</span>
       <span className="text-xs">{props.title}</span>
@@ -83,7 +80,7 @@ type ConsumerFormProps = {
   setEditing: () => void;
 };
 
-function ConsumerForm(props: ConsumerFormProps) {
+function ConsumerFormSection(props: ConsumerFormProps) {
   const { defaultValues, editing, setEditing } = props;
   const utils = trpc.useContext();
   const form = useForm({
@@ -261,7 +258,7 @@ function ConsumerForm(props: ConsumerFormProps) {
   );
 }
 
-function EmbedCode(props: Consumer) {
+function EmbedCodeSection(props: Consumer) {
   const locationOrigin =
     typeof window !== "undefined" && window.location.origin
       ? window.location.origin
@@ -305,7 +302,7 @@ function EmbedCode(props: Consumer) {
   );
 }
 
-function DangerZone(props: { onDelete: any }) {
+function DangerZoneSection(props: { onDelete: any }) {
   const { onDelete } = props;
   const [open, setOpen] = useState(false);
 
@@ -362,13 +359,18 @@ export default function ConsumerPage() {
       pageMenuHeader={<MenuHeader title={data?.title} />}
     >
       <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-        <ConsumerForm
+        <ConsumerFormSection
           defaultValues={data}
           setEditing={setEditing}
           editing={editing}
         />
-        <EmbedCode appType={data?.application?.type} apiKey={data?.apiKey} />
-        <DangerZone onDelete={() => deleteConsumer.mutate({ uid: query.id })} />
+        <EmbedCodeSection
+          appType={data?.application?.type}
+          apiKey={data?.apiKey}
+        />
+        <DangerZoneSection
+          onDelete={() => deleteConsumer.mutate({ uid: query.id })}
+        />
       </div>
     </DetailedLayout>
   );

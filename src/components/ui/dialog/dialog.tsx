@@ -159,6 +159,7 @@ function DialogClose(props) {
     if (props.children.props.type !== "submit") {
       e.preventDefault();
       onOpenChange(false);
+      props.onClick && props.onClick(e);
     }
   }
 
