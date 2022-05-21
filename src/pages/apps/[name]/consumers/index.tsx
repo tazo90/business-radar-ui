@@ -72,7 +72,7 @@ export default function ConsumersPage() {
                 <a className="block hover:bg-gray-50 bg-white">
                   <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-1 sm:px-6">
                     <div className="flex flex-col justify-center">
-                      <p className="text-sm w-1/4 font-medium text-lime-600 truncate uppercase">
+                      <p className="text-sm w-1/4 font-medium text-lime-600 uppercase">
                         {app.domain
                           .replace("https://", "")
                           .replace("http://", "")}
