@@ -12,18 +12,14 @@ import {
   unclusteredPointZoomedInLayer,
   unclusteredPointZoomedOutLayer,
 } from "@components//map/layers";
-import { addImages } from "./utils";
+import { addImages, getClusterProperties, getMarkerImages } from "./utils";
 import { setStore } from "@slices/store.slice";
 
-import icons from "@constants/icons";
-
-import circle from "@assets/circle.png";
-import circleSmall from "@assets/circle-small.png";
 import { drawStoreMarker } from "./markers/store-marker";
 
 const MAX_ZOOM_LEVEL = 16;
 
-const Map = ({ locations, storeList }) => {
+const Map = ({ locations, storeList, organization, brands }) => {
   if (!locations) {
     return null;
   }
@@ -31,6 +27,8 @@ const Map = ({ locations, storeList }) => {
   const dispatch = useDispatch();
   const { selectedStore } = useSelector((state: any) => state.store);
   const { userLocation } = useSelector((state: any) => state.location);
+
+  const organizationBrands = Object.keys(brands?.data);
 
   const map = useRef(null);
   const mapContainer = useRef(null);
@@ -83,43 +81,20 @@ const Map = ({ locations, storeList }) => {
       // clusterMaxZoom: 12,
       clusterRadius: 150,
       clusterMinPoints: 3,
-      clusterProperties: {
-        // Cluster properties idea based on article:
-        // https://medium.com/@droushi/mapbox-cluster-icons-based-on-cluster-content-d462a5a3ad5c
-        only_kfc: ["all", ["==", ["get", "brand"], "kfc"], "false"],
-        only_bk: ["all", ["==", ["get", "brand"], "bk"], "false"],
-        only_ph: ["all", ["==", ["get", "brand"], "ph"], "false"],
-        only_sbx: ["all", ["==", ["get", "brand"], "sbx"], "false"],
-        only_bca: ["all", ["==", ["get", "brand"], "bca"], "false"],
-        only_bf: ["all", ["==", ["get", "brand"], "bf"], "false"],
-        only_tag: ["all", ["==", ["get", "brand"], "tag"], "false"],
-        only_ssg: ["all", ["==", ["get", "brand"], "ssg"], "false"],
-        only_kabb: ["all", ["==", ["get", "brand"], "kabb"], "false"],
-      },
+      clusterProperties: { ...getClusterProperties(organizationBrands) },
     });
 
-    addImages(map, [
-      { id: "amrest", image: icons.amrest.markers.amrest },
-      { id: "kfc", image: icons.amrest.markers.kfc },
-      { id: "bk", image: icons.amrest.markers.bk },
-      { id: "ph", image: icons.amrest.markers.ph },
-      { id: "sbx", image: icons.amrest.markers.sbx },
-      { id: "bca", image: icons.amrest.markers.bca },
-      { id: "bf", image: icons.amrest.markers.bf },
-      { id: "tag", image: icons.amrest.markers.tag },
-      { id: "ssg", image: icons.amrest.markers.ssg },
-      { id: "kabb", image: icons.amrest.markers.kabb },
-      { id: "circle", image: circle },
-      { id: "circle-small", image: circleSmall },
-    ]).then(() => {
-      map.addLayer(pointLabelLayer);
+    addImages(map, getMarkerImages(organization, organizationBrands)).then(
+      () => {
+        map.addLayer(pointLabelLayer);
 
-      map.addLayer(clusterLayer);
-      map.addLayer(clusterCountBgLayer);
-      map.addLayer(clusterCountLayer);
-      map.addLayer(unclusteredPointZoomedInLayer);
-      map.addLayer(unclusteredPointZoomedOutLayer);
-    });
+        map.addLayer(clusterLayer);
+        map.addLayer(clusterCountBgLayer);
+        map.addLayer(clusterCountLayer);
+        map.addLayer(unclusteredPointZoomedInLayer);
+        map.addLayer(unclusteredPointZoomedOutLayer);
+      }
+    );
 
     map.on("styleimagemissing", (e) => {
       const [name, brand, brand_full, summary] = e.id.split(" | ");

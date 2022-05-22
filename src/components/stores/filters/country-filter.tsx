@@ -2,28 +2,25 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GlobeAltIcon, ChevronDownIcon } from "@heroicons/react/outline";
 
-import { useCountriesQuery } from "@api/organization/get-all-countries";
 import { Filter } from "@components/common/filter";
-import countries from "@constants/countries";
+import availableCountries from "@constants/countries";
 import { setFilters } from "@slices/store.slice";
 
 type CountryFilterProps = {
-  apiKey?: string;
-}
+  countries?: any;
+};
 
 export function CountryFilter(props: CountryFilterProps) {
+  const { countries } = props;
   const dispatch = useDispatch();
   const { filters } = useSelector((state: any) => state.store);
 
   const [isFilterOpen, setFilterOpen] = useState(false);
 
-  const { data, isLoading }: any = useCountriesQuery({ 
-    org: "amrest",
-    apiKey: props.apiKey
-  });
-
   function getIcon(itemId: string) {
-    const filtered = countries.filter((country) => country.value === itemId);
+    const filtered = availableCountries.filter(
+      (country) => country.value === itemId
+    );
     if (filtered.length > 0) {
       return filtered[0].img;
     }
@@ -40,7 +37,7 @@ export function CountryFilter(props: CountryFilterProps) {
     setFilterOpen(false);
   }
 
-  if (data && Object.keys(data).length === 1) {
+  if (countries.data && Object.keys(countries.data).length === 1) {
     return null;
   }
 
@@ -63,11 +60,11 @@ export function CountryFilter(props: CountryFilterProps) {
       <Filter
         title="Countries"
         searchPlaceholder="Search a country"
-        items={data}
+        items={countries.data}
         initialItems={filters.country}
         getIcon={getIcon}
         iconSize={6}
-        isLoading={isLoading}
+        isLoading={countries.isLoading}
         isOpen={isFilterOpen}
         onSubmit={submit}
         onClose={() => setFilterOpen(false)}

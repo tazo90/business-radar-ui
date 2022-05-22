@@ -3,24 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { HomeIcon, ChevronDownIcon } from "@heroicons/react/outline";
 
 import icons from "@constants/icons";
-import { useBrandsQuery } from "@api/organization/get-all-brands";
 import { Filter } from "@components/common/filter";
 import { setFilters } from "@slices/store.slice";
 
 type BrandFilterProps = {
-  apiKey?: string;
-}
+  brands?: any;
+};
 
 export function BrandFilter(props: BrandFilterProps) {
+  const { brands } = props;
   const dispatch = useDispatch();
   const { filters } = useSelector((state: any) => state.store);
 
   const [isFilterOpen, setFilterOpen] = useState(false);
-
-  const { data, isLoading }: any = useBrandsQuery({ 
-    org: "amrest", 
-    apiKey: props.apiKey 
-  });
 
   function getIcon(itemId) {
     return icons.amrest.brands[itemId];
@@ -36,7 +31,7 @@ export function BrandFilter(props: BrandFilterProps) {
     setFilterOpen(false);
   }
 
-  if (data && Object.keys(data).length === 1) {
+  if (brands.data && Object.keys(brands.data).length === 1) {
     return null;
   }
 
@@ -59,10 +54,10 @@ export function BrandFilter(props: BrandFilterProps) {
       <Filter
         title="Brands"
         searchPlaceholder="Search a brand"
-        items={data}
+        items={brands.data}
         initialItems={filters.brand}
         getIcon={getIcon}
-        isLoading={isLoading}
+        isLoading={brands.isLoading}
         isOpen={isFilterOpen}
         onSubmit={submit}
         onClose={() => setFilterOpen(false)}

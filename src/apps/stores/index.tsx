@@ -11,6 +11,8 @@ import {
 import { setStore, setStores } from "@slices/store.slice";
 import { useStoresQuery } from "@api/organization/stores/get-all-stores";
 import { setUserLocation } from "@slices/location.slice";
+import { useBrandsQuery } from "@api/organization/get-all-brands";
+import { useCountriesQuery } from "@api/organization/get-all-countries";
 
 const Drawer = dynamic(() => import("@components/ui/drawer"));
 const Autocomplete = dynamic(() => import("@components/ui/autocomplete"));
@@ -27,7 +29,7 @@ const Search = dynamic(() =>
 
 type StoresAppProps = {
   apiKey?: string;
-}
+};
 
 export default function StoresApp(props: StoresAppProps) {
   const dispatch = useDispatch();
@@ -49,21 +51,33 @@ export default function StoresApp(props: StoresAppProps) {
     }
   }, [selectedStore]);
 
-  const { data, isLoading }: any = useStoresQuery({
+  const { data, isLoading }: any = useStoresQuery(
+    {
+      org: "amrest",
+      apiKey: props.apiKey,
+    },
+    {
+      onSuccess() {
+        setIsAuthorized(true);
+      },
+      onError(err: any) {
+        if (err.response?.status === 401) {
+          setIsAuthorized(false);
+        }
+      },
+      retry: 0,
+    }
+  );
+
+  const brands: any = useBrandsQuery({
     org: "amrest",
-    apiKey: props.apiKey
-  }, {
-    onSuccess() {
-      setIsAuthorized(true);
-    },
-    onError(err: any) {
-      if (err.response?.status === 401) {
-        setIsAuthorized(false)
-      }
-    },
-    retry: 0
+    apiKey: props.apiKey,
   });
-  
+
+  const countries: any = useCountriesQuery({
+    org: "amrest",
+    apiKey: props.apiKey,
+  });
 
   useEffect(() => {
     if (data) {
@@ -147,7 +161,7 @@ export default function StoresApp(props: StoresAppProps) {
   }
 
   if (isAuthorized === false) {
-    return <div>Access denied</div>
+    return <div>Access denied</div>;
   }
 
   return (
@@ -191,8 +205,8 @@ export default function StoresApp(props: StoresAppProps) {
             <div className="hidden md:block lg:hidden bg-gray-300 h-3/5 w-0.5 ml-2" />
           </div>
           <div className="flex overflow-x-auto items-center py-2">
-            <BrandFilter apiKey={props.apiKey} />
-            <CountryFilter apiKey={props.apiKey} />
+            <BrandFilter brands={brands} />
+            <CountryFilter countries={countries} />
             <MoreFilter />
           </div>
         </nav>
@@ -224,7 +238,12 @@ export default function StoresApp(props: StoresAppProps) {
             isMapVisible ? "flex" : "hidden"
           } lg:flex`}
         >
-          <Map locations={stores} storeList={storeList} />
+          <Map
+            locations={stores}
+            storeList={storeList}
+            organization="amrest"
+            brands={brands}
+          />
         </section>
         {/* Drawer */}
         <Drawer isOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}>
