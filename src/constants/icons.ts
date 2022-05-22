@@ -3,6 +3,7 @@ import all from "@assets/all.png";
 // AmRest
 // =================
 // Markers
+import amrestMarker from "@assets/amrest/markers/amrest.png";
 import bcaMarker from "@assets/amrest/markers/bca.png";
 import bfMarker from "@assets/amrest/markers/bf.png";
 import bkMarker from "@assets/amrest/markers/bk.png";
@@ -25,6 +26,7 @@ import ssg from "@assets/amrest/brands/ssg.png";
 
 const amrest = {
   markers: {
+    amrest: amrestMarker,
     bca: bcaMarker,
     bf: bfMarker,
     bk: bkMarker,

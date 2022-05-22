@@ -83,12 +83,23 @@ const Map = ({ locations, storeList }) => {
       // clusterMaxZoom: 12,
       clusterRadius: 150,
       clusterMinPoints: 3,
-      // clusterProperties: {
-      // has_bk: ["any", ["==", ["get", "brand"], 'bk'], "false"],
-      // }
+      clusterProperties: {
+        // Cluster properties idea based on article:
+        // https://medium.com/@droushi/mapbox-cluster-icons-based-on-cluster-content-d462a5a3ad5c
+        only_kfc: ["all", ["==", ["get", "brand"], "kfc"], "false"],
+        only_bk: ["all", ["==", ["get", "brand"], "bk"], "false"],
+        only_ph: ["all", ["==", ["get", "brand"], "ph"], "false"],
+        only_sbx: ["all", ["==", ["get", "brand"], "sbx"], "false"],
+        only_bca: ["all", ["==", ["get", "brand"], "bca"], "false"],
+        only_bf: ["all", ["==", ["get", "brand"], "bf"], "false"],
+        only_tag: ["all", ["==", ["get", "brand"], "tag"], "false"],
+        only_ssg: ["all", ["==", ["get", "brand"], "ssg"], "false"],
+        only_kabb: ["all", ["==", ["get", "brand"], "kabb"], "false"],
+      },
     });
 
     addImages(map, [
+      { id: "amrest", image: icons.amrest.markers.amrest },
       { id: "kfc", image: icons.amrest.markers.kfc },
       { id: "bk", image: icons.amrest.markers.bk },
       { id: "ph", image: icons.amrest.markers.ph },
