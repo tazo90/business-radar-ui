@@ -28,7 +28,7 @@ export default function PageMenu(props: PageMenuProps) {
     <aside
       className={classNames(
         props.fullScreen ? "py-3" : "",
-        "px-2 lg:col-span-2 bg-gray-100"
+        "px-2 lg:col-span-2 bg-gray-100 border-r border-gray-200"
       )}
     >
       {props.header && (

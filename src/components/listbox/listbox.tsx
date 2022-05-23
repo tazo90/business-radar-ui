@@ -90,7 +90,7 @@ function Listbox({
       <List
         ref={forwardedRef}
         itemCount={items.length}
-        itemSize={136}
+        itemSize={126}
         width="100%"
         height={window.innerHeight}
         itemData={{ selectedStoreId, userLocation }}

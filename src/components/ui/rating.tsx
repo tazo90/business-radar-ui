@@ -25,8 +25,8 @@ export function Rating({
     <div className="flex items-center">
       <div className="flex items-center">
         <span className={`${textSize} font-semibold`}>{rate}</span>
-        <ul className="flex justify-center ml-1 mt-0.5">
-          {range(5).map((rating) => (
+        <ul className="flex justify-center ml-0.5 mt-0.5">
+          {range(stars).map((rating) => (
             <li key={rating}>
               <StarIcon
                 className={classNames(
@@ -39,9 +39,7 @@ export function Rating({
           ))}
         </ul>
       </div>
-      {withReviews && (
-        <p className={`${textSize} font-semibold pl-1`}>({count})</p>
-      )}
+      {withReviews && <p className={`${textSize} pl-1`}>({count})</p>}
     </div>
   );
 }
