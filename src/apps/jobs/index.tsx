@@ -1,7 +1,11 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MenuIcon, MapIcon, ShoppingBagIcon } from "@heroicons/react/outline";
+import {
+  MenuIcon,
+  MapIcon,
+  LocationMarkerIcon,
+} from "@heroicons/react/outline";
 
 import {
   BrandFilter,
@@ -142,8 +146,8 @@ export default function JobsApp() {
               type="button"
               onClick={orderStart}
             >
-              <ShoppingBagIcon className="h-5 w-5" aria-hidden="true" />
-              <span className="px-2">Zamów</span>
+              <LocationMarkerIcon className="h-5 w-5" aria-hidden="true" />
+              <span className="px-2">Find address</span>
             </button>
             <button
               className="ml-4 md:ml-0 lg:hidden border border-gray-300 h-10 rounded-lg text-white bg-slate-700 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
