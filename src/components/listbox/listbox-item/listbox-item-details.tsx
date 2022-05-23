@@ -1,6 +1,7 @@
 import { Rating } from "@components/ui/rating";
 import icons from "@constants/icons";
 import { LocationMarkerIcon } from "@heroicons/react/solid";
+import { classNames } from "@lib/classnames";
 
 export function ListboxItemDetails({ item, distance }) {
   return (
@@ -25,14 +26,19 @@ export function ListboxItemDetails({ item, distance }) {
         <p className="truncate">
           <span className="font-bold">Address:</span> {item.address}
         </p>
-        <div className="flex justify-between">
+        <div
+          className={classNames(
+            "flex",
+            item.phone ? "justify-between" : "justify-end"
+          )}
+        >
           {item.phone && (
             <p>
               <span className="font-bold">Phone:</span> {item.phone}
             </p>
           )}
           {distance && (
-            <div className="flex items-center">
+            <div className="flex items-center justify-end">
               <LocationMarkerIcon className="w-3 h-3 mr-0.5" />
               <span className="text-xs">{distance.toFixed(1)} km</span>
             </div>
