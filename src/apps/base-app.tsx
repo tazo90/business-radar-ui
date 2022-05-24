@@ -37,10 +37,19 @@ type BaseAppProps = {
   organization: string;
   isAuthorized: boolean | null;
   isLoading: boolean;
+  listboxRenderer?: any;
 };
 
 export default function BaseApp(props: BaseAppProps) {
-  const { isAuthorized, isLoading, app, apiKey, organization, data } = props;
+  const {
+    isAuthorized,
+    isLoading,
+    app,
+    apiKey,
+    organization,
+    data,
+    listboxRenderer,
+  } = props;
 
   const dispatch = useDispatch();
 
@@ -220,6 +229,7 @@ export default function BaseApp(props: BaseAppProps) {
             forwardedRef={storeList}
             isLoading={isLoading}
             items={stores?.features}
+            ItemRenderer={listboxRenderer}
           />
         </section>
         {/* Section map */}

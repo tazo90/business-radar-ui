@@ -6,5 +6,8 @@ export function jobProperties(feature: any) {
   return {
     ...properties,
     title: feature.title,
+    brand: feature.brand?.name.toLowerCase(),
+    brand_full: feature.brand?.fullName,
+    country: feature.country?.code,
   };
 }
