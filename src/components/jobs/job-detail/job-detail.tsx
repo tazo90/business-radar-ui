@@ -9,6 +9,16 @@ type JobAppProps = {
   apiKey?: string;
 };
 
+function JobsList({ jobs }) {
+  return (
+    <ul>
+      {jobs.map((job) => (
+        <li key={job.id}>{job.title}</li>
+      ))}
+    </ul>
+  );
+}
+
 export default function JobDetail(props: JobAppProps) {
   const { store, storeTriggerSource } = useSelector((state: any) => {
     return {
@@ -24,7 +34,7 @@ export default function JobDetail(props: JobAppProps) {
       ? { queryType: useJobQuery, query: { job: store.jobId } }
       : { queryType: useStoreJobsQuery, query: { store: store.id } };
 
-  const { data } = queryType({
+  let { data } = queryType({
     org: organization,
     apiKey: props.apiKey,
     ...query,
@@ -34,6 +44,13 @@ export default function JobDetail(props: JobAppProps) {
     return null;
   }
 
+  // TODO: make it better
+  if (data?.length > 1) {
+    return <JobsList jobs={data} />;
+  }
+
+  const job = Array.isArray(data) ? data[0] : data;
+
   function getValidBannerUrl(bannerUrl: string) {
     if (!bannerUrl) {
       return "";
@@ -42,7 +59,7 @@ export default function JobDetail(props: JobAppProps) {
     return bannerUrl.substring(lastHttp, bannerUrl.length);
   }
 
-  const bannerUrl = getValidBannerUrl(data?.bannerUrl);
+  const bannerUrl = getValidBannerUrl(job?.bannerUrl);
 
   return (
     <>
@@ -53,30 +70,30 @@ export default function JobDetail(props: JobAppProps) {
             <p className="text-black whitespace-nowrap font-semibold text-2xl"></p>
             <p className="flex items-center justify-center">
               <img
-                src={icons.amrest.markers[data.store?.brand.name.toLowerCase()]}
+                src={icons.amrest.markers[job.store?.brand.name.toLowerCase()]}
                 alt="Picture of the restaurant"
                 className="object-cover h-auto"
               />
               <span className="font-semibold ml-2">
-                {data.store?.brand?.fullName} {data.store?.name}
+                {job.store?.brand?.fullName} {job.store?.name}
               </span>
             </p>
             <p className="flex pl-1">
               <LocationMarkerIcon className="w-6 h-6 mr-4" />
-              {data.store?.address}
+              {job.store?.address}
             </p>
             <p className="flex pl-1">
               <PhoneIcon className="w-6 h-6 mr-4" />
-              {data.store?.phone}
+              {job.store?.phone}
             </p>
           </div>
         </div>
       </header>
       <main className="py-4 px-8">
-        <div dangerouslySetInnerHTML={{ __html: data.body }} />
+        <div dangerouslySetInnerHTML={{ __html: job.body }} />
         <div className="flex justify-center">
           <a
-            href={data.applyUrl}
+            href={job.applyUrl}
             className="bg-orange-400 rounded-md px-20 py-3 font-semibold"
           >
             Aplikuj
@@ -84,7 +101,7 @@ export default function JobDetail(props: JobAppProps) {
         </div>
       </main>
       <footer className="text-center">
-        Copyright @ {data.store?.brand.fullName}
+        Copyright @ {job.store?.brand.fullName}
       </footer>
     </>
   );
