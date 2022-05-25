@@ -6,6 +6,7 @@ const ORGANIZATIONS_API = {
     COUNTRIES: "/organizations/:org/countries",
     STORES: "/organizations/:org/stores",
     STORE: "/organizations/:org/stores/:store",
+    STORE_JOBS: "/organizations/:org/stores/:store/jobs",
     JOBS: "/organizations/:org/jobs",
     JOB: "/organizations/:org/jobs/:job",
   },

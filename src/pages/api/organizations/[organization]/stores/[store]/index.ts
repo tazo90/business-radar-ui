@@ -8,7 +8,7 @@ export default async function handler(
 ) {
   // GET /api/organizations/:organization/stores/:store
   if (req.method === "GET") {
-    const stores = await prisma.store.findUnique({
+    const store = await prisma.store.findUnique({
       where: {
         organization: {
           slug: req.query.organization,
@@ -36,6 +36,6 @@ export default async function handler(
       },
     });
 
-    return res.status(200).json({ stores });
+    return res.status(200).json(store);
   }
 }

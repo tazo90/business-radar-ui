@@ -13,7 +13,7 @@ export async function fetchJobs({ queryKey }: any) {
   const { data } = await http.get(endpoint);
 
   return toGeojson({
-    data: data.stores,
+    data,
     getProperties: jobProperties,
     getStore: (feature) => feature.store,
   });
@@ -21,7 +21,7 @@ export async function fetchJobs({ queryKey }: any) {
 
 export const useJobsQuery = (query: any, options?: any) => {
   return useQuery<{ jobs: any }, Error>(
-    [API_ENDPOINTS.JOBS, query],
+    [API_ENDPOINTS.ORGANIZATIONS.JOBS, query],
     fetchJobs,
     options
   );

@@ -26,14 +26,14 @@ export default async function handler(
         id: true,
         brands: {
           select: {
-            id: true
-          }
+            id: true,
+          },
         },
         countries: {
           select: {
-            id: true
-          }
-        }
+            id: true,
+          },
+        },
       },
     });
 
@@ -44,7 +44,6 @@ export default async function handler(
 
   // GET /api/organizations/:organization/stores
   if (req.method === "GET") {
-
     let query: any = {
       organization: {
         slug: req.query.organization,
@@ -89,6 +88,6 @@ export default async function handler(
       },
     });
 
-    return res.status(200).json({ stores });
+    return res.status(200).json(stores);
   }
 }
