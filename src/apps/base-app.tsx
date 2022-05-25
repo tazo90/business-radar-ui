@@ -7,11 +7,7 @@ import {
   LocationMarkerIcon,
 } from "@heroicons/react/outline";
 
-import {
-  BrandFilter,
-  CountryFilter,
-  MoreFilter,
-} from "@components/stores/filters";
+import { BrandFilter, CountryFilter, MoreFilter } from "@apps/stores/filters";
 import { setStore, setStores } from "@slices/store.slice";
 import { setUserLocation } from "@slices/location.slice";
 import { useBrandsQuery } from "@api/organization/get-all-brands";
@@ -22,7 +18,6 @@ const Autocomplete = dynamic(() => import("@components/ui/autocomplete"));
 const Listbox = dynamic(() => import("@components/listbox/listbox"));
 const DashboardLayout = dynamic(() => import("@components/layouts/dashboard"));
 const Map = dynamic(() => import("@components/map"));
-const StoreDetail = dynamic(() => import("@components/stores/store-detail"));
 const Search = dynamic(() =>
   import("@components/common/search").then(
     (mod) => mod.Search,

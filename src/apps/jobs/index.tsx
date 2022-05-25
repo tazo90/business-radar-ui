@@ -2,10 +2,10 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 
 import { useJobsQuery } from "@api/organization/jobs/get-all-jobs";
-import { ListboxJob } from "@components/jobs/listbox-job/listbox-job";
+import { ListboxJob } from "@apps/jobs/listbox-job/listbox-job";
 
 const BaseApp = dynamic(() => import("@apps/base-app"));
-const JobDetail = dynamic(() => import("@components/jobs/job-detail"));
+const JobDetail = dynamic(() => import("@apps/jobs/job-detail"));
 const DashboardLayout = dynamic(() => import("@components/layouts/dashboard"));
 
 type JobsAppProps = {
