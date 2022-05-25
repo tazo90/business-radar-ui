@@ -14,11 +14,11 @@ export function ListboxJobDetails({ job, distance }) {
             className="object-cover"
           />
         </div>
-        <div className="flex flex-col items-center ml-2 pt-0.5 text-[0.82rem] overflow-hidden">
-          <span className="relative font-semibold leading-none">
+        <div className="flex flex-col items-center ml-2 pt-0.5 overflow-hidden">
+          <span className="relative font-semibold leading-none text-[0.85rem] ">
             {job.title}
           </span>
-          <span className="pb-0.5 leading-1 w-full truncate">
+          <span className="pb-0.5 leading-1 w-full truncate text-[0.82rem] ">
             {job.brand_full.toUpperCase()} {job.name}
           </span>
         </div>

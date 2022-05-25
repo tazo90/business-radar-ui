@@ -38,6 +38,7 @@ type BaseAppProps = {
   isAuthorized: boolean | null;
   isLoading: boolean;
   listboxRenderer?: any;
+  DetailView: any;
 };
 
 export default function BaseApp(props: BaseAppProps) {
@@ -49,6 +50,7 @@ export default function BaseApp(props: BaseAppProps) {
     organization,
     data,
     listboxRenderer,
+    DetailView,
   } = props;
 
   const dispatch = useDispatch();
@@ -248,7 +250,8 @@ export default function BaseApp(props: BaseAppProps) {
         </section>
         {/* Drawer */}
         <Drawer isOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}>
-          <StoreDetail isOpen={isDrawerOpen} />
+          {/* <StoreDetail isOpen={isDrawerOpen} /> */}
+          {isDrawerOpen && <DetailView isOpen={isDrawerOpen} apiKey={apiKey} />}
         </Drawer>
       </div>
     </>

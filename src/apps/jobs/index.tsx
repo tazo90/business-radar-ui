@@ -5,6 +5,7 @@ import { useJobsQuery } from "@api/organization/jobs/get-all-jobs";
 import { ListboxJob } from "@components/jobs/listbox-job/listbox-job";
 
 const BaseApp = dynamic(() => import("@apps/base-app"));
+const JobDetail = dynamic(() => import("@components/jobs/job-detail"));
 const DashboardLayout = dynamic(() => import("@components/layouts/dashboard"));
 
 type JobsAppProps = {
@@ -43,6 +44,7 @@ export default function JobsApp(props: JobsAppProps) {
       isLoading={isLoading}
       isAuthorized={isAuthorized}
       listboxRenderer={ListboxJob}
+      DetailView={JobDetail}
     />
   );
 }

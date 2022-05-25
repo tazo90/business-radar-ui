@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useStoresQuery } from "@api/organization/stores/get-all-stores";
 
 const BaseApp = dynamic(() => import("@apps/base-app"));
+const StoreDetail = dynamic(() => import("@components/stores/store-detail"));
 const DashboardLayout = dynamic(() => import("@components/layouts/dashboard"));
 
 type StoresAppProps = {
@@ -41,6 +42,7 @@ export default function StoresApp(props: StoresAppProps) {
       data={data}
       isLoading={isLoading}
       isAuthorized={isAuthorized}
+      DetailView={StoreDetail}
     />
   );
 }

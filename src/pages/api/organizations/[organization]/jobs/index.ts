@@ -61,7 +61,7 @@ export default async function handler(
       };
     }
 
-    const stores = await prisma.job.findMany({
+    const jobs = await prisma.job.findMany({
       where: query,
       select: {
         id: true,
@@ -99,6 +99,6 @@ export default async function handler(
       },
     });
 
-    return res.status(200).json({ stores });
+    return res.status(200).json(jobs);
   }
 }
