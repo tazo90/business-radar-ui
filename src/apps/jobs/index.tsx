@@ -45,6 +45,7 @@ export default function JobsApp(props: JobsAppProps) {
       isAuthorized={isAuthorized}
       listboxRenderer={ListboxJob}
       DetailView={JobDetail}
+      searchFields={["title"]}
     />
   );
 }

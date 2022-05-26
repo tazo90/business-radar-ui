@@ -34,6 +34,7 @@ type BaseAppProps = {
   isLoading: boolean;
   listboxRenderer?: any;
   DetailView: any;
+  searchFields?: string[];
 };
 
 export default function BaseApp(props: BaseAppProps) {
@@ -46,6 +47,7 @@ export default function BaseApp(props: BaseAppProps) {
     data,
     listboxRenderer,
     DetailView,
+    searchFields,
   } = props;
 
   const dispatch = useDispatch();
@@ -129,12 +131,21 @@ export default function BaseApp(props: BaseAppProps) {
         const fullName = `${brand} ${name}`;
         const searchValue = value.toLowerCase();
 
-        return (
+        let result =
           address.includes(searchValue) ||
           name.includes(searchValue) ||
           searchValue === brand ||
-          fullName.startsWith(searchValue)
-        );
+          fullName.startsWith(searchValue);
+
+        if (searchFields) {
+          searchFields.map(
+            (field) =>
+              (result =
+                result || properties[field].toLowerCase().includes(searchValue))
+          );
+        }
+
+        return result;
       }),
     };
 
@@ -172,7 +183,7 @@ export default function BaseApp(props: BaseAppProps) {
         {/* Section filters */}
         <nav className="flex flex-col md:flex-row pt-2 md:pt-0 px-3 bg-gray-50 border-b w-full">
           <div className="flex items-center w-full md:w-5/12 lg:w-4/12">
-            <Search onSearch={onStoreSearch} placeholder="Find a store..." />
+            <Search onSearch={onStoreSearch} placeholder={`Find a ${app}...`} />
 
             <button
               className="ml-4 md:ml-2 border border-gray-300 h-10 rounded-lg text-white bg-lime-600 font-medium text-sm px-2 py-1 text-center inline-flex items-center"
