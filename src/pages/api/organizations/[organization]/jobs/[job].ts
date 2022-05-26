@@ -24,6 +24,7 @@ export default async function handler(
         applyUrl: true,
         store: {
           select: {
+            id: true,
             name: true,
             address: true,
             phone: true,

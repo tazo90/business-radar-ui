@@ -4,22 +4,19 @@ import { LocationMarkerIcon, PhoneIcon } from "@heroicons/react/outline";
 import icons from "@constants/icons";
 import { useJobQuery } from "@api/organization/jobs/get-job";
 import { useStoreJobsQuery } from "@api/organization/stores/get-store-jobs";
+import { StoreDetailHeader } from "@apps/stores/store-detail/store-detail";
+import { StoreDetailJobs } from "@apps/stores/store-detail/store-detail-jobs";
 
 type JobAppProps = {
   apiKey?: string;
 };
 
-function JobsList({ jobs }) {
+function StoreJobsDetail({ store, jobs }) {
   return (
-    <div>
-      <ul className="flex flex-col justify-center items-center">
-        {jobs.map((job) => (
-          <li key={job.id} className="p-4 bg-slate-200 rounded-md my-2">
-            <a>{job.title}</a>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <StoreDetailHeader store={store} />
+      <StoreDetailJobs jobs={jobs} />
+    </>
   );
 }
 
@@ -48,9 +45,8 @@ export default function JobDetail(props: JobAppProps) {
     return null;
   }
 
-  // TODO: make it better
   if (data?.length > 1) {
-    return <JobsList jobs={data} />;
+    return <StoreJobsDetail jobs={data} store={store} />;
   }
 
   const job = Array.isArray(data) ? data[0] : data;
