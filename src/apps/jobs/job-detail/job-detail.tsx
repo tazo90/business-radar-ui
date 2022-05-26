@@ -11,11 +11,15 @@ type JobAppProps = {
 
 function JobsList({ jobs }) {
   return (
-    <ul>
-      {jobs.map((job) => (
-        <li key={job.id}>{job.title}</li>
-      ))}
-    </ul>
+    <div>
+      <ul className="flex flex-col justify-center items-center">
+        {jobs.map((job) => (
+          <li key={job.id} className="p-4 bg-slate-200 rounded-md my-2">
+            <a>{job.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -63,8 +67,8 @@ export default function JobDetail(props: JobAppProps) {
 
   return (
     <>
-      <header>
-        <img src={bannerUrl} />
+      <header className="h-70 w-full">
+        <img className="h-full w-full" src={bannerUrl} />
         <div className="flex items-center absolute top-40 left-16 w-5/12 rounded-lg bg-slate-50 p-2 pl-5 opacity-90">
           <div className="flex flex-col items-start px-4 py-2 space-y-2">
             <p className="text-black whitespace-nowrap font-semibold text-2xl"></p>
@@ -74,7 +78,7 @@ export default function JobDetail(props: JobAppProps) {
                 alt="Picture of the restaurant"
                 className="object-cover h-auto"
               />
-              <span className="font-semibold ml-2">
+              <span className="font-semibold ml-2 text-lg">
                 {job.store?.brand?.fullName} {job.store?.name}
               </span>
             </p>
@@ -94,7 +98,7 @@ export default function JobDetail(props: JobAppProps) {
         <div className="flex justify-center">
           <a
             href={job.applyUrl}
-            className="bg-orange-400 rounded-md px-20 py-3 font-semibold"
+            className="bg-orange-400 rounded-md mt-10 mb-4 px-20 py-3 font-semibold"
           >
             Aplikuj
           </a>
