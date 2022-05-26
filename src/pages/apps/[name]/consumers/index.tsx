@@ -4,7 +4,6 @@ import Link from "next/link";
 import {
   CalendarIcon,
   ClipboardCopyIcon,
-  LocationMarkerIcon,
   PlusIcon,
 } from "@heroicons/react/solid";
 
@@ -17,16 +16,6 @@ import { appMenu } from "../overview";
 import Button from "@components/ui/button";
 import ConsumerAddModal from "@components/consumers/consumer-add-modal";
 
-const MenuHeader = () => (
-  <div className="flex items-center">
-    <div className="flex p-2 text-gray-900 text-xs font-medium bg-yellow-400 rounded-md">
-      <LocationMarkerIcon className="h-4 w-4" />
-    </div>
-    <h3 className="ml-2 text-gray-900 text-md font-semibold truncate">
-      Stores
-    </h3>
-  </div>
-);
 export default function ConsumersPage() {
   const { query, isReady } = useRouter();
   const utils = trpc.useContext();
@@ -47,8 +36,8 @@ export default function ConsumersPage() {
 
   return (
     <DetailedLayout
+      app={query.name}
       pageMenu={appMenu}
-      pageMenuHeader={<MenuHeader />}
       pageTitle="Consumers"
       pageDescription="List of consumers that registered application of their website."
       pageAction={
