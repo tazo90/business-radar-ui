@@ -1,27 +1,16 @@
 import { ChevronRightIcon, UsersIcon } from "@heroicons/react/solid";
 
-const jobs = [
-  {
-    title: "Kierownik restauracji",
-    category: "Restaurant / Store managers",
-    fullTime: "Full-time",
-    isManager: "Yes",
-  },
-  // More candidates...
-];
-
-export function StoreDetailJobs() {
+export function StoreDetailJobs({ jobs, onJobClick }) {
   return (
-    <div className="mt-4 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Stacked list */}
+    <div className="mt-4 max-w-5xl px-4 sm:px-6 lg:px-8">
       <ul
         role="list"
         className="mt-5 border-t border-gray-200 divide-y divide-gray-200 sm:mt-0 sm:border-t-0"
       >
         {jobs.map((job) => (
           <li key={job.title}>
-            <a href="#" className="group block">
-              <div className="flex items-center py-5 px-4 sm:py-6 sm:px-0 bg-gray-100 rounded-md">
+            <a href="#" className="group block" onClick={() => onJobClick(job)}>
+              <div className="flex items-center py-5 px-4 bg-gray-100 rounded-md">
                 <div className="min-w-0 flex-1 flex items-center">
                   <div className="w-full flex justify-between px-4">
                     <div>

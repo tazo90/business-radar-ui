@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { LocationMarkerIcon, PhoneIcon } from "@heroicons/react/outline";
 
@@ -11,16 +12,17 @@ type JobAppProps = {
   apiKey?: string;
 };
 
-function StoreJobsDetail({ store, jobs }) {
+function StoreJobsDetail({ store, jobs, onJobClick }) {
   return (
     <>
       <StoreDetailHeader store={store} />
-      <StoreDetailJobs jobs={jobs} />
+      <StoreDetailJobs jobs={jobs} onJobClick={onJobClick} />
     </>
   );
 }
 
 export default function JobDetail(props: JobAppProps) {
+  const [selectedJob, setSelectedJob] = useState(null);
   const { store, storeTriggerSource } = useSelector((state: any) => {
     return {
       store: state.store.selectedStore?.properties,
@@ -33,23 +35,32 @@ export default function JobDetail(props: JobAppProps) {
   const { queryType, query } =
     storeTriggerSource === "list"
       ? { queryType: useJobQuery, query: { job: store.jobId } }
-      : { queryType: useStoreJobsQuery, query: { store: store.id } };
+      : { queryType: useStoreJobsQuery, query: { store: store?.id } };
 
-  let { data } = queryType({
-    org: organization,
-    apiKey: props.apiKey,
-    ...query,
-  });
+  let { data } = queryType(
+    {
+      org: organization,
+      apiKey: props.apiKey,
+      ...query,
+    },
+    {
+      // The query will not execute until the store exists
+      // TODO: check if it's needed?
+      enabled: !!store || !!selectedJob,
+    }
+  );
 
   if (!data) {
     return null;
   }
 
-  if (data?.length > 1) {
-    return <StoreJobsDetail jobs={data} store={store} />;
+  if (!selectedJob && data?.length > 1) {
+    return (
+      <StoreJobsDetail jobs={data} store={store} onJobClick={setSelectedJob} />
+    );
   }
 
-  const job = Array.isArray(data) ? data[0] : data;
+  const job = selectedJob || (Array.isArray(data) ? data[0] : data);
 
   function getValidBannerUrl(bannerUrl: string) {
     if (!bannerUrl) {
@@ -67,7 +78,9 @@ export default function JobDetail(props: JobAppProps) {
         <img className="h-full w-full" src={bannerUrl} />
         <div className="flex items-center absolute top-40 left-16 w-5/12 rounded-lg bg-slate-50 p-2 pl-5 opacity-90">
           <div className="flex flex-col items-start px-4 py-2 space-y-2">
-            <p className="text-black whitespace-nowrap font-semibold text-2xl"></p>
+            <p className="whitespace-nowrap font-semibold text-2xl border-b border-gray-700 w-full">
+              {job.title}
+            </p>
             <p className="flex items-center justify-center">
               <img
                 src={icons.amrest.markers[job.store?.brand.name.toLowerCase()]}

@@ -65,20 +65,6 @@ export default async function handler(
       where: query,
       select: {
         id: true,
-        brand: {
-          select: {
-            id: true,
-            name: true,
-            fullName: true,
-          },
-        },
-        country: {
-          select: {
-            id: true,
-            code: true,
-            name: true,
-          },
-        },
         store: {
           select: {
             id: true,
@@ -87,6 +73,20 @@ export default async function handler(
             phone: true,
             lat: true,
             lng: true,
+            brand: {
+              select: {
+                id: true,
+                name: true,
+                fullName: true,
+              },
+            },
+            country: {
+              select: {
+                id: true,
+                code: true,
+                name: true,
+              },
+            },
           },
         },
         professionName: true,
