@@ -25,9 +25,6 @@ const Search = dynamic(() =>
   )
 );
 
-import storesAppConfig from "@apps/stores/config.yml";
-import { setAppConfig } from "@slices/app.slice";
-
 type BaseAppProps = {
   app: string;
   apiKey?: string;
@@ -81,11 +78,6 @@ export default function BaseApp(props: BaseAppProps) {
   const [isOpenAutocomplete, setOpenAutocoplete] = useState(false);
   const [isMapVisible, setMapVisible] = useState(false);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
-
-  useEffect(() => {
-    // Load app config
-    dispatch(setAppConfig(storesAppConfig));
-  }, []);
 
   useEffect(() => {
     if (selectedStore) {

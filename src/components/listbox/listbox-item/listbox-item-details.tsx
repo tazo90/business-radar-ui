@@ -3,13 +3,13 @@ import icons from "@constants/icons";
 import { LocationMarkerIcon } from "@heroicons/react/solid";
 import { classNames } from "@lib/classnames";
 
-const AddressField = ({ address }) => (
+export const AddressField = ({ address }) => (
   <p className="truncate">
     <span className="font-bold">Address:</span> {address}
   </p>
 );
 
-const PhoneField = ({ phone, distance }) => (
+export const PhoneField = ({ phone, distance }) => (
   <div
     className={classNames("flex", phone ? "justify-between" : "justify-end")}
   >
@@ -27,7 +27,7 @@ const PhoneField = ({ phone, distance }) => (
   </div>
 );
 
-const HoursRateReviewsField = ({ hours, attributes }) => (
+export const HoursRateReviewsField = ({ hours, attributes }) => (
   <div className="flex justify-between">
     <p>
       <span className="font-bold">Hours:</span> {hours} -{" "}
@@ -45,7 +45,7 @@ const HoursRateReviewsField = ({ hours, attributes }) => (
   </div>
 );
 
-export function ListboxItemDetails({ item, distance, attributes }) {
+export function ListItemFields({ item, distance, attributes }) {
   const fields = {
     address: <AddressField address={item.address} />,
     phone: <PhoneField phone={item.phone} distance={distance} />,
@@ -54,6 +54,12 @@ export function ListboxItemDetails({ item, distance, attributes }) {
     ),
   };
 
+  return attributes.map(
+    (attribute) => attribute in fields && fields[attribute]
+  );
+}
+
+export function ListboxItemDetails({ item, distance, attributes }) {
   return (
     <div
       className={classNames(
@@ -78,9 +84,11 @@ export function ListboxItemDetails({ item, distance, attributes }) {
         <div className="flex relative bottom-1.5 right-0 w-2 h-2 rounded-full bg-green-600"></div>
       </div>
       <div className="text-[0.82rem] leading-snug pt-2 space-y-0.5">
-        {attributes.map(
-          (attribute) => attribute in fields && fields[attribute]
-        )}
+        <ListItemFields
+          item={item}
+          distance={distance}
+          attributes={attributes}
+        />
       </div>
     </div>
   );

@@ -1,8 +1,12 @@
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { useJobsQuery } from "@api/organization/jobs/get-all-jobs";
 import { ListboxJob } from "@apps/jobs/listbox-job/listbox-job";
+import { setAppConfig } from "@slices/app.slice";
+
+import appConfig from "@apps/jobs/config.yml";
 
 const BaseApp = dynamic(() => import("@apps/base-app"));
 const JobDetail = dynamic(() => import("@apps/jobs/job-detail"));
@@ -13,9 +17,14 @@ type JobsAppProps = {
 };
 
 export default function JobsApp(props: JobsAppProps) {
+  const dispatch = useDispatch();
   const { apiKey } = props;
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
   const organization = "amrest";
+
+  useEffect(() => {
+    dispatch(setAppConfig(appConfig));
+  }, []);
 
   const { data, isLoading }: any = useJobsQuery(
     {

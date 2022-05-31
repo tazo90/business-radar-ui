@@ -1,7 +1,11 @@
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { useStoresQuery } from "@api/organization/stores/get-all-stores";
+import { setAppConfig } from "@slices/app.slice";
+
+import appConfig from "@apps/stores/config.yml";
 
 const BaseApp = dynamic(() => import("@apps/base-app"));
 const StoreDetail = dynamic(() => import("@apps/stores/store-detail"));
@@ -12,9 +16,14 @@ type StoresAppProps = {
 };
 
 export default function StoresApp(props: StoresAppProps) {
+  const dispatch = useDispatch();
   const { apiKey } = props;
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
   const organization = "amrest";
+
+  useEffect(() => {
+    dispatch(setAppConfig(appConfig));
+  }, []);
 
   const { data, isLoading }: any = useStoresQuery(
     {
