@@ -25,6 +25,9 @@ const Search = dynamic(() =>
   )
 );
 
+import storesAppConfig from "@apps/stores/config.yml";
+import { setAppConfig } from "@slices/app.slice";
+
 type BaseAppProps = {
   app: string;
   apiKey?: string;
@@ -36,6 +39,23 @@ type BaseAppProps = {
   DetailView: any;
   searchFields?: string[];
 };
+
+function AppFilters(props) {
+  const { brands, countries } = props;
+  const { config } = useSelector((state: any) => state.app);
+
+  const filters: any = {
+    brand: <BrandFilter brands={brands} />,
+    country: <CountryFilter countries={countries} />,
+    more: <MoreFilter />,
+  };
+
+  if (!config.filters) return null;
+
+  return config.filters.map((filter: string, index: number) => (
+    <div key={index}>{filters[filter]}</div>
+  ));
+}
 
 export default function BaseApp(props: BaseAppProps) {
   const {
@@ -61,6 +81,11 @@ export default function BaseApp(props: BaseAppProps) {
   const [isOpenAutocomplete, setOpenAutocoplete] = useState(false);
   const [isMapVisible, setMapVisible] = useState(false);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    // Load app config
+    dispatch(setAppConfig(storesAppConfig));
+  }, []);
 
   useEffect(() => {
     if (selectedStore) {
@@ -213,9 +238,7 @@ export default function BaseApp(props: BaseAppProps) {
             <div className="hidden md:block lg:hidden bg-gray-300 h-3/5 w-0.5 ml-2" />
           </div>
           <div className="flex overflow-x-auto items-center py-2">
-            <BrandFilter brands={brands} />
-            <CountryFilter countries={countries} />
-            <MoreFilter />
+            <AppFilters brands={brands} countries={countries} />
           </div>
         </nav>
       </section>
@@ -256,7 +279,6 @@ export default function BaseApp(props: BaseAppProps) {
         </section>
         {/* Drawer */}
         <Drawer isOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}>
-          {/* <StoreDetail isOpen={isDrawerOpen} /> */}
           {isDrawerOpen && <DetailView isOpen={isDrawerOpen} apiKey={apiKey} />}
         </Drawer>
       </div>
