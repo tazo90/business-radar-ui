@@ -1,6 +1,6 @@
 map:
   marker:
-    name: "job-marker"
+    name: "jobMarker"
     attributes:
       - jobs_count
       - store_rate
@@ -35,18 +35,3 @@ filters:
   - brand
   - country
   - more
-
-application:
-  header:
-    - opening_hours
-    - rate
-    - reviews
-  components:
-    - overview
-    - menu
-    - jobs
-    - employees
-    - photos
-    - reviews
-    - trainings
-    - nearby

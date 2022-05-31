@@ -1,6 +1,6 @@
 map:
   marker:
-    name: "job-marker"
+    name: "storeMarker"
     attributes:
       - jobs_count
       - store_rate
