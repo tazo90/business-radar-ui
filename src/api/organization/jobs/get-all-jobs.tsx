@@ -1,16 +1,16 @@
 //@ts-nocheck
 import { useQuery } from "react-query";
 
-import http from "../../http";
-import { API_ENDPOINTS } from "../../endpoints";
+import http from "@api/http";
+import { API_ENDPOINTS } from "@api/endpoints";
 import { toGeojson } from "@lib/geojson/to-geojson";
 import { jobProperties } from "@lib/geojson/properties/job-properties";
+import { reverse } from "@lib/urls";
 
 export async function fetchJobs({ queryKey }: any) {
-  const [_key, _params] = queryKey;
-  const { data } = await http.get(API_ENDPOINTS.JOBS, {
-    params: _params,
-  });
+  const [_, params] = queryKey;
+  const endpoint = reverse(API_ENDPOINTS.ORGANIZATIONS.JOBS, params);
+  const { data } = await http.get(endpoint);
 
   return toGeojson({
     data,
@@ -19,9 +19,10 @@ export async function fetchJobs({ queryKey }: any) {
   });
 }
 
-export const useJobsQuery = (options: any) => {
+export const useJobsQuery = (query: any, options?: any) => {
   return useQuery<{ jobs: any }, Error>(
-    [API_ENDPOINTS.JOBS, options],
-    fetchJobs
+    [API_ENDPOINTS.ORGANIZATIONS.JOBS, query],
+    fetchJobs,
+    options
   );
 };

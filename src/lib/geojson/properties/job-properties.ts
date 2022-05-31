@@ -6,5 +6,7 @@ export function jobProperties(feature: any) {
   return {
     ...properties,
     title: feature.title,
+    // JobId is required to make detail page works correctly
+    jobId: feature.id,
   };
 }

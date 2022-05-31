@@ -42,7 +42,7 @@ export default async function handler(
     }
   }
 
-  // GET /api/organizations/:organization/stores
+  // GET /api/organizations/:organization/jobs
   if (req.method === "GET") {
     let query: any = {
       organization: {
@@ -61,33 +61,44 @@ export default async function handler(
       };
     }
 
-    const stores = await prisma.store.findMany({
+    const jobs = await prisma.job.findMany({
       where: query,
       select: {
         id: true,
-        brand: {
+        store: {
           select: {
             id: true,
             name: true,
-            fullName: true,
+            address: true,
+            phone: true,
+            lat: true,
+            lng: true,
+            brand: {
+              select: {
+                id: true,
+                name: true,
+                fullName: true,
+              },
+            },
+            country: {
+              select: {
+                id: true,
+                code: true,
+                name: true,
+              },
+            },
           },
         },
-        country: {
-          select: {
-            id: true,
-            name: true,
-            code: true,
-          },
-        },
-        name: true,
-        slug: true,
-        lat: true,
-        lng: true,
-        address: true,
-        phone: true,
+        professionName: true,
+        jobCategoryName: true,
+        title: true,
+        bannerUrl: true,
+        body: true,
+        footer: true,
+        applyUrl: true,
       },
     });
 
-    return res.status(200).json(stores);
+    return res.status(200).json(jobs);
   }
 }

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as turf from "@turf/turf";
 
-import { setStore } from "@slices/store.slice";
+import { setStore, setStoreTriggerSource } from "@slices/store.slice";
 import Dropdown from "@components/ui/dropdown";
 import { ListboxSkeleton } from "./listbox-skeleton";
 import { ListboxItem } from "./listbox-item/listbox-item";
@@ -33,6 +33,7 @@ function Listbox({
 
   const onStoreClick = useCallback((store) => {
     dispatch(setStore(store));
+    dispatch(setStoreTriggerSource("list"));
   }, []);
 
   const Row = useCallback(

@@ -13,7 +13,7 @@ import {
   unclusteredPointZoomedOutLayer,
 } from "@components//map/layers";
 import { addImages, getClusterProperties, getMarkerImages } from "./utils";
-import { setStore } from "@slices/store.slice";
+import { setStore, setStoreTriggerSource } from "@slices/store.slice";
 
 import { drawStoreMarker } from "./markers/store-marker";
 
@@ -161,6 +161,7 @@ const Map = ({ locations, storeList, organization, brands }) => {
       // Display marker details and scroll to it
       const location = locations.features[featureIndex];
       dispatch(setStore(location));
+      dispatch(setStoreTriggerSource("map"));
       storeList.current.scrollToItem(featureIndex);
     }
   }

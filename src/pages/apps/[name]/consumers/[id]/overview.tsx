@@ -9,7 +9,6 @@ import {
   ClipboardCopyIcon,
   CubeIcon,
   EyeIcon,
-  LocationMarkerIcon,
   PencilIcon,
   TrashIcon,
 } from "@heroicons/react/solid";
@@ -42,18 +41,6 @@ export const appMenu = [
     icon: CubeIcon,
   },
 ];
-
-export const MenuHeader = (props: { title: string }) => (
-  <div className="flex items-center">
-    <div className="flex p-2 text-gray-900 text-xs font-medium bg-yellow-400 rounded-md">
-      <LocationMarkerIcon className="h-4 w-4" />
-    </div>
-    <div className="flex flex-col pl-3 leading-none">
-      <span>Stores</span>
-      <span className="text-xs">{props.title}</span>
-    </div>
-  </div>
-);
 
 type Consumer = inferQueryOutput<"api.consumer.get">;
 
@@ -354,10 +341,7 @@ export default function ConsumerPage() {
   });
 
   return (
-    <DetailedLayout
-      pageMenu={appMenu}
-      pageMenuHeader={<MenuHeader title={data?.title} />}
-    >
+    <DetailedLayout app={query.name} pageMenu={appMenu} subtitle={data?.title}>
       <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
         <ConsumerFormSection
           defaultValues={data}

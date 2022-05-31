@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface StoreState {
+export interface LocationState {
   userLocation: any;
 }
 
-export const initialState: StoreState = {
+export const initialState: LocationState = {
   userLocation: null,
 };
 

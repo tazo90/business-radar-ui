@@ -2,9 +2,42 @@ import PageHeader from "@components/common/page-header";
 import PageMenu from "@components/common/page-menu";
 import { classNames } from "@lib/classnames";
 import { Toaster } from "react-hot-toast";
+import { capitalize } from "@lib/strings";
+import { DocumentTextIcon, LocationMarkerIcon } from "@heroicons/react/solid";
+
+const icons = {
+  stores: LocationMarkerIcon,
+  jobs: DocumentTextIcon,
+};
+
+type MenuHeaderProps = {
+  app: string;
+  subtitle?: string;
+};
+
+export const MenuHeader = ({ app, subtitle }: MenuHeaderProps) => {
+  if (!app) {
+    return null;
+  }
+
+  const Icon = icons[app];
+  return (
+    <div className="flex items-center">
+      <div className="flex p-2 text-gray-900 text-xs font-medium bg-yellow-400 rounded-md">
+        <Icon className="h-4 w-4" />
+      </div>
+      <div className="flex flex-col pl-3 leading-none">
+        <span>{capitalize(app)}</span>
+        {subtitle && <span className="text-xs">{subtitle}</span>}
+      </div>
+    </div>
+  );
+};
 
 type DetailedLayoutProps = {
   children: React.ReactNode;
+  app?: string;
+  subtitle?: string;
   pageTitle?: string;
   pageMenu: any;
   pageMenuHeader?: any;
@@ -26,7 +59,11 @@ export default function DetailedLayout(props: DetailedLayoutProps) {
       >
         <PageMenu
           menu={props.pageMenu}
-          header={props.pageMenuHeader}
+          header={
+            props.pageMenuHeader || (
+              <MenuHeader app={props.app} subtitle={props.subtitle} />
+            )
+          }
           fullScreen={props.fullScreen}
         />
 

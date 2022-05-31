@@ -260,6 +260,9 @@ model Job {
   country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
   countryId Int
 
+  store   Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  storeId Int
+
   professionName  String?
   jobCategoryName String?
 
@@ -324,6 +327,8 @@ model Store {
   franchiseeDetails Json?
   openingHours      Json?
   ownership         String?
+
+  jobs Job[]
 
   @@map(name: "store")
 }

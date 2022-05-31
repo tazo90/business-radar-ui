@@ -11,7 +11,7 @@ export async function fetchStores({ queryKey }: any) {
   const endpoint = reverse(API_ENDPOINTS.ORGANIZATIONS.STORES, params);
   const { data } = await http.get(endpoint);
 
-  return toGeojson({ data: data.stores });
+  return toGeojson({ data });
 }
 
 export const useStoresQuery = (query: any, options?: any) => {

@@ -2,19 +2,16 @@ import { useRouter } from "next/router";
 
 import DashboardLayout from "@components/layouts/dashboard";
 import DetailedLayout from "@components/layouts/detailed";
-import { appMenu, MenuHeader } from "./overview";
+import { appMenu } from "./overview";
 import apps from "@apps/index";
 import { trpc } from "@lib/trpc";
 
 export default function ConsumerApp() {
   const { query, isReady } = useRouter();
 
-  const { data } = trpc.useQuery(
-    ['api.consumer.get', { uid: query.id }], 
-    {
-      enabled: isReady
-    }
-  );
+  const { data } = trpc.useQuery(["api.consumer.get", { uid: query.id }], {
+    enabled: isReady,
+  });
 
   if (!isReady || !data) {
     return null;
@@ -24,14 +21,16 @@ export default function ConsumerApp() {
 
   return (
     <DetailedLayout
+      app={query.name}
+      subtitle={data?.title}
       pageMenu={appMenu}
-      pageMenuHeader={<MenuHeader />}
       fullScreen={true}
     >
-      {AppViewer
-        ? <AppViewer apiKey={data.apiKey} />
-        : <div>Ops...something goes wrong.</div>
-      }
+      {AppViewer ? (
+        <AppViewer apiKey={data.apiKey} />
+      ) : (
+        <div>Ops...something goes wrong.</div>
+      )}
     </DetailedLayout>
   );
 }
