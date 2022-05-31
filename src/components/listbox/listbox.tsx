@@ -30,6 +30,7 @@ function Listbox({
 }: ListboxProps) {
   const dispatch = useDispatch();
   const { userLocation } = useSelector((state: any) => state.location);
+  const { attributes } = useSelector((state: any) => state.app.config.listview);
 
   const onStoreClick = useCallback((store) => {
     dispatch(setStore(store));
@@ -61,6 +62,7 @@ function Listbox({
             item={item.properties}
             isActive={isActive}
             distance={distance}
+            attributes={data.attributes}
           />
         </div>
       );
@@ -94,7 +96,11 @@ function Listbox({
         itemSize={126}
         width="100%"
         height={window.innerHeight}
-        itemData={{ selectedStoreId, userLocation }}
+        itemData={{
+          selectedStoreId,
+          userLocation,
+          attributes,
+        }}
       >
         {Row}
       </List>
