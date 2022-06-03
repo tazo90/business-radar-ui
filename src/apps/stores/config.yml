@@ -2,10 +2,14 @@ map:
   marker:
     name: "storeMarker"
     attributes:
-      - jobs_count
+      - opening_hours
       - store_rate
 
 listview:
+  # colors:
+  # bg: "#eaf"
+  # hoverBg: "#ddd"
+  # text: "#000"
   attributes:
     - image
     - address
