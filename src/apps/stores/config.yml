@@ -1,0 +1,56 @@
+map:
+  marker:
+    name: "storeMarker"
+    attributes:
+      - opening_hours
+      - store_rate
+
+listview:
+  # colors:
+  # bg: "#eaf"
+  # hoverBg: "#ddd"
+  # text: "#000"
+  attributes:
+    - image
+    - address
+    - phone
+    - opening_hours
+    - rate
+    - reviews
+  sorting:
+    name_asc:
+      label: "Name: Asc"
+      key: name
+      order: asc
+    name_desc:
+      label: "Name: Desc"
+      key: name
+      order: desc
+    rate_highest:
+      label: "Rate: Highest"
+      key: rate
+      order: desc
+    rate_lowest:
+      label: "Rate: Lowest"
+      key: rate
+      order: asc
+
+filters:
+  - brand
+  - country
+  - more
+
+application:
+  header:
+    - opening_hours
+    - rate
+    - reviews
+  components:
+    - overview
+    - menu
+    - jobs
+    - employees
+    - photos
+    - reviews
+    - trainings
+    - nearby

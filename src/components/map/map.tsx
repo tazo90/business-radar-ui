@@ -14,8 +14,7 @@ import {
 } from "@components//map/layers";
 import { addImages, getClusterProperties, getMarkerImages } from "./utils";
 import { setStore, setStoreTriggerSource } from "@slices/store.slice";
-
-import { drawStoreMarker } from "./markers/store-marker";
+import markers from "./markers";
 
 const MAX_ZOOM_LEVEL = 16;
 
@@ -27,6 +26,8 @@ const Map = ({ locations, storeList, organization, brands }) => {
   const dispatch = useDispatch();
   const { selectedStore } = useSelector((state: any) => state.store);
   const { userLocation } = useSelector((state: any) => state.location);
+  const { map: mapConfig } = useSelector((state: any) => state.app.config);
+  const drawMarker = markers[mapConfig.marker.name];
 
   const organizationBrands = Object.keys(brands?.data);
 
@@ -108,7 +109,7 @@ const Map = ({ locations, storeList, organization, brands }) => {
         summary,
       };
 
-      drawStoreMarker({
+      drawMarker({
         id: e.id,
         map,
         info,

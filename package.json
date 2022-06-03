@@ -36,6 +36,7 @@
     "bcryptjs": "^2.4.3",
     "cssnano": "^5.1.7",
     "dayjs": "^1.11.2",
+    "js-yaml-loader": "^1.2.2",
     "maplibre-gl": "^2.1.6",
     "next": "12.1.0",
     "next-auth": "^4.3.1",
