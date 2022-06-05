@@ -96,7 +96,7 @@ export default function ConsumersPage() {
                             <img
                               key={country.id}
                               className="max-w-none h-6 w-6 ring-2 ring-white"
-                              src={icons.flags[country.code.toLowerCase()]}
+                              src={icons.countries[country.code.toLowerCase()]}
                               alt={country.code}
                             />
                           ))}
