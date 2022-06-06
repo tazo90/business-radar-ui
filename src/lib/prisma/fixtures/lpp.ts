@@ -5,46 +5,30 @@ import {
 } from "@prisma/client";
 
 const organization = {
-  name: "AmRest",
-  slug: "amrest",
+  name: "LPP",
+  slug: "lpp",
 };
 
 const brands = [
   {
-    name: "KFC",
-    fullName: "KFC",
+    name: "RESERVED",
+    fullName: "Reserved",
   },
   {
-    name: "PH",
-    fullName: "Pizza Hut",
+    name: "CROPP",
+    fullName: "Cropp",
   },
   {
-    name: "BK",
-    fullName: "Burger King",
+    name: "HOUSE",
+    fullName: "House",
   },
   {
-    name: "SBX",
-    fullName: "Starbucks",
+    name: "MOHITO",
+    fullName: "Mohito",
   },
   {
-    name: "TAG",
-    fullName: "La Tagliatella",
-  },
-  {
-    name: "BF",
-    fullName: "Blue Frog",
-  },
-  {
-    name: "KAAB",
-    fullName: "Kabb",
-  },
-  {
-    name: "BCA",
-    fullName: "Bacoa",
-  },
-  {
-    name: "SSG",
-    fullName: "Sushi Shop",
+    name: "SINSAY",
+    fullName: "Sinsay",
   },
 ];
 
@@ -117,14 +101,14 @@ const countries = [
 
 const users = [
   {
-    email: "user1@amrest.eu",
+    email: "user1@lpp.com",
     password: "pass",
     username: "user1",
     name: "user1",
     plan: UserPlan.PRO,
   },
   {
-    email: "user2@amrest.eu",
+    email: "user2@lpp.com",
     password: "pass",
     username: "user2",
     name: "user2",
@@ -134,16 +118,8 @@ const users = [
 
 const projects = [
   {
-    name: "CTS",
-    slug: "cts",
-  },
-  {
-    name: "AmSpace",
-    slug: "amspace",
-  },
-  {
-    name: "ECommerce",
-    slug: "ecommerce",
+    name: "LPP",
+    slug: "lpp",
   },
 ];
 
@@ -154,21 +130,12 @@ const apps = [
     consumers: [
       {
         uid: "1",
-        title: "AmRest Stores",
+        title: "LPP Stores",
         status: ApplicationConsumerStatus.DRAFT,
-        domain: "https://amspace.amrest.eu",
-        project: "amspace",
-        brands: ["KFC", "PH", "BK", "SBX"],
+        domain: "https://lpp.com",
+        project: "lpp",
+        brands: ["reserved", "sinsay"],
         countries: ["PL", "CZ", "HU"],
-      },
-      {
-        uid: "1",
-        title: "AmRest Stores KFC PL",
-        status: ApplicationConsumerStatus.DRAFT,
-        domain: "https://amspace.amrest.eu",
-        project: "amspace",
-        brands: ["KFC"],
-        countries: ["PL"],
       },
     ],
   },
@@ -178,35 +145,11 @@ const apps = [
     consumers: [
       {
         uid: "2",
-        title: "KFC PL",
+        title: "LPP Sinsay PL",
         status: ApplicationConsumerStatus.DRAFT,
-        domain: "https://cts.pl",
-        project: "cts",
-        brands: ["KFC"],
-        countries: ["PL"],
-      },
-    ],
-  },
-  {
-    type: ApplicationType.ECOMMERCE,
-    paid: false,
-    consumers: [
-      {
-        uid: "3",
-        title: "KFC PL",
-        status: ApplicationConsumerStatus.DRAFT,
-        domain: "https://kfc.pl",
-        project: "ecommerce",
-        brands: ["KFC"],
-        countries: ["PL"],
-      },
-      {
-        uid: "4",
-        title: "PH PL",
-        status: ApplicationConsumerStatus.DRAFT,
-        domain: "http://pizzahut.pl",
-        project: "ecommerce",
-        brands: ["PH"],
+        domain: "https://sinsay.pl",
+        project: "lpp",
+        brands: ["house"],
         countries: ["PL"],
       },
     ],
