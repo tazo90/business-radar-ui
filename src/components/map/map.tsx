@@ -113,6 +113,7 @@ const Map = ({ locations, storeList, organization, brands }) => {
         id: e.id,
         map,
         info,
+        organization,
       });
     });
 

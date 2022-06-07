@@ -50,6 +50,40 @@ const amrest = {
   },
 };
 
+// LPP
+// =================
+// Markers
+import lppMarker from "@assets/lpp/markers/lpp.png";
+import croppMarker from "@assets/lpp/markers/cropp.png";
+import houseMarker from "@assets/lpp/markers/house.png";
+import mohitoMarker from "@assets/lpp/markers/mohito.png";
+import reservedMarker from "@assets/lpp/markers/reserved.png";
+import sinsayMarker from "@assets/lpp/markers/sinsay.png";
+// Brands
+import cropp from "@assets/lpp/brands/cropp.png";
+import house from "@assets/lpp/brands/house.png";
+import mohito from "@assets/lpp/brands/mohito.png";
+import reserved from "@assets/lpp/brands/reserved.png";
+import sinsay from "@assets/lpp/brands/sinsay.png";
+
+const lpp = {
+  markers: {
+    lpp: lppMarker,
+    cropp: croppMarker,
+    house: houseMarker,
+    mohito: mohitoMarker,
+    reserved: reservedMarker,
+    sinsay: sinsayMarker,
+  },
+  brands: {
+    cropp,
+    house,
+    mohito,
+    reserved,
+    sinsay,
+  },
+};
+
 import pl from "@assets/countries/pl.svg";
 import cz from "@assets/countries/cz.svg";
 import hu from "@assets/countries/hu.svg";
@@ -105,6 +139,7 @@ const icons = {
 
 export default {
   amrest,
+  lpp,
   countries,
   icons,
 };

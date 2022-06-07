@@ -3,7 +3,7 @@ import { baseMarker } from "./base-marker";
 
 import icons from "@constants/icons";
 
-export function drawSummaryMarker({ id, map, info }) {
+export function drawSummaryMarker({ id, map, info, organization }) {
   const { ctx, config } = baseMarker({ info });
 
   // Set font
@@ -27,7 +27,7 @@ export function drawSummaryMarker({ id, map, info }) {
     config.textThirdLine + 2
   );
 
-  const brandIcon = icons.amrest.markers[info.brand];
+  const brandIcon = icons[organization].markers[info.brand];
   let brandYPos =
     info.brand === "kfc" ? config.textFirstLine + 4 : config.textFirstLine + 3;
 
