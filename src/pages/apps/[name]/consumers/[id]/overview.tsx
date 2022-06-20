@@ -216,7 +216,7 @@ function ConsumerFormSection(props: ConsumerFormProps) {
             options={organization?.countries}
             renderValue={(items) => (
               <ResourcesInfo
-                type="flags"
+                type="countries"
                 nameField="name"
                 iconField="code"
                 items={items}

@@ -2,7 +2,7 @@ import { PrismaClient, Prisma, MembershipRole, UserPlan } from "@prisma/client";
 import short from "short-uuid";
 
 import { hashPassword } from "../auth";
-import data from "./fixtures/amrest";
+import fixtures from "./fixtures";
 import { generateUniqueAPIKey } from "../api-keys";
 import { omit } from "../lodash";
 
@@ -137,19 +137,16 @@ async function createProjects(
         ...project,
         organization: { connect: { id: organization.id } },
         owner: { connect: { id: projectOwner.id } },
-      }
-    })
+      },
+    });
   });
 }
 
-async function createAppsAndConsumers(
-  appOwner: any,
-  apps: any
-) {
+async function createAppsAndConsumers(appOwner: any, apps: any) {
   apps.map(async (app: any) => {
     const appObj = await prisma.application.create({
       data: {
-        ...omit(app, 'consumers'),
+        ...omit(app, "consumers"),
         owner: { connect: { id: appOwner.id } },
       },
     });
@@ -157,7 +154,9 @@ async function createAppsAndConsumers(
     console.log(`\t👤 Created app '${app.type}'`);
 
     // Create consumers
-    app?.consumers.map(async (consumer: any) => await createConsumer(appObj, consumer));
+    app?.consumers.map(
+      async (consumer: any) => await createConsumer(appObj, consumer)
+    );
   });
 }
 
@@ -166,7 +165,7 @@ async function createConsumer(app: any, consumer: any) {
 
   const brands = await prisma.brand.findMany({
     where: {
-      name: { in: consumer.brands }
+      name: { in: consumer.brands },
     },
     select: {
       id: true,
@@ -174,7 +173,7 @@ async function createConsumer(app: any, consumer: any) {
   });
   const countries = await prisma.country.findMany({
     where: {
-      code: { in: consumer.countries }
+      code: { in: consumer.countries },
     },
     select: {
       id: true,
@@ -185,7 +184,7 @@ async function createConsumer(app: any, consumer: any) {
     data: {
       ...consumer,
       uid: translator.new(),
-      application: { connect: { id: app.id }},
+      application: { connect: { id: app.id } },
       project: { connect: { slug: consumer.project } },
       user: { connect: { id: app.ownerId } },
       expires: new Date(
@@ -194,10 +193,10 @@ async function createConsumer(app: any, consumer: any) {
       // TODO: not secure, store hashedApiKey instead raw token in database
       apiKey: apiKey,
       brands: {
-        connect: brands.map((brand) => ({id: brand.id}))
+        connect: brands.map((brand) => ({ id: brand.id })),
       },
       countries: {
-        connect: countries.map((country) => ({id: country.id}))
+        connect: countries.map((country) => ({ id: country.id })),
       },
     },
   });
@@ -207,40 +206,48 @@ async function createConsumer(app: any, consumer: any) {
   );
 }
 
+const ORGANIZATIONS = ["amrest", "lpp"];
+
 async function main() {
   await dropTables();
 
-  // Create users
-  const proUser = await createUser({
-    user: data.users[0],
+  const _fixtures: Record<string, any> = fixtures;
+
+  ORGANIZATIONS.map(async (organizationName) => {
+    const data = _fixtures[organizationName];
+
+    // Create users
+    const proUser = await createUser({
+      user: data.users[0],
+    });
+
+    const freeUser = await createUser({
+      user: data.users[1],
+    });
+
+    // Create organization and members
+    const org = await createOrganizationAndUsers(data.organization, [
+      {
+        id: proUser.id,
+        username: proUser.name || "Unknown",
+      },
+      {
+        id: freeUser.id,
+        username: freeUser.name || "Unknown",
+      },
+    ]);
+
+    if (org) {
+      // Create brands
+      await createBrands(org, data.brands);
+      // Create countries
+      await createCountries(org, data.countries);
+      // Create projects
+      await createProjects(org, proUser, data.projects);
+      // Create apps and consumers
+      await createAppsAndConsumers(proUser, data.apps);
+    }
   });
-
-  const freeUser = await createUser({
-    user: data.users[1],
-  });
-
-  // Create organization and members
-  const org = await createOrganizationAndUsers(data.organization, [
-    {
-      id: proUser.id,
-      username: proUser.name || "Unknown",
-    },
-    {
-      id: freeUser.id,
-      username: freeUser.name || "Unknown",
-    },
-  ]);
-
-  if (org) {
-    // Create brands
-    await createBrands(org, data.brands);
-    // Create countries
-    await createCountries(org, data.countries);
-    // Create projects
-    await createProjects(org, proUser, data.projects);
-    // Create apps and consumers
-    await createAppsAndConsumers(proUser, data.apps)
-  }
 }
 
 main()

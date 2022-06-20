@@ -19,7 +19,7 @@ export default function StoresApp(props: StoresAppProps) {
   const dispatch = useDispatch();
   const { apiKey } = props;
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
-  const organization = "amrest";
+  const organization = "lpp";
 
   useEffect(() => {
     dispatch(setAppConfig(appConfig));

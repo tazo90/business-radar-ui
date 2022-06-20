@@ -50,24 +50,57 @@ const amrest = {
   },
 };
 
-// TODO: rafactor it to countries
-// Flags
-import pl from "@assets/flags/pl.svg";
-import cz from "@assets/flags/cz.svg";
-import hu from "@assets/flags/hu.svg";
-import sk from "@assets/flags/sk.svg";
-import bg from "@assets/flags/bg.svg";
-import de from "@assets/flags/de.svg";
-import es from "@assets/flags/es.svg";
-import ro from "@assets/flags/ro.svg";
-import ru from "@assets/flags/ru.svg";
-import rs from "@assets/flags/rs.svg";
-import cn from "@assets/flags/cn.svg";
-import fr from "@assets/flags/fr.svg";
-import hr from "@assets/flags/hr.svg";
-import at from "@assets/flags/at.svg";
-import pt from "@assets/flags/pt.svg";
-import si from "@assets/flags/si.svg";
+// LPP
+// =================
+// Markers
+import lppMarker from "@assets/lpp/markers/lpp.png";
+import croppMarker from "@assets/lpp/markers/cropp.png";
+import houseMarker from "@assets/lpp/markers/house.png";
+import mohitoMarker from "@assets/lpp/markers/mohito.png";
+import reservedMarker from "@assets/lpp/markers/reserved.png";
+import sinsayMarker from "@assets/lpp/markers/sinsay.png";
+// Brands
+import cropp from "@assets/lpp/brands/cropp.png";
+import house from "@assets/lpp/brands/house.png";
+import mohito from "@assets/lpp/brands/mohito.png";
+import reserved from "@assets/lpp/brands/reserved.png";
+import sinsay from "@assets/lpp/brands/sinsay.png";
+
+const lpp = {
+  markers: {
+    lpp: lppMarker,
+    cropp: croppMarker,
+    house: houseMarker,
+    mohito: mohitoMarker,
+    reserved: reservedMarker,
+    sinsay: sinsayMarker,
+  },
+  brands: {
+    cropp,
+    house,
+    mohito,
+    reserved,
+    sinsay,
+  },
+};
+
+import pl from "@assets/countries/pl.svg";
+import cz from "@assets/countries/cz.svg";
+import hu from "@assets/countries/hu.svg";
+import sk from "@assets/countries/sk.svg";
+import bg from "@assets/countries/bg.svg";
+import de from "@assets/countries/de.svg";
+import es from "@assets/countries/es.svg";
+import ro from "@assets/countries/ro.svg";
+import ru from "@assets/countries/ru.svg";
+import rs from "@assets/countries/rs.svg";
+import cn from "@assets/countries/cn.svg";
+import fr from "@assets/countries/fr.svg";
+import hr from "@assets/countries/hr.svg";
+import at from "@assets/countries/at.svg";
+import pt from "@assets/countries/pt.svg";
+import si from "@assets/countries/si.svg";
+import gb from "@assets/countries/gb.svg";
 
 import star from "@assets/icons/star.png";
 import jobs from "@assets/icons/jobs.png";
@@ -75,7 +108,7 @@ import users from "@assets/icons/users.png";
 import training from "@assets/icons/training.png";
 import closed from "@assets/icons/closed.png";
 
-const flags = {
+const countries = {
   all,
   pl,
   cz,
@@ -93,6 +126,7 @@ const flags = {
   at,
   pt,
   si,
+  gb,
 };
 
 const icons = {
@@ -105,6 +139,7 @@ const icons = {
 
 export default {
   amrest,
-  flags,
+  lpp,
+  countries,
   icons,
 };

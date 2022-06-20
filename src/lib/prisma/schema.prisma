@@ -34,7 +34,7 @@ model Credential {
 
 model User {
   id                 Int                   @id @default(autoincrement())
-  username           String?               @unique
+  username           String?
   name               String?
   email              String                @unique
   emailVerified      DateTime?
@@ -74,8 +74,8 @@ model Organization {
 
 model Country {
   id             Int          @id @default(autoincrement())
-  name           String       @unique
-  code           String       @unique
+  name           String
+  code           String
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId Int
 
@@ -83,7 +83,6 @@ model Country {
   job       Job[]
   store     Store[]
 
-  @@unique([name, code])
   @@map(name: "country")
 }
 

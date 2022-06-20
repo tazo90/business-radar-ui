@@ -1,4 +1,8 @@
-import { ApplicationConsumerStatus, ApplicationType, UserPlan } from "@prisma/client";
+import {
+  ApplicationConsumerStatus,
+  ApplicationType,
+  UserPlan,
+} from "@prisma/client";
 
 const organization = {
   name: "AmRest",
@@ -31,7 +35,7 @@ const brands = [
     fullName: "Blue Frog",
   },
   {
-    name: "Kabb",
+    name: "KAAB",
     fullName: "Kabb",
   },
   {
@@ -113,17 +117,17 @@ const countries = [
 
 const users = [
   {
-    email: "tazo@gmail.com",
+    email: "user1@amrest.eu",
     password: "pass",
-    username: "tazo90",
-    name: "ala",
+    username: "user1",
+    name: "user1",
     plan: UserPlan.PRO,
   },
   {
-    email: "dieselo@gmail.pl",
+    email: "user2@amrest.eu",
     password: "pass",
-    username: "dieselo",
-    name: "Team Pro Example",
+    username: "user2",
+    name: "user2",
     plan: UserPlan.FREE,
   },
 ];
@@ -155,7 +159,7 @@ const apps = [
         domain: "https://amspace.amrest.eu",
         project: "amspace",
         brands: ["KFC", "PH", "BK", "SBX"],
-        countries: ["PL", "CZ", "HU"]
+        countries: ["PL", "CZ", "HU"],
       },
       {
         uid: "1",
@@ -164,9 +168,9 @@ const apps = [
         domain: "https://amspace.amrest.eu",
         project: "amspace",
         brands: ["KFC"],
-        countries: ["PL"]
+        countries: ["PL"],
       },
-    ]
+    ],
   },
   {
     type: ApplicationType.JOBS,
@@ -181,8 +185,7 @@ const apps = [
         brands: ["KFC"],
         countries: ["PL"],
       },
-     
-    ]
+    ],
   },
   {
     type: ApplicationType.ECOMMERCE,
@@ -195,7 +198,7 @@ const apps = [
         domain: "https://kfc.pl",
         project: "ecommerce",
         brands: ["KFC"],
-        countries: ["PL"]
+        countries: ["PL"],
       },
       {
         uid: "4",
@@ -204,11 +207,11 @@ const apps = [
         domain: "http://pizzahut.pl",
         project: "ecommerce",
         brands: ["PH"],
-        countries: ["PL"]
+        countries: ["PL"],
       },
-    ]
+    ],
   },
-]
+];
 
 export default {
   organization,
