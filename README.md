@@ -26,7 +26,7 @@ npm run dev -- -H 192.168.0.104
 
 #### ngrok tunelling
 
-ngrok http -auth="tazo90:pass" -region eu 3000
+ngrok http -auth="user:pass" -region eu 3000
 
 #### Mobile debugging (remote)
 
